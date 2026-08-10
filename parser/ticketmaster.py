@@ -20,11 +20,10 @@ def event_has_artist(event, artists):
 
 def extract_artists(ev):
     attractions = ev.get("_embedded", {}).get("attractions", [])
-    print("DEBUG5 extracted name:", name)
     names = []
     for a in attractions:
         name = a.get("name", "").strip()
-        print("DEBUG6 extract artists attractions:", attractions)
+        print("DEBUG6 extract artists attractions:", name)
         if name and name not in names:
             names.append(name)
     print("DEBUG7 final artist list:", names)
