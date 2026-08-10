@@ -37,7 +37,7 @@ def main():
 
     unique_events = {}
     for ev in all_events:
-        uid - str(ev.get("UID"))
+        uid = str(ev.get("UID"))
         unique_Events[uid] = ev
     final_cal = Calendar()
     for ev in unique_events.values():
