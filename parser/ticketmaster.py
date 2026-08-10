@@ -49,8 +49,6 @@ def parse_ticketmaster_json(raw_json, artists):
         description_text = f"Tickets: {url}"
         if artist_names:
             description_text += "\nArtists: " + ", ".join(artist_names)
-
-        print("DEBUG16 description_text:", description_text)
         
         event = (
             ICSEventBuilder()
