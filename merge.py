@@ -25,10 +25,9 @@ def main():
                 params = {
                     "apikey": api_key,
                     "keyword": artist,
-                    "city": src.get("city", "Montreal"),
-                    "countryCode": src.get("country", "CA"),
+                    "city": src.get("city", ""),
+                    "countryCode": src.get("country", ""),
                     "classificationName": "music",
-                    "include": "attractions,venues",
                     "size": 200
                 }
 
