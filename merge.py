@@ -20,14 +20,16 @@ def main():
         url = src["url"]
 
         if parser == "ticketmaster":
-            params = {
-                "apikey": api_key,
-                "keyword": ",".join(artists),
-                "city": src.get("city", "Montreal"),
-                "countryCode": src.get("country", "CA"),
-                "classificationName": "music",
-                "size": 200
-            }
+            all_events = []
+            for artist in artists:
+                params = {
+                    "apikey": api_key,
+                    "keyword": ",".join(artists),
+                    "city": src.get("city", "Montreal"),
+                    "countryCode": src.get("country", "CA"),
+                    "classificationName": "music",
+                 "size": 200
+                }
 
             raw_json = fetch_json(url, params=params)
             if raw_json:
