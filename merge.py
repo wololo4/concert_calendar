@@ -26,7 +26,6 @@ def main():
                     "keyword": artist,
                     "city": src.get("city", ""),
                     "countryCode": src.get("country", ""),
-                    "classificationName": "music",
                     "size": 200
                 }
 
