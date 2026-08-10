@@ -28,7 +28,8 @@ def main():
                     "city": src.get("city", "Montreal"),
                     "countryCode": src.get("country", "CA"),
                     "classificationName": "music",
-                 "size": 200
+                    "include": "attractions,venues",
+                    "size": 200
                 }
 
             raw_json = fetch_json(url, params=params)
