@@ -35,8 +35,12 @@ def main():
                     cal = parse_ticketmaster_json(raw_json, artists)
                     all_events.extend(cal.walk("VEVENT"))
 
-    final_cal = Calendar()
+    unique_events = {}
     for ev in all_events:
+        uid - str(ev.get("UID"))
+        unique_Events[uid] = ev
+    final_cal = Calendar()
+    for ev in unique_events.values():
         final_cal.add_component(ev)
 
     with open("calendars/concerts.ics", "wb") as f:
