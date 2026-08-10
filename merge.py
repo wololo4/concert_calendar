@@ -4,7 +4,7 @@ from parser.ticketmaster import parse_ticketmaster_json
 from icalendar import Calendar
 
 def load_feeds():
-    with open("feeds/concerts.yaml", "r") as f:
+    with open("concerts.yaml", "r") as f:
         return yaml.safe_load(f)
 
 def main():
