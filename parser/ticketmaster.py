@@ -14,7 +14,7 @@ def event_has_artist(event, artists):
                 return True
     title = event.get("name", "").lower()
     for artist in artists:
-        if artist.lower() in title:
+        if title == artist.lower():
             return True
     return False
 
