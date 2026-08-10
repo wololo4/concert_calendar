@@ -19,25 +19,6 @@ DESCRIPTION:Tickets: https://www.ticketmaster.ca/periphery-a-pale-white-do
 LOCATION:MTELUS\, 59 Rue Sainte-Catherine Est
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:🎵 | Mastodon
-DTSTART:20260927T230000Z
-DTEND:20260928T020000Z
-UID:tm-17G8v0G65wj3URd
-DESCRIPTION:Tickets: https://www.ticketmaster.ca/mastodon-montreal-quebec-
- 09-27-2026/event/310064BC9C4B6BC3\nArtists: Mastodon\, Deafheaven\, Alcest
-LOCATION:MTELUS\, 59 Rue Sainte-Catherine Est
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:🎵 | Periphery - A Pale White Dot Tour
-DTSTART:20261027T223000Z
-DTEND:20261028T013000Z
-UID:tm-17G8v0G65K2trqs
-DESCRIPTION:Tickets: https://www.ticketmaster.ca/periphery-a-pale-white-do
- t-tour-montreal-quebec-10-27-2026/event/310064B4CFA5E771\nArtists: Periphe
- ry\, Ne Obliviscaris\, Greyhaven\, Ando San
-LOCATION:MTELUS\, 59 Rue Sainte-Catherine Est
-END:VEVENT
-BEGIN:VEVENT
 SUMMARY:🎵 | Plini - An Unnameable Desire North American Tour
 DTSTART:20261021T230000Z
 DTEND:20261022T020000Z
@@ -46,16 +27,6 @@ DESCRIPTION:Tickets: https://www.ticketmaster.ca/plini-an-unnameable-desir
  e-north-american-montreal-quebec-10-21-2026/event/310064BCECB7D58E\nArtist
  s: Plini\, Night Verses\, Portraits
 LOCATION:Théâtre Beanfield\, 2490 Rue Notre-Dame Ouest 
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:🎵 | Periphery - A Pale White Dot Tour
-DTSTART:20261027T223000Z
-DTEND:20261028T013000Z
-UID:tm-17G8v0G65K2trqs
-DESCRIPTION:Tickets: https://www.ticketmaster.ca/periphery-a-pale-white-do
- t-tour-montreal-quebec-10-27-2026/event/310064B4CFA5E771\nArtists: Periphe
- ry\, Ne Obliviscaris\, Greyhaven\, Ando San
-LOCATION:MTELUS\, 59 Rue Sainte-Catherine Est
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:🎵 | The Pineapple Thief
@@ -64,16 +35,6 @@ DTEND:20261125T040000Z
 UID:tm-1AsZk36GkeNxfB_
 DESCRIPTION:Tickets: https://www.ticketmaster.ca/the-pineapple-thief-montr
  eal-quebec-11-24-2026/event/31006487A3894E99\nArtists: The Pineapple Thief
-LOCATION:Théâtre Beanfield\, 2490 Rue Notre-Dame Ouest 
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:🎵 | Plini - An Unnameable Desire North American Tour
-DTSTART:20261021T230000Z
-DTEND:20261022T020000Z
-UID:tm-17G8v0G65SicWpC
-DESCRIPTION:Tickets: https://www.ticketmaster.ca/plini-an-unnameable-desir
- e-north-american-montreal-quebec-10-21-2026/event/310064BCECB7D58E\nArtist
- s: Plini\, Night Verses\, Portraits
 LOCATION:Théâtre Beanfield\, 2490 Rue Notre-Dame Ouest 
 END:VEVENT
 BEGIN:VEVENT
