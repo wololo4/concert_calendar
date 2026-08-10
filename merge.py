@@ -11,11 +11,11 @@ def main():
     feeds = load_feeds()
     artists = feeds["artists"]
     sources = feeds["sources"]
-    api_key = feeds["apikey"]
 
     all_events = []
 
     for src in sources:
+        api_key = src.get("apikey")
         parser = src["parser"]
         url = src["url"]
 
