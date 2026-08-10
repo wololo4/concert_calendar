@@ -20,7 +20,6 @@ def main():
         url = src["url"]
 
         if parser == "ticketmaster":
-            all_events = []
             for artist in artists:
                 params = {
                     "apikey": api_key,
@@ -31,10 +30,10 @@ def main():
                     "size": 200
                 }
 
-            raw_json = fetch_json(url, params=params)
-            if raw_json:
-                cal = parse_ticketmaster_json(raw_json, artists)
-                all_events.extend(cal.walk("VEVENT"))
+                raw_json = fetch_json(url, params=params)
+                if raw_json:
+                    cal = parse_ticketmaster_json(raw_json, artists)
+                    all_events.extend(cal.walk("VEVENT"))
 
     final_cal = Calendar()
     for ev in all_events:
