@@ -1,6 +1,6 @@
 import yaml
 from utils.fetch import fetch_json
-from parsers.ticketmaster import parse_ticketmaster_json
+from parser.ticketmaster import parse_ticketmaster_json
 from icalendar import Calendar
 
 def load_feeds():
