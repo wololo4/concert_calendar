@@ -44,7 +44,7 @@ def parse_ticketmaster_json(raw_json, artists):
             continue
 
         start_raw = ev.get("dates", {}).get("start", {}).get("dateTime")
-        print("DEBUG13 start_raw:", start_raw")
+        print("DEBUG13 start_raw:", start_raw)
         if not start_raw:
               print("DEBUG14 skipped(no started_raw)")
             continue
