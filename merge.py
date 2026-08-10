@@ -24,7 +24,7 @@ def main():
             for artist in artists:
                 params = {
                     "apikey": api_key,
-                    "keyword": ",".join(artists),
+                    "keyword": artist,
                     "city": src.get("city", "Montreal"),
                     "countryCode": src.get("country", "CA"),
                     "classificationName": "music",
