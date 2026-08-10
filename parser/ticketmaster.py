@@ -13,7 +13,7 @@ def event_has_artist(event, artists):
         print("DEBUG2 attraction name:", name)
         for artist in artists:
             if artist.lower() in name:
-                print("DEBUG3 MATCH:", artist, "<->", name
+                print("DEBUG3 MATCH:", artist, "<->", name)
                 return True
     print("DEBUG4 NO MATCH for event")
     return False
