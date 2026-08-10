@@ -6,6 +6,24 @@ from datetime import datetime, timedelta
 def add_duration(dt, hours=3):
     return dt +timedelta(hours=hours)
 
+def event_has_artist(event, artists):
+    performers = event.get("_embedded", {}).get("performers", [])
+    for p in performers:
+        name = p.get("name", "").lower()
+        for artist in artists:
+            if artist.lower() in name:
+                return True
+    return False
+
+def extract_artists(ev):
+    attractions = ev.get("_embedded", {}).get("attractions", [])
+    names = []
+    for a in attractions:
+        name = a.get("name", "").strip()
+        if name and name not in names:
+            names.append(name)
+    return names
+
 def parse_ticketmaster_json(raw_json, artists):
     cal = Calendar()
 
@@ -14,12 +32,17 @@ def parse_ticketmaster_json(raw_json, artists):
     for ev in events:
         title = ev.get("name", "")
 
-        if not normalize_artist(title, artists):
+        if not event_has_artist(ev, artists):
             continue
 
         start_raw = ev.get("dates", {}).get("start", {}).get("dateTime")
         if not start_raw:
             continue
+
+        artist_names = extract_artists(ev)
+        description_text = f"Tickets: {url}"
+        if artist_names:
+            description_text += "\nArtists: " + ", ".join(artists_names)
 
         start_dt = datetime.fromisoformat(start_raw.replace("Z", "+00:00"))
         end_dt = add_duration(start_dt, hours=3)
@@ -38,7 +61,7 @@ def parse_ticketmaster_json(raw_json, artists):
             .end(end_dt)
             .summary(f"🎵 | {title}")
             .location(f"{venue}, {address}")
-            .description(f"Tickets: {url}")
+            .description(description_text)
             .build()
         )
 
