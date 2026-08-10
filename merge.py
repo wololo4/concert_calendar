@@ -1,5 +1,4 @@
 import yaml
-import os
 from utils.fetch import fetch_json
 from parser.ticketmaster import parse_ticketmaster_json
 from icalendar import Calendar
@@ -38,8 +37,6 @@ def main():
     final_cal = Calendar()
     for ev in all_events:
         final_cal.add_component(ev)
-
-    os.makedirs("calendars", exist_ok=True)
 
     with open("calendars/concerts.ics", "wb") as f:
         f.write(final_cal.to_ical())
