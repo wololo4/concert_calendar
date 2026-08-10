@@ -26,7 +26,7 @@ def parse_ticketmaster_json(raw_json, artists):
 
         venue_data = ev.get("_embedded", {}).get("venues", [{}])[0]
         venue = venue_data.get("name", "")
-        address = venue_data.get("address", {}).get("line1": "")
+        address = venue_data.get("address", {}).get("line1", "")
 
         url = ev.get("url", "")
         event_id = ev.get("id", "")
