@@ -9,6 +9,24 @@ DESCRIPTION:Tickets: https://www.ticketmaster.ca/mastodon-montreal-quebec-
 LOCATION:MTELUS\, 59 Rue Sainte-Catherine Est
 END:VEVENT
 BEGIN:VEVENT
+SUMMARY:🎵 | ELDER
+DTSTART:20261002T000000Z
+DTEND:20261002T030000Z
+UID:tm-LvZ18QLCMv8d7tYZMtejO
+DESCRIPTION:Tickets: https://www.universe.com/events/elder-tickets-DJK2NP?
+ ref=ticketmaster
+LOCATION:Fairmount Theatre\, 5240 Avenue du Parc
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:🎵 | Elder Island
+DTSTART:20261005T230000Z
+DTEND:20261006T020000Z
+UID:tm-LvZ18Qrt0h-334ZZ0iQPy
+DESCRIPTION:Tickets: https://www.universe.com/events/elder-island-tickets-
+ 3HG580?ref=ticketmaster
+LOCATION:Fairmount Theatre\, 5240 Avenue du Parc
+END:VEVENT
+BEGIN:VEVENT
 SUMMARY:🎵 | Periphery - A Pale White Dot Tour
 DTSTART:20261027T223000Z
 DTEND:20261028T013000Z
