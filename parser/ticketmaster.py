@@ -8,7 +8,7 @@ def add_duration(dt, hours=3):
 def event_has_artist(event, artists):
     attractions = event.get("_embedded", {}).get("attractions", [])
     for a in attractions:
-        name = p.get("name", "").lower()
+        name = a.get("name", "").lower()
         for artist in artists:
             if artist.lower() in name:
                 return True
