@@ -6,7 +6,7 @@ def add_duration(dt, hours=3):
     return dt +timedelta(hours=hours)
 
 def event_has_artist(event, artists):
-    performers = event.get("_embedded", {}).get("attractions", [])
+    attractions = event.get("_embedded", {}).get("attractions", [])
     for a in attractions:
         name = p.get("name", "").lower()
         for artist in artists:
