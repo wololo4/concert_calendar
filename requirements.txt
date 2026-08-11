@@ -3,3 +3,4 @@ icalendar
 requests
 beautifulsoup4
 cloudscraper
+playwright
