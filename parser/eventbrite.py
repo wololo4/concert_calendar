@@ -30,15 +30,15 @@ def extract_events(soup):
 
     return bands
 
-def fetch_eventbrite_html(url):
-    with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
-        page = browser.new_page()
+def scrape_artist(page, url, artist):
+    try:
         page.goto(url, timeout=60000)
-        page.wait_for_timeout(3000)
+        page.wait_for_selector("h3.event-card__clamp-line--two", timeout=8000)
         html = page.content()
-        browser.close()
-        return html
+        return extract_events(html)
+    except Exception as e:
+        print(f"⚠️ Eventbrite failed for {artist}: {e}")
+        return []
 
 def parse_eventbrite():
     config = load_eventbrite_config()
@@ -62,32 +62,30 @@ def parse_eventbrite():
 
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
-        context = browser.new_context(
-            java_script_enabled=True,
-            bypass_csp=True,
-        )
-        page.route("**/*", lambda route: (
-            route.abort()
-            if route.request.resource_type in ["image", "media", "font", "stylesheet"]
-            else route.continue_()
-        ))
+        num_workers = min(8, len(artists))
+        context = [browser.new_context() for _ in range(num_workers)]
+        pages = [ctx.new_page() for ctx in context]
 
-        for artist in artists:
-            url = build_search_url(base_url, city, artist)
-            try:
-                page.goto(url, timeout=6000)
-                page.wait_for_selector("h3.event-card__clamp-line--two", timeout=8000)
-                html = page.content()
-                soup = BeautifulSoup(html, "html.parser")
-                bands = extract_events(soup)
+        for page in pages:
+            page.route("**/*", lambda route: (
+                route.abort()
+                if route.request.resource_type in ["image", "media", "font", "stylesheet"]
+                else route.continue_()
+            ))
 
-                if not bands:
-                    continue
+        def worker(args):
+            page, artist = args
+            url = build_search_url(url, city, artist)
+            bands = scrape_artist(page, url, artist)
+            return artist, bands
 
+        with ThreadPoolExecutor(max_workers=num_workers) as executor:
+            results = executor.map(worker, zip(pages, artists)
+
+        for artist, band in results:
                 for i, band in enumerate(bands):
                     start_dt = datetime.now() + timedelta(days=i)
                     end_dt = start_dt + timedelta(hours=3)
-
                     uid = f"eventbrite-{artist}-{i}"
 
                     event = (
@@ -100,10 +98,8 @@ def parse_eventbrite():
                         .description(f"Eventbrite listing for: {band}")
                         .build()
                     )
-
                     cal.add_component(event)
-            except:
-                continue
+
         browser.close
 
     return cal
