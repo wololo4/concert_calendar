@@ -56,4 +56,13 @@ DESCRIPTION:Tickets: https://www.ticketmaster.ca/polyphia-tour-mmxxvi-mont
  ls\, Ladrones\, RJ Pasin
 LOCATION:L'Olympia\, 1004 Sainte-Catherine Street East
 END:VEVENT
+BEGIN:VEVENT
+SUMMARY:🎵 | PROTEST THE HERO
+DTSTART:20261119T003000Z
+DTEND:20261119T033000Z
+UID:tm-LvZ18QEKCNOd9Y7QfIe6O
+DESCRIPTION:Tickets: https://www.universe.com/events/protest-the-hero-tick
+ ets-PQ7GZ4?ref=ticketmaster
+LOCATION:Fairmount Theatre\, 5240 Avenue du Parc
+END:VEVENT
 END:VCALENDAR
