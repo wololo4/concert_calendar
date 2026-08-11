@@ -4,6 +4,7 @@ from datetime import datetime, timedelta
 from bs4 import BeautifulSoup
 from utils.fetch import fetch_html
 from playwright.sync_api import sync_playwright
+from playwright_stealth import stealth_sync
 import yaml
 import time
 
@@ -28,7 +29,7 @@ def extract_events(html):
     print("DEBUG5: Extracting events from HTML...")
     print("DEBUG6: HTML lenght:", len(html))
     soup = BeautifulSoup(html, "html.parser")
-    h3s = soup.select('h3[class*="event-card__clamp-line--two"]')
+    h3s = soup.select("h3.eds-event-card-content__title")
     print("DEBUG7: Found", len(h3s), "<h3> event titles")
     bands = []
     for h3 in h3s:
@@ -63,14 +64,28 @@ def parse_eventbrite():
     cal = Calendar()
     print("DEBUG14: Launching Playwright browser")
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
-        context = browser.new_context()
+        browser = p.chromium.launch(
+            headless=False,  # IMPORTANT: headless=True triggers bot-block
+            args=[
+                "--disable-blink-features=AutomationControlled",
+                "--disable-web-security",
+                "--disable-features=IsolateOrigins,site-per-process",
+                "--disable-dev-shm-usage",
+            ]
+        )
+
+        context = browser.new_context(
+            user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36",
+            locale="en-US",
+            viewport={"width": 1280, "height": 800},
+            timezone_id="America/New_York",
+            java_script_enabled=True,
+            permissions=["geolocation"],
+        )
+
         page = context.new_page()
-        page.route("**/*", lambda route: (
-            route.abort()
-            if route.request.resource_type in ["image", "media", "font", "stylesheet"]
-            else route.continue_()
-        ))
+
+        stealth_sync(page)
 
         for artist in artists:
             print("\n==============================")
@@ -84,6 +99,11 @@ def parse_eventbrite():
 
             try:
                 page.goto(url, timeout=60000)
+                page.mouse.move(200, 300)
+                page.mouse.move(400, 500)
+                page.mouse.wheel(0, 2000)
+                page.wait_for_timeout(2000)
+                
                 print("DEBUG16: Page loaded")
 
                 print("DEBUG17: Waiting for selector…")
@@ -94,6 +114,8 @@ def parse_eventbrite():
                     print("DEBUG19: Selector NOT found:", e)
 
                 html = page.content()
+                if len(html) < 20000:
+                    print("DEBUG: BOT BLOCK DETECTED — Eventbrite returned fake page")
                 print("DEBUG20: HTML fetched")
 
                 bands = extract_events(html)
