@@ -52,7 +52,7 @@ def parse_progstorm():
         print("⚠️ Aucun bloc progstorm dans concerts.yaml")
         return Calendar()
 
-    base_url = config.get("base_url")
+    base_url = config.get("url")
     times_cfg = config.get("times", {})
 
     if not base_url or not times_cfg:
