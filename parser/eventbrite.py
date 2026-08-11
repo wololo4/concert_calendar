@@ -80,7 +80,7 @@ def parse_eventbrite():
             return artist, bands
 
         with ThreadPoolExecutor(max_workers=num_workers) as executor:
-            results = executor.map(worker, zip(pages, artists)
+            results = executor.map(worker, zip(pages, artists))
 
         for artist, band in results:
                 for i, band in enumerate(bands):
