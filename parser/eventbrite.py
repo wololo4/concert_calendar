@@ -21,7 +21,7 @@ def load_eventbrite_config():
 def build_search_url(url, city, artist):
     artist_slug = artist.lower().replace(" ", "-")
     final_url = f"{url}/d/canada--{city}/{artist_slug}/"
-    print(f"DEBUG4: Build URL for {artist}: {final_url}
+    print(f"DEBUG4: Build URL for {artist}: {final_url}")
 
 def extract_events(html):
     print("DEBUG5: Extracting events from HTML...")
