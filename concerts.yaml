@@ -52,6 +52,10 @@ sources:
     city: Montreal
     country: CA
     apikey: WRi7PHL3Afa9Dq8v4qwnb9sF7eJHSlXm
+
+  - parser: eventbirte
+    url: "https//www.eventbrite.com"
+    city: "montreal"
     
   - parser: progstorm
     url: "https://www.progstorm.com"
