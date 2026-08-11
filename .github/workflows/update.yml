@@ -23,6 +23,12 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
+      - name: Install Playwright
+        run: pip install playwright
+
+      - name: Install Playwright Browsers
+        run: playwright install --with-deps
+
       - name: Generate concert calendar
         run: python merge.py
 
