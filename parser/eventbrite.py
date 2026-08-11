@@ -4,6 +4,7 @@ from datetime import datetime, timedelta
 from bs4 import BeautifulSoup
 from utils.fetch import fetch_html
 from playwright.sync_api import sync_playwright
+from concurrent.futures import ThreadPoolExecutor
 import yaml
 
 def load_eventbrite_config():
