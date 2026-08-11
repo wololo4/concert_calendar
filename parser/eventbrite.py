@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 from bs4 import BeautifulSoup
 from utils.fetch import fetch_html
 from playwright.sync_api import sync_playwright
-from playwright_stealth import stealth_sync
+from playwright_stealth import Stealth
 import yaml
 import time
 
@@ -85,7 +85,7 @@ def parse_eventbrite():
 
         page = context.new_page()
 
-        stealth_sync(page)
+        Stealth().apply(page)
 
         for artist in artists:
             print("\n==============================")
