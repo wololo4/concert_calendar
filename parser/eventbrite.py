@@ -3,6 +3,7 @@ from utils.ics import ICSEventBuilder
 from datetime import datetime, timedelta
 from bs4 import BeautifulSoup
 from utils.fetch import fetch_html
+from playwright.sync_api import sync_playwright
 import yaml
 
 def load_eventbrite_config():
@@ -29,6 +30,16 @@ def extract_events(soup):
 
     return bands
 
+def fetch_eventbrite_html(url):
+    with sync_playwirght() as p:
+        browser = p.chromium.launch(headless=True)
+        page = browser.new_page()
+        page.goto(url, timeout=60000)
+        page.wait_for_timeout(3000)
+        html = page.content()
+        browser.close()
+        return html
+
 def parse_eventbrite():
     config = load_eventbrite_config()
     if not config:
@@ -51,7 +62,7 @@ def parse_eventbrite():
 
     for artist in artists:
         url = build_search_url(base_url, city, artist)
-        html = fetch_html(url)
+        html = fetch_eventbrite_html(url)
 
         if not html:
             print(f"⚠️ Failed to load Eventbrite page for {artist}")
