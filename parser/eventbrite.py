@@ -13,7 +13,7 @@ def load_eventbrite_config():
             return src
     return {}
 
-def build_search_url(base_url, city, artist):
+def build_search_url(url, city, artist):
     artist_slug = artist.lower().replace(" ", "-")
     return f"{url}/d/canada--{city}/{artist_slug}/"
 
