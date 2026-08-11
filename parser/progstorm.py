@@ -42,8 +42,8 @@ def extract_meta(soup):
 
 def fetch_bands(soup):
     return [
-      h3.get_text(strip=True)
-      for h3 in soup.select("div.lineup-item h3")
+      a.get_text(strip=True)
+      for a in soup.select(".sqs-html-content h4 a")
     ]
 
 def parse_progstorm():
