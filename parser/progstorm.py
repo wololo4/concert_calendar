@@ -12,7 +12,7 @@ def load_progstorm_config():
     for src in data.get("sources", []):
       if src.get("parser") == "progstorm":
         return src
-    return {}
+  return {}
 
 def determine_festival_year():
   today = datetime.now()
@@ -29,8 +29,8 @@ def extract_meta(soup):
   venue_el = container.select_one("p")
 
   day_name = day_el.get_text(strip=True).lower() if day_el else None
-  date_text = date_el.get_text(strip=True).lower() if date_el else None
-  venue_text = venue_el.get_text(strip=True).lower() if venue_el else None
+  date_text = date_el.get_text(strip=True) if date_el else None
+  venue_text = venue_el.get_text(strip=True) if venue_el else None
 
   parsed_date = None
   if date_text:
@@ -73,17 +73,20 @@ def parse_progstorm():
             continue
 
         soup = BeautifulSoup(html, "html.parser")
-        extracted_day, parssed_date, venue = extract_meta(soup)
+        extracted_day, parsed_date, venue = extract_meta(soup)
         if not parsed_date:
             print(f" No date found in HTML for {day_name}")
+            continue
              
         bands = fetch_bands(soup)
         if not bands:
-            print(f" No bands found for {day_nane}")
+            print(f" No bands found for {day_name}")
+            continue
 
-        times = time_cfg.get(day_name, [])
+        times = times_cfg.get(day_name, [])
         if len(times) < len(bands):
             print(f" Not enough times for {day_name}: {len(times)} time for {len(bands)} bands")
+            continue
       
         for i, band in enumerate(bands):
             start_time = times[i]
