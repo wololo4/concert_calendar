@@ -1,8 +1,9 @@
+import json
+import re
 from icalendar import Calendar
 from utils.ics import ICSEventBuilder
 from datetime import datetime, timedelta
 from bs4 import BeautifulSoup
-from utils.fetch import fetch_html
 from playwright.sync_api import sync_playwright
 from playwright_stealth import Stealth
 import yaml
@@ -25,23 +26,40 @@ def build_search_url(url, city, artist):
     print(f"DEBUG4: Build URL for {artist}: {final_url}")
     return final_url
 
-def extract_events(html):
-    print("DEBUG5: Extracting events from HTML...")
-    print("DEBUG6: HTML lenght:", len(html))
-    soup = BeautifulSoup(html, "html.parser")
-    h3s = soup.select("h3.eds-event-card-content__title")
-    print("DEBUG7: Found", len(h3s), "<h3> event titles")
+def extract_events_from_json(html):
+    print("DEBUG5: Extracting events from JSON blob...")
+    print("DEBUG6: HTML length:", len(html))
+
+    # Extract window.__SERVER_DATA__ JSON
+    match = re.search(r"window.__SERVER_DATA__\s*=\s*(\{.*?\});", html, re.DOTALL)
+    if not match:
+        print("DEBUG7: No SERVER_DATA JSON found")
+        return []
+
+    json_blob = match.group(1)
+    data = json.loads(json_blob)
+
+    # Navigate to events list
+    try:
+        events = data["search_data"]["events"]["results"]
+    except Exception as e:
+        print("DEBUG8: JSON structure error:", e)
+        return []
+
     bands = []
-    for h3 in h3s:
-        text = h3.get_text(strip=True)
-        print("DEBUG8: Raw event title:", text)
-        if text:
-            for part in text.split(","):
-                name = part.strip()
-                print("DEBUG9: Parsed band:", name)
-                if name:
-                    bands.append(name)
-    print("DEBUG10: Total bands extracted:", bands)
+    print("DEBUG9: Found", len(events), "events in JSON")
+
+    for ev in events:
+        title = ev.get("name", "")
+        print("DEBUG10: Raw event title:", title)
+
+        for part in title.split(","):
+            name = part.strip()
+            print("DEBUG11: Parsed band:", name)
+            if name:
+                bands.append(name)
+
+    print("DEBUG12: Total bands extracted:", bands)
     return bands
 
 def parse_eventbrite():
@@ -61,11 +79,13 @@ def parse_eventbrite():
         data = yaml.safe_load(f)
     artists = data.get("artists", [])
     print("DEBUG13: Artists to scrape:", artists)
+
     cal = Calendar()
+
     print("DEBUG14: Launching Playwright browser")
     with Stealth().use_sync(sync_playwright()) as p:
         browser = p.chromium.launch(
-            headless=False,  # IMPORTANT: headless=True triggers bot-block
+            headless=False,
             args=[
                 "--disable-blink-features=AutomationControlled",
                 "--disable-web-security",
@@ -91,32 +111,19 @@ def parse_eventbrite():
             print("==============================")
 
             url = build_search_url(base_url, city, artist)
+            print("DEBUG: Navigating to:", url)
 
             start_time = time.time()
-            print("DEBUG: Navigating to:", url)
 
             try:
                 page.goto(url, timeout=60000)
-                page.mouse.move(200, 300)
-                page.mouse.move(400, 500)
-                page.mouse.wheel(0, 2000)
-                page.wait_for_timeout(2000)
-                
-                print("DEBUG16: Page loaded")
-
-                print("DEBUG17: Waiting for selector…")
-                try:
-                    page.wait_for_selector("h3.event-card__clamp-line--two", timeout=8000)
-                    print("DEBUG18: Selector found!")
-                except Exception as e:
-                    print("DEBUG19: Selector NOT found:", e)
+                page.wait_for_timeout(1500)
 
                 html = page.content()
-                if len(html) < 20000:
-                    print("DEBUG: BOT BLOCK DETECTED — Eventbrite returned fake page")
                 print("DEBUG20: HTML fetched")
 
-                bands = extract_events(html)
+                # Extract events from JSON instead of DOM
+                bands = extract_events_from_json(html)
 
                 if not bands:
                     print(f"⚠️ No bands found for {artist}")
