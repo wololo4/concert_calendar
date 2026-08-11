@@ -62,7 +62,7 @@ def parse_eventbrite():
 
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
-        context = browser.new_content(
+        context = browser.new_context(
             java_script_enabled=True,
             bypass_csp=True,
         )
