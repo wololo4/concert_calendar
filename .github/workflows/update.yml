@@ -29,6 +29,9 @@ jobs:
       - name: Install Playwright Browsers
         run: playwright install --with-deps
 
+      - name: Install Playwright Stealth
+        run: pip install playwright-stealth
+
       - name: Generate concert calendar
         run: python merge.py
 
