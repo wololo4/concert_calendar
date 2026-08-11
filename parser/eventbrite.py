@@ -76,7 +76,7 @@ def parse_eventbrite():
 
         def worker(args):
             page, artist = args
-            url = build_search_url(url, city, artist)
+            url = build_search_url(base_url, city, artist)
             bands = scrape_artist(page, url, artist)
             return artist, bands
 
