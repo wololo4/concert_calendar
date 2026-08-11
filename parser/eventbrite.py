@@ -60,39 +60,50 @@ def parse_eventbrite():
 
     cal = Calendar()
 
-    for artist in artists:
-        url = build_search_url(base_url, city, artist)
-        html = fetch_eventbrite_html(url)
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=True)
+        context = browser.new_content(
+            java_script_enabled=True,
+            bypass_csp=True,
+        )
+        page.route("**/*", lambda route: (
+            route.abort()
+            if route.request.resource_type in ["image", "media", "font", "stylesheet"]
+            else route.continue_()
+        ))
 
-        if not html:
-            print(f"⚠️ Failed to load Eventbrite page for {artist}")
-            continue
+        for artist in artists:
+            url = build_search_url(base_url, city, artist)
+            try:
+                page.goto(url, timeout=6000)
+                page.wait_for_selector("h3.event-card__clamp-line--two", timeout=8000)
+                html = page.content()
+                soup = BeautifulSoup(html, "html.parser")
+                bands = extract_events(soup)
 
-        soup = BeautifulSoup(html, "html.parser")
-        bands = extract_events(soup)
+                if not bands:
+                    continue
 
-        if not bands:
-            continue
+                for i, band in enumerate(bands):
+                    start_dt = datetime.now() + timedelta(days=i)
+                    end_dt = start_dt + timedelta(hours=3)
 
-        # Create ICS events (no dates available → use placeholder)
-        for i, band in enumerate(bands):
-            # Placeholder date: today + i days
-            start_dt = datetime.now() + timedelta(days=i)
-            end_dt = start_dt + timedelta(hours=3)
+                    uid = f"eventbrite-{artist}-{i}"
 
-            uid = f"eventbrite-{artist}-{i}"
+                    event = (
+                        ICSEventBuilder()
+                        .uid(uid)
+                        .start(start_dt)
+                        .end(end_dt)
+                        .summary(f"🎵 | {band}")
+                        .location("Eventbrite Event")
+                        .description(f"Eventbrite listing for: {band}")
+                        .build()
+                    )
 
-            event = (
-                ICSEventBuilder()
-                .uid(uid)
-                .start(start_dt)
-                .end(end_dt)
-                .summary(f"🎵 | {band}")
-                .location("Eventbrite Event")
-                .description(f"Eventbrite listing for: {band}")
-                .build()
-            )
-
-            cal.add_component(event)
+                    cal.add_component(event)
+            except:
+                continue
+        browser.close
 
     return cal
