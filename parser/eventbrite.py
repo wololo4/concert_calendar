@@ -63,7 +63,7 @@ def parse_eventbrite():
     print("DEBUG13: Artists to scrape:", artists)
     cal = Calendar()
     print("DEBUG14: Launching Playwright browser")
-    with sync_playwright() as p:
+    with Stealth().use_sync(sync_playwright()) as p:
         browser = p.chromium.launch(
             headless=False,  # IMPORTANT: headless=True triggers bot-block
             args=[
