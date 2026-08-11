@@ -85,8 +85,6 @@ def parse_eventbrite():
 
         page = context.new_page()
 
-        Stealth().apply(page)
-
         for artist in artists:
             print("\n==============================")
             print(f"DEBUG15: SCRAPING ARTIST: {artist}")
