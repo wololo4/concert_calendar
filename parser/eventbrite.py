@@ -31,7 +31,7 @@ def extract_events(soup):
     return bands
 
 def fetch_eventbrite_html(url):
-    with sync_playwirght() as p:
+    with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
         page = browser.new_page()
         page.goto(url, timeout=60000)
