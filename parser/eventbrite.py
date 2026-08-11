@@ -19,9 +19,8 @@ def build_search_url(base_url, city, artist):
 
 def extract_events(soup):
     bands = []
-
-    for title in soup.select(".eds-event-card-content__title"):
-        text = title.get_text(strip=True)
+    for h3 in soup.select("h3.event-card__clamp-line--two"):
+        text = h3.get_text(strip=True)
         if text:
             for part in text.split(","):
                 name = part.strip()
