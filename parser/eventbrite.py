@@ -82,7 +82,7 @@ def parse_eventbrite():
     with Pool(worker_count) as pool:
         results = pool.map(scrape_artist, [(base_url, city, artist) for artist in artists])
 
-    for artist, band in results:
+    for artist, bands in results:
         for i, band in enumerate(bands):
             start_dt = datetime.now() + timedelta(days=i)
             end_dt = start_dt + timedelta(hours=3)
