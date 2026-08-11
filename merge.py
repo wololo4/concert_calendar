@@ -2,6 +2,7 @@ import yaml
 from utils.fetch import fetch_json
 from parser.ticketmaster import parse_ticketmaster_json
 from parser.progstorm import parse_progstorm
+from parser.eventbrite import parse_eventbrite
 from icalendar import Calendar
 
 def load_feeds():
@@ -34,7 +35,10 @@ def main():
                 if raw_json:
                     cal = parse_ticketmaster_json(raw_json, artists)
                     all_events.extend(cal.walk("VEVENT"))
-                    
+
+        if parser == "eventbrite":
+            cal = parse_eventbrite()
+            all_events.extend(cal.walk("VEVENT"))
         if parser == "progstorm":
             cal = parse_progstorm()
             all_events.extend(cal.walk("VEVENT"))
