@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 from bs4 import BeautifulSoup
 from utils.fetch import fetch_html
 from playwright.sync_api import sync_playwright
-from concurrent.futures import ThreadPoolExecutor
+from multiprocessing import Pool
 import yaml
 
 def load_eventbrite_config():
@@ -19,7 +19,8 @@ def build_search_url(url, city, artist):
     artist_slug = artist.lower().replace(" ", "-")
     return f"{url}/d/canada--{city}/{artist_slug}/"
 
-def extract_events(soup):
+def extract_events(html):
+    soup = BeautifulSoup(html, "html.parser")
     bands = []
     for h3 in soup.select("h3.event-card__clamp-line--two"):
         text = h3.get_text(strip=True)
@@ -31,15 +32,34 @@ def extract_events(soup):
 
     return bands
 
-def scrape_artist(page, url, artist):
+def scrape_artist(args):
+    base_url, city, artist = args
+    url = build_search_url(base_url, city, artist)
+
     try:
-        page.goto(url, timeout=60000)
-        page.wait_for_selector("h3.event-card__clamp-line--two", timeout=8000)
-        html = page.content()
-        return extract_events(html)
+        with sync_playwright() as p:
+            browser = p.chromium.launch(headless=True)
+            context = browser.new_context()
+            page = context.new_page()
+
+            # block heavy resources
+            page.route("**/*", lambda route: (
+                route.abort()
+                if route.request.resource_type in ["image", "media", "font", "stylesheet"]
+                else route.continue_()
+            ))
+
+            page.goto(url, timeout=60000)
+            page.wait_for_selector("h3.event-card__clamp-line--two", timeout=8000)
+
+            html = page.content()
+            browser.close()
+
+            bands = extract_events(html)
+            return artist, bands
+
     except Exception as e:
-        print(f"⚠️ Eventbrite failed for {artist}: {e}")
-        return []
+        return artist, []
 
 def parse_eventbrite():
     config = load_eventbrite_config()
@@ -50,10 +70,6 @@ def parse_eventbrite():
     base_url = config.get("url")
     city = config.get("city")
 
-    if not base_url or not city:
-        print("⚠️ eventbrite.base_url or eventbrite.city missing")
-        return Calendar()
-
     # Load artists from YAML
     with open("concerts.yaml", "r", encoding="utf-8") as f:
         data = yaml.safe_load(f)
@@ -61,46 +77,27 @@ def parse_eventbrite():
 
     cal = Calendar()
 
-    with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
-        num_workers = min(8, len(artists))
-        context = [browser.new_context() for _ in range(num_workers)]
-        pages = [ctx.new_page() for ctx in context]
+    worker_count = 2
 
-        for page in pages:
-            page.route("**/*", lambda route: (
-                route.abort()
-                if route.request.resource_type in ["image", "media", "font", "stylesheet"]
-                else route.continue_()
-            ))
+    with Pool(worker_count) as pool:
+        results = pool.map(scrape_artist, [(base_url, city, artist) for artist in artists])
 
-        def worker(args):
-            page, artist = args
-            url = build_search_url(base_url, city, artist)
-            bands = scrape_artist(page, url, artist)
-            return artist, bands
+    for artist, band in results:
+        for i, band in enumerate(bands):
+            start_dt = datetime.now() + timedelta(days=i)
+            end_dt = start_dt + timedelta(hours=3)
+            uid = f"eventbrite-{artist}-{i}"
 
-        with ThreadPoolExecutor(max_workers=num_workers) as executor:
-            results = executor.map(worker, zip(pages, artists))
-
-        for artist, band in results:
-                for i, band in enumerate(bands):
-                    start_dt = datetime.now() + timedelta(days=i)
-                    end_dt = start_dt + timedelta(hours=3)
-                    uid = f"eventbrite-{artist}-{i}"
-
-                    event = (
-                        ICSEventBuilder()
-                        .uid(uid)
-                        .start(start_dt)
-                        .end(end_dt)
-                        .summary(f"🎵 | {band}")
-                        .location("Eventbrite Event")
-                        .description(f"Eventbrite listing for: {band}")
-                        .build()
-                    )
-                    cal.add_component(event)
-
-        browser.close
+            event = (
+                ICSEventBuilder()
+                .uid(uid)
+                .start(start_dt)
+                .end(end_dt)
+                .summary(f"🎵 | {band}")
+                .location("Eventbrite Event")
+                .description(f"Eventbrite listing for: {band}")
+                .build()
+            )
+            cal.add_component(event)
 
     return cal
