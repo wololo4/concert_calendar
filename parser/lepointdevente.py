@@ -5,6 +5,10 @@ from datetime import datetime, timedelta, timezone
 from icalendar import Calendar
 from utils.ics import ICSEventBuilder
 from bs4 import BeautifulSoup
+from zoneinfo import ZoneInfo
+
+MONTREAL_TZ = ZoneInfo("America/Toronto")
+UTC_TZ = ZoneInfo("UTC")
 
 def load_lpdv_config():
     with open("concerts.yaml", "r", encoding="utf-8") as f:
@@ -38,7 +42,7 @@ def parse_date_any(date_str):
 
     tokens = date_part.lower().split(" ")
 
-    if tokens[1].lower in fr_months:
+    if tokens[1].lower() in fr_months:
         day = int(tokens[0])
         month = fr_months[tokens[1].lower()]
         year = int(tokens[2])
@@ -85,7 +89,8 @@ def scrape_lpdv_html(url):
 
 def build_event_lpdv(ev):
     local_dt = parse_date_any(ev["date_str"])
-    utc_dt = local_dt.astimezone(timezone.utc)
+    local_dt = local_dt.replace(tzinfo=ZoneInfo("America/Toronto"))
+    utc_dt = local_dt.astimezone(ZoneInfo("UTC"))
     utc_end = utc_dt + timedelta(hours=3)
 
     description = f"Tickets: {ev['url']}\nArtists: {ev['title']}"
