@@ -51,7 +51,7 @@ def build_event(ev):
     artists = extract_artists_from_name(ev["name"])
     description = (
         f"Tickets: {ev['url']}\n"
-        f"Artists: {"', '.join(artists)}"
+        f"Artists: {', '.join(artists)}"
     )
     start_dt = datetime.fromisoformat(f"{ev['start_date']}T{ev['start_time']}")
     end_dt = start_dt + timedelta(hours=3)
