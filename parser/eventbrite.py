@@ -1,162 +1,98 @@
 import json
 import re
+import yaml
+import cloudscraper
+from datetime import datetime, timedelta
 from icalendar import Calendar
 from utils.ics import ICSEventBuilder
-from datetime import datetime, timedelta
-from bs4 import BeautifulSoup
-from playwright.sync_api import sync_playwright
-from playwright_stealth import Stealth
-import yaml
-import time
+
 
 def load_eventbrite_config():
-    print("DEBUG1: Loading Eventbrite config...")
     with open("concerts.yaml", "r", encoding="utf-8") as f:
         data = yaml.safe_load(f)
+
     for src in data.get("sources", []):
         if src.get("parser") == "eventbrite":
-            print("DEBUG2: Eventbrite config found:", src)
             return src
-    print("DEBUG3: No eventbrite config found")
+
     return {}
 
-def build_search_url(url, city, artist):
-    artist_slug = artist.lower().replace(" ", "-")
-    final_url = f"{url}/d/canada--{city}/{artist_slug}/"
-    print(f"DEBUG4: Build URL for {artist}: {final_url}")
-    return final_url
 
-def extract_events_from_json(html):
-    print("DEBUG5: Extracting events from JSON blob...")
-    print("DEBUG6: HTML length:", len(html))
+def scrape_organizer_page(url):
+    scraper = cloudscraper.create_scraper()
+    html = scraper.get(url).text
 
-    # Extract window.__SERVER_DATA__ JSON
-    match = re.search(r"window.__SERVER_DATA__\s*=\s*(\{.*?\});", html, re.DOTALL)
+    # NEW: Next.js JSON
+    match = re.search(
+        r'<script[^>]*id="__NEXT_DATA__"[^>]*>(.*?)</script>',
+        html,
+        re.DOTALL
+    )
+
     if not match:
-        print("DEBUG7: No SERVER_DATA JSON found")
+        print("⚠️ Could not find __NEXT_DATA__ JSON")
         return []
 
-    json_blob = match.group(1)
-    data = json.loads(json_blob)
+    data = json.loads(match.group(1))
 
-    # Navigate to events list
     try:
-        events = data["search_data"]["events"]["results"]
+        return data["props"]["pageProps"]["upcomingEvents"]
     except Exception as e:
-        print("DEBUG8: JSON structure error:", e)
+        print("⚠️ organizer.events missing:", e)
         return []
 
-    bands = []
-    print("DEBUG9: Found", len(events), "events in JSON")
 
-    for ev in events:
-        title = ev.get("name", "")
-        print("DEBUG10: Raw event title:", title)
+def extract_artists_from_name(name):
+    parts = [p.strip() for p in name.split(",")]
+    return parts
 
-        for part in title.split(","):
-            name = part.strip()
-            print("DEBUG11: Parsed band:", name)
-            if name:
-                bands.append(name)
 
-    print("DEBUG12: Total bands extracted:", bands)
-    return bands
+def build_event(ev):
+    artists = extract_artists_from_name(ev["name"])
+    description = f"Tickets: {ev['url']}\Artists: " + ", ".join(artists)
+    start_dt = datetime.fromisoformat(f"{ev["start_date"]}T{ev['start_time']}")
+    end_dt = start_dt + timedelta(hours=3)
+    location = ev["primary_venue"]
+
+    return (
+        ICSEventBuilder()
+        .uid(f"eventbrite{ev['id']}")
+        .start(start_dt)
+        .end(end_dt)
+        .summary(f"🎵 | {ev['name']}")
+        .location(f"{location['name']}, {location['address']['address_1']}")
+        .description(description)
+        .build()
+    )
+
 
 def parse_eventbrite():
     config = load_eventbrite_config()
     if not config:
-        print("⚠️ No eventbrite block in concerts.yaml")
         return Calendar()
 
-    base_url = config.get("url")
-    city = config.get("city")
+    organizer_url = config.get("organizer_url")
+    if not organizer_url:
+        print("⚠️ No organizer_url in YAML")
+        return Calendar()
 
-    print("DEBUG11: Base URL:", base_url)
-    print("DEBUG12: City:", city)
-
-    # Load artists from YAML
     with open("concerts.yaml", "r", encoding="utf-8") as f:
         data = yaml.safe_load(f)
-    artists = data.get("artists", [])
-    print("DEBUG13: Artists to scrape:", artists)
+    artists = data["artists"]
 
+    print(f"Scraping Eventbrite organizer: {organizer_url}")
+
+    events = scrape_organizer_page(organizer_url)
     cal = Calendar()
 
-    print("DEBUG14: Launching Playwright browser")
-    with Stealth().use_sync(sync_playwright()) as p:
-        browser = p.chromium.launch(
-            headless=False,
-            args=[
-                "--disable-blink-features=AutomationControlled",
-                "--disable-web-security",
-                "--disable-features=IsolateOrigins,site-per-process",
-                "--disable-dev-shm-usage",
-            ]
-        )
+    for artist in artists:
+        artist_lower = artist.lower()
 
-        context = browser.new_context(
-            user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36",
-            locale="en-US",
-            viewport={"width": 1280, "height": 800},
-            timezone_id="America/New_York",
-            java_script_enabled=True,
-            permissions=["geolocation"],
-        )
+        for ev in events:
+            title = ev.get("name", "").lower()
 
-        page = context.new_page()
+            if artist_lower in title:
+                print(f"Found Eventbrite event for {artist}: {ev['url']}")
+                cal.add_component(build_event(ev))
 
-        for artist in artists:
-            print("\n==============================")
-            print(f"DEBUG15: SCRAPING ARTIST: {artist}")
-            print("==============================")
-
-            url = build_search_url(base_url, city, artist)
-            print("DEBUG: Navigating to:", url)
-
-            start_time = time.time()
-
-            try:
-                page.goto(url, timeout=60000)
-                page.wait_for_timeout(1500)
-
-                html = page.content()
-                print("DEBUG20: HTML fetched")
-
-                # Extract events from JSON instead of DOM
-                bands = extract_events_from_json(html)
-
-                if not bands:
-                    print(f"⚠️ No bands found for {artist}")
-                    continue
-
-                print("DEBUG21: Creating ICS events…")
-
-                for i, band in enumerate(bands):
-                    start_dt = datetime.now() + timedelta(days=i)
-                    end_dt = start_dt + timedelta(hours=3)
-                    uid = f"eventbrite-{artist}-{i}"
-
-                    event = (
-                        ICSEventBuilder()
-                        .uid(uid)
-                        .start(start_dt)
-                        .end(end_dt)
-                        .summary(f"🎵 | {band}")
-                        .location("Eventbrite Event")
-                        .description(f"Eventbrite listing for: {band}")
-                        .build()
-                    )
-
-                    cal.add_component(event)
-
-                print(f"DEBUG22: Finished artist {artist} in {time.time() - start_time:.2f}s")
-
-            except Exception as e:
-                print(f"⚠️ Eventbrite failed for {artist}: {e}")
-                continue
-
-        print("DEBUG23: Closing browser…")
-        browser.close()
-
-    print("DEBUG24: Finished Eventbrite scraping")
     return cal
