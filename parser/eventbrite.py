@@ -3,9 +3,12 @@ import re
 import yaml
 import cloudscraper
 from datetime import datetime, timedelta
+from zoneinfo import ZoneInfo
 from icalendar import Calendar
 from utils.ics import ICSEventBuilder
 
+MONTREAL_TZ = ZoneInfo("America/Toronto")
+UTC_TZ = ZoneInfo("UTC")
 
 def load_eventbrite_config():
     with open("concerts.yaml", "r", encoding="utf-8") as f:
@@ -53,15 +56,19 @@ def build_event(ev):
         f"Tickets: {ev['url']}\n"
         f"Artists: {', '.join(artists)}"
     )
-    start_dt = datetime.fromisoformat(f"{ev['start_date']}T{ev['start_time']}")
-    end_dt = start_dt + timedelta(hours=3)
+    start_dt = datetime.fromisoformat(
+        f"{ev['start_date']}T{ev['start_time']}"
+    ).replace(tzinfo=MONTREAL_TZ)
+    utc_start = start_dt.astimezone(UTC_TZ)
+    utc_end = utc_start + timedelta(hours=3)
+
     location = ev["primary_venue"]
 
     return (
         ICSEventBuilder()
         .uid(f"eventbrite{ev['id']}")
-        .start(start_dt)
-        .end(end_dt)
+        .start(utc_start)
+        .end(utc_end)
         .summary(f"🎵 | {ev['name']}")
         .location(f"{location['name']}, {location['address']['address_1']}")
         .description(description)
