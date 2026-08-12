@@ -1,6 +1,7 @@
 artists:
   - Alcest
   - An Abstract Illusion
+  - Angine de Poitrine
   - The Anchoret
   - Anciients
   - Between the Buried and Me
@@ -56,10 +57,12 @@ sources:
   - parser: eventbrite
     organizer_url: https://www.eventbrite.com/o/les-productions-dungeon-works-46587222653
     
+  - parser: lepointdevente
+    venue_url: https://lepointdevente.com/lieux/leministere
+
   - parser: progstorm
     url: "https://www.progstorm.com"
     times:
       friday: ["22:30", "21:00", "19:30", "18:15", "17:00", "16:00"]
       saturday: ["21:30", "20:00", "18:30", "17:15", "16:00", "15:00"]
       sunday: ["21:30", "20:00", "18:30", "17:00", "16:00", "15:00"]
-    

@@ -3,6 +3,7 @@ from utils.fetch import fetch_json
 from parser.ticketmaster import parse_ticketmaster_json
 from parser.progstorm import parse_progstorm
 from parser.eventbrite import parse_eventbrite
+from parser.lepointdevente import parse_lpdv
 from icalendar import Calendar
 
 def load_feeds():
@@ -23,6 +24,10 @@ def main():
 
         if parser == "eventbrite":
             cal = parse_eventbrite()
+            all_events.extend(cal.walk("VEVENT"))
+            continue
+        if parser == "lepointdevente":
+            cal = parse_lpdv()
             all_events.extend(cal.walk("VEVENT"))
             continue
         if parser == "progstorm":
