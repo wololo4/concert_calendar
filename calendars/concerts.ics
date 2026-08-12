@@ -71,13 +71,13 @@ DTSTART:20261008T193000Z
 DTEND:20261008T223000Z
 UID:eventbrite1993634532554
 DESCRIPTION:Tickets: https://www.eventbrite.com/e/shubh-saran-nrthrn-snooz
- e-tickets-1993634532554\\Artists: Shubh Saran\, NRTHRN\, Snooze
+ e-tickets-1993634532554\nArtists: Shubh Saran\, NRTHRN\, Snooze
 LOCATION:Piranha Bar\, 680 Rue Sainte-Catherine Ouest
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:🎵 | Ok Goodnight + The Anchoret + Eve + Système Féodal
-DTSTART:20261128T190000Z
-DTEND:20261128T220000Z
+DTSTART:20261129T000000Z
+DTEND:20261129T030000Z
 UID:lpdvOk Goodnight + The Anchoret + Eve + Système Féodal
 DESCRIPTION:Tickets: https://lepointdevente.com/tickets/mns261128001\nArti
  sts: Ok Goodnight + The Anchoret + Eve + Système Féodal
