@@ -1,10 +1,14 @@
 from icalendar import Calendar
 from utils.ics import ICSEventBuilder
 from datetime import datetime, timedelta
+from zoneinfo import ZoneInfo
 from bs4 import BeautifulSoup
 from utils.fetch import fetch_html
 import calendar
 import yaml
+
+MONTREAL_TZ = ZoneInfo("America/Toronto")
+UTC_TZ = ZoneInfo("UTC")
 
 def load_progstorm_config():
   with open("concerts.yaml", "r", encoding="utf-8") as f:
@@ -15,7 +19,7 @@ def load_progstorm_config():
   return {}
 
 def determine_festival_year():
-  today = datetime.now()
+  today = datetime.now(MONTREAL_TZ)
   if today.month >= 12:
     return today.year + 1
   return today.year
@@ -90,20 +94,29 @@ def parse_progstorm():
       
         for i, band in enumerate(bands):
             start_time = times[i]
-            start_dt = datetime.strptime(f"{parsed_date.strftime('%Y-%m-%d')} {start_time}", "%Y-%m-%d %H:%M")
+            start_dt = datetime.strptime(
+                f"{parsed_date.strftime('%Y-%m-%d')} {start_time}",
+                "%Y-%m-%d %H:%M"
+            ).replace(tzinfo=MONTREAL_TZ)
             if i == 0:
                 end_dt = start_dt + timedelta(hours=1)
             else:
                 prev_time = times[i - 1]
-                end_dt = datetime.strptime(f"{parsed_date.strftime('%Y-%m-%d')} {prev_time}", "%Y-%m-%d %H:%M")  
+                end_dt = datetime.strptime(
+                    f"{parsed_date.strftime('%Y-%m-%d')} {prev_time}",
+                    "%Y-%m-%d %H:%M"
+                ).replace(tzinfo=MONTREAL_TZ)
+
+            utc_start = start_dt.astimezone(UTC_TZ)
+            utc_end = end_dt.astimezone(UTC_TZ)
 
             uid = f"progstorm-{year}-{day_name}-{i}"
 
             event = (
                 ICSEventBuilder()
                 .uid(uid)
-                .start(start_dt)
-                .end(end_dt)
+                .start(utc_start)
+                .end(utc_end)
                 .summary(f"🎵 | {band}")
                 .location(venue)
                 .description(f"Concert: {band}\nJour: {day_name.capitalize()}")
