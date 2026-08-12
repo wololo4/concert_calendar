@@ -49,7 +49,10 @@ def extract_artists_from_name(name):
 
 def build_event(ev):
     artists = extract_artists_from_name(ev["name"])
-    description = f"Tickets: {ev['url']}\Artists: " + ", ".join(artists)
+    description = (
+        f"Tickets: {ev['url']}\n"
+        f"Artists: {" + ", ".join(artists)}"
+    )
     start_dt = datetime.fromisoformat(f"{ev["start_date"]}T{ev['start_time']}")
     end_dt = start_dt + timedelta(hours=3)
     location = ev["primary_venue"]
