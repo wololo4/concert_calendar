@@ -23,15 +23,6 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Install Playwright
-        run: pip install playwright
-
-      - name: Install Playwright Browsers
-        run: playwright install --with-deps
-
-      - name: Install Playwright Stealth
-        run: pip install playwright-stealth
-
       - name: Generate concert calendar
         run: xvfb-run -a python merge.py
 
