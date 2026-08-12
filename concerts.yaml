@@ -47,19 +47,19 @@ artists:
   - Wilderun
 
 sources:
-  # - parser: ticketmaster
-  #   url: https://app.ticketmaster.com/discovery/v2/events.json
-  #   city: Montreal
-  #   country: CA
-  #   apikey: WRi7PHL3Afa9Dq8v4qwnb9sF7eJHSlXm
+  - parser: ticketmaster
+    url: https://app.ticketmaster.com/discovery/v2/events.json
+    city: Montreal
+    country: CA
+    apikey: WRi7PHL3Afa9Dq8v4qwnb9sF7eJHSlXm
 
   - parser: eventbrite
     organizer_url: https://www.eventbrite.com/o/les-productions-dungeon-works-46587222653
     
-  # - parser: progstorm
-  #   url: "https://www.progstorm.com"
-  #   times:
-  #     friday: ["22:30", "21:00", "19:30", "18:15", "17:00", "16:00"]
-  #     saturday: ["21:30", "20:00", "18:30", "17:15", "16:00", "15:00"]
-  #     sunday: ["21:30", "20:00", "18:30", "17:00", "16:00", "15:00"]
+  - parser: progstorm
+    url: "https://www.progstorm.com"
+    times:
+      friday: ["22:30", "21:00", "19:30", "18:15", "17:00", "16:00"]
+      saturday: ["21:30", "20:00", "18:30", "17:15", "16:00", "15:00"]
+      sunday: ["21:30", "20:00", "18:30", "17:00", "16:00", "15:00"]
     
