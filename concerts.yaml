@@ -1,32 +1,57 @@
 artists:
+  - Agalloch
   - Alcest
+  - Amun
+  - Amiensus
   - An Abstract Illusion
-  - Angine de Poitrine
   - The Anchoret
   - Anciients
+  - Angine de Poitrine
+  - Animals as Leaders
+  - Aviations
+  - Azure
   - Between the Buried and Me
   - Big Big Train
+  - Blood Incantation
   - Caligula's Horse
+  - The Contortionist
   - Cynic
   - Dawn of Ouroboros
   - The Dear Hunter
   - Dessiderium
   - Devin Townsend
+  - Dvne
+  - Earthside
   - Elder
   - Exist
   - Fractal Sun
+  - Gojira
   - Greyhaven
   - Haken
+  - Ihlo
+  - In mourning
+  - In Vain
+  - Ions
+  - Iotunn
   - Karcius
+  - Kardashev
+  - Karnivool
+  - Katatonia
   - Leprous
   - Mastodon
+  - Mother of Millions
   - Ne Obliviscaris
   - Night Verse
   - Nospūn
+  - Obsidian Tide
   - The Ocean
   - Ok Goodnight
+  - Omnerod
   - Omnivide
   - Opeth
+  - Others by No One
+  - Pain of Salvation
+  - Parius
   - Periphery
   - Persefone
   - Pineapple Thief
@@ -35,17 +60,38 @@ artists:
   - Porcupine Tree
   - Protest the Hero
   - Pure Reason Revolution
+  - Rendezvous Point
   - The Reticent
+  - Rishloo
   - Rivers of Nihil
+  - Riverside
+  - Scardust
+  - Skyharbor
   - Snooze
   - Soen
+  - Stellar Circuits
   - Steven Wilson
+  - The Supervoid Choral Ensemble
+  - Symphony X
+  - Système Féodal
+  - Temic
   - Tesseract
+  - Thank You Scientist
+  - Tigran Hamasyan
+  - Toehider
   - Tómarúm
+  - Twelve Foot Ninja
+  - Voivod
   - Voidchaser
   - Vola
   - Vulkan
+  - Wheel
   - Wilderun
+  - Wobbler
+  - The World is Quiet Here
+  - Xanthocroid
+  - You Win Again Gravity
+  - Zopp
 
 sources:
   - parser: ticketmaster
