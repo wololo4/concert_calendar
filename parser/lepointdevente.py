@@ -137,7 +137,7 @@ def parse_lpdv(config):
     for ev in all_events:
         title = ev["title"].lower()
         if any(a in title for a in artists):
-            print(f"Found LPDV event: {ev['title']} @ {ev['venue_name']}")
+            print(f"Found LPDV event: {ev['title']} @ {ev['venue']}")
             cal.add_component(build_event_lpdv(ev))
 
     return cal
