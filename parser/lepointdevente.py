@@ -58,8 +58,8 @@ def fetch_venue_details(url):
     html = scraper.get(url).text
     soup = BeautifulSoup(html, "html.parser")
 
-    name_tag = soup.find("h1")
-    venue_name = name_tag.get_text(strip=True) if name_tag else "Unknown Venue"
+    h1_tags = soup.find_all("h1")
+    venue_name = h1_tags[1].get_text(strip=True) if len(h1_tags) > 1 else "Unknown Venue"
 
     addr_block = soup.find("div", class_="profile-header-address")
     if addr_block:
