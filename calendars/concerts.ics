@@ -1,5 +1,98 @@
 BEGIN:VCALENDAR
 BEGIN:VEVENT
+SUMMARY:🎵 | Mastodon
+DTSTART:20260927T230000Z
+DTEND:20260928T020000Z
+UID:tm-17G8v0G65wj3URd
+DESCRIPTION:Tickets: https://www.ticketmaster.ca/mastodon-montreal-quebec-
+ 09-27-2026/event/310064BC9C4B6BC3\nArtists: Mastodon\, Deafheaven\, Alcest
+LOCATION:MTELUS\, 59 Rue Sainte-Catherine Est
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:🎵 | ELDER
+DTSTART:20261002T000000Z
+DTEND:20261002T030000Z
+UID:tm-LvZ18QLCMv8d7tYZMtejO
+DESCRIPTION:Tickets: https://www.universe.com/events/elder-tickets-DJK2NP?
+ ref=ticketmaster
+LOCATION:Fairmount Theatre\, 5240 Avenue du Parc
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:🎵 | Periphery - A Pale White Dot Tour
+DTSTART:20261027T223000Z
+DTEND:20261028T013000Z
+UID:tm-17G8v0G65K2trqs
+DESCRIPTION:Tickets: https://www.ticketmaster.ca/periphery-a-pale-white-do
+ t-tour-montreal-quebec-10-27-2026/event/310064B4CFA5E771\nArtists: Periphe
+ ry\, Ne Obliviscaris\, Greyhaven\, Ando San
+LOCATION:MTELUS\, 59 Rue Sainte-Catherine Est
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:🎵 | Plini - An Unnameable Desire North American Tour
+DTSTART:20261021T230000Z
+DTEND:20261022T020000Z
+UID:tm-17G8v0G65SicWpC
+DESCRIPTION:Tickets: https://www.ticketmaster.ca/plini-an-unnameable-desir
+ e-north-american-montreal-quebec-10-21-2026/event/310064BCECB7D58E\nArtist
+ s: Plini\, Night Verses\, Portraits
+LOCATION:Théâtre Beanfield\, 2490 Rue Notre-Dame Ouest 
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:🎵 | The Pineapple Thief
+DTSTART:20261125T010000Z
+DTEND:20261125T040000Z
+UID:tm-1AsZk36GkeNxfB_
+DESCRIPTION:Tickets: https://www.ticketmaster.ca/the-pineapple-thief-montr
+ eal-quebec-11-24-2026/event/31006487A3894E99\nArtists: The Pineapple Thief
+LOCATION:Théâtre Beanfield\, 2490 Rue Notre-Dame Ouest 
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:🎵 |  Polyphia Tour MMXXVI
+DTSTART:20261001T223000Z
+DTEND:20261002T013000Z
+UID:tm-17G8v0G6GnMzpEf
+DESCRIPTION:Tickets: https://www.ticketmaster.ca/polyphia-tour-mmxxvi-mont
+ real-quebec-10-01-2026/event/310064CAB7E169D4\nArtists: Polyphia\, Interva
+ ls\, Ladrones\, RJ Pasin
+LOCATION:L'Olympia\, 1004 Sainte-Catherine Street East
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:🎵 | PROTEST THE HERO
+DTSTART:20261119T003000Z
+DTEND:20261119T033000Z
+UID:tm-LvZ18QEKCNOd9Y7QfIe6O
+DESCRIPTION:Tickets: https://www.universe.com/events/protest-the-hero-tick
+ ets-PQ7GZ4?ref=ticketmaster
+LOCATION:Fairmount Theatre\, 5240 Avenue du Parc
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:🎵 | Shubh Saran\, NRTHRN\, Snooze
+DTSTART:20261008T233000Z
+DTEND:20261009T023000Z
+UID:eventbrite1993634532554
+DESCRIPTION:Tickets: https://www.eventbrite.com/e/shubh-saran-nrthrn-snooz
+ e-tickets-1993634532554\nArtists: Shubh Saran\, NRTHRN\, Snooze
+LOCATION:Piranha Bar\, 680 Rue Sainte-Catherine Ouest
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:🎵 | Ok Goodnight\, The Anchoret\, Eve\, Système Féodal
+DTSTART:20261129T000000Z
+DTEND:20261129T030000Z
+UID:lpdvmns261128001
+DESCRIPTION:Tickets: https://lepointdevente.com/tickets/mns261128001\nArti
+ sts: Ok Goodnight\, The Anchoret\, Eve\, Système Féodal
+LOCATION:Le Ministère\, 4521\, boul. Saint-Laurent
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:🎵 | FRACTURUS\, OMNIVIDE\, BORNBROKEN & HATALOM 
+DTSTART:20261030T230000Z
+DTEND:20261031T020000Z
+UID:lpdv7r1261030001
+DESCRIPTION:Tickets: https://lepointdevente.com/tickets/7r1261030001\nArti
+ sts: FRACTURUS\, OMNIVIDE\, BORNBROKEN & HATALOM 
+LOCATION:Piranha Bar\, 680 Sainte-Catherine Ouest
+END:VEVENT
+BEGIN:VEVENT
 SUMMARY:🎵 | CYNIC
 DTSTART:20260822T023000Z
 DTEND:20260822T033000Z
