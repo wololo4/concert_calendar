@@ -66,14 +66,14 @@ def fetch_venue_details(url):
 
     return venue_name, venue_address
 
-def scrape_lpdv_html(events_url):
+def scrape_lpdv_html(url):
     scraper = cloudscraper.create_scraper()
     html = scraper.get(url).text
 
     soup = BeautifulSoup(html, "html.parser")
     events = []
 
-    venue_name, venue_address = fetch_venue_details(events_url)
+    venue_name, venue_address = fetch_venue_details(url)
     
     for article in soup.select("article.feature-canvas"):
         link = article.find("a", class_="feature-link")
@@ -87,7 +87,7 @@ def scrape_lpdv_html(events_url):
         events.append({
             "title": title,
             "date_str": date_str,
-            "url": event_url,
+            "url": url,
             "venue": f"{venue_name}, {venue_address}"
         })
 
