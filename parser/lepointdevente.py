@@ -139,7 +139,6 @@ def parse_lpdv(config):
     cal = Calendar()
 
     for ev in all_events:
-        print(ev)
         title = ev["title"].lower()
         if any(re.search(a, title) for a in artists):
             print(f"Found LPDV event: {ev['title']} @ {ev['venue']}")
