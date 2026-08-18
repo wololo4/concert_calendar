@@ -103,12 +103,12 @@ sources:
   - parser: eventbrite
     organizer_url: https://www.eventbrite.com/o/les-productions-dungeon-works-46587222653
     
+  sources:
   - parser: lepointdevente
-    venues: 
-        - name: Le Ministère
-          url: https://lepointdevente.com/lieux/leministere
-        - name: Le Piranha
-          url: https://thepointofsale.com/venues/piranhabar-3
+    base_url: https://thepointofsale.com/venues/
+    venues:
+      - le-ministere
+      - piranhabar-3
 
   - parser: progstorm
     url: "https://www.progstorm.com"
