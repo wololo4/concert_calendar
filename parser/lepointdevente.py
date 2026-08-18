@@ -66,15 +66,15 @@ def fetch_venue_details(url):
 
     return venue_name, venue_address
 
-def scrape_lpdv_html(url):
+def scrape_lpdv_html(events_url):
     scraper = cloudscraper.create_scraper()
     html = scraper.get(url).text
 
     soup = BeautifulSoup(html, "html.parser")
     events = []
 
-    venue_name, venue_address = fetch_venue_details(venue_page_url)
-
+    venue_name, venue_address = fetch_venue_details(events_url)
+    
     for article in soup.select("article.feature-canvas"):
         link = article.find("a", class_="feature-link")
         if not link:
@@ -112,34 +112,32 @@ def build_event_lpdv(ev):
         .build()
     )
 
-def parse_lpdv(venues):
-    if not venues:
+def parse_lpdv(config):
+    base_url = config.get("base_url")
+    slugs = config.get("venues", [])
+
+    if not base_url or not slugs:
         print("⚠️ No venues configured for LPDV")
         return Calendar()
 
-    # Load artists
     with open("concerts.yaml", "r", encoding="utf-8") as f:
         data = yaml.safe_load(f)
     artists = [a.lower() for a in data["artists"]]
 
     all_events = []
 
-    # Scrape each venue
-    for v in venues:
-        url = v["url"]
-        name = v["name"]
+    for slug in slugs:
+        events_url = base_url + slug
 
-        print(f"Scraping LPDV venue: {name} ({url})")
-        all_events.extend(scrape_lpdv_html(url, name))
+        print(f"Scraping LPDV venue: {slug}")
+        all_events.extend(scrape_lpdv_html(events_url))
 
-    # Build calendar
     cal = Calendar()
 
     for ev in all_events:
         title = ev["title"].lower()
         if any(a in title for a in artists):
-            print(f"Found LPDV event: {ev['title']} @ {ev['venue']}")
+            print(f"Found LPDV event: {ev['title']} @ {ev['venue_name']}")
             cal.add_component(build_event_lpdv(ev))
 
     return cal
-    
