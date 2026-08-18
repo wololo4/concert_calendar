@@ -62,12 +62,14 @@ def parse_date_any(date_str):
     
     return datetime(year, month, day, hour, minute)
 
-def scrape_lpdv_html(url):
+def scrape_lpdv_html(url, venue_name):
     scraper = cloudscraper.create_scraper()
     html = scraper.get(url).text
 
     soup = BeautifulSoup(html, "html.parser")
     events = []
+
+    venue_name = url.split("/")[-1].replace("-", " ").title()
 
     for article in soup.select("article.feature-canvas"):
         link = article.find("a", class_="feature-link")
@@ -112,10 +114,15 @@ def parse_lpdv():
     if not config:
         return Calendar()
 
-    venue_url = config.get("venue_url")
-    if not venue_url:
-        print("⚠️ No venue_url in YAML")
+    venue_urls = config.get("venue_urls")
+        if not venue_urls:
+        print("⚠️ No venue_urls in YAML")
         return Calendar()
+
+    events = []
+    for url in venue_urls:
+        print(f"Scraping LPDV venue: {url}")
+        events.extend(scrape_lpdv_html(url))
 
     with open("concerts.yaml", "r", encoding="utf-8") as f:
         data = yaml.safe_load(f)
