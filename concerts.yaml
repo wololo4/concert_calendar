@@ -106,7 +106,7 @@ sources:
   - parser: lepointdevente
     base_url: https://thepointofsale.com/venues/
     venues:
-      - le-ministere
+      - leministere
       - piranhabar-3
 
   - parser: progstorm
