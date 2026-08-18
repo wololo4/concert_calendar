@@ -103,7 +103,6 @@ sources:
   - parser: eventbrite
     organizer_url: https://www.eventbrite.com/o/les-productions-dungeon-works-46587222653
     
-  sources:
   - parser: lepointdevente
     base_url: https://thepointofsale.com/venues/
     venues:
