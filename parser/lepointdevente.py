@@ -61,8 +61,8 @@ def fetch_venue_details(url):
     name_tag = soup.find("h1")
     venue_name = name_tag.get_text(strip=True) if name_tag else "Unknown Venue"
 
-    addr_tag = soup.find("p", class_="venue-address")
-    venue_address = addr_tag.get_text(strip=True) if addr_tag else venue_name
+    addr_block = soup.find("div", class_="profile-header-address")
+    venue_address = addr_block.get_text(" ", strip=True) if addr_block else venue_name
 
     return venue_name, venue_address
 
