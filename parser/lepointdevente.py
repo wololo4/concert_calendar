@@ -102,15 +102,18 @@ def build_event_lpdv(ev):
     local_dt = local_dt.replace(tzinfo=MONTREAL_TZ)
     utc_dt = local_dt.astimezone(UTC_TZ)
     utc_end = utc_dt + timedelta(hours=3)
+    title = ev['title'].split('@')[0].split('-')[0]
+    title_uni = title.replace('\\', '').replace(' +', ',')
+    url_id = ev['url'].split('/')[-1]
 
-    description = f"Tickets: {ev['url']}\nArtists: {ev['title']}"
+    description = f"Tickets: {ev['url']}\nArtists: {title_uni}"
 
     return (
         ICSEventBuilder()
-        .uid(f"lpdv-{ev['title']}-{ev['venue']}")
+        .uid(f"lpdv{url_id}")
         .start(utc_dt)
         .end(utc_end)
-        .summary(f"🎵 | {ev['title']}")
+        .summary(f"🎵 | {title_uni}")
         .location(ev["venue"])
         .description(description)
         .build()
