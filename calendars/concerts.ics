@@ -78,10 +78,23 @@ BEGIN:VEVENT
 SUMMARY:🎵 | Ok Goodnight + The Anchoret + Eve + Système Féodal
 DTSTART:20261129T000000Z
 DTEND:20261129T030000Z
-UID:lpdvOk Goodnight + The Anchoret + Eve + Système Féodal
+UID:lpdv-Ok Goodnight + The Anchoret + Eve + Système Féodal-Le Ministèr
+ e
 DESCRIPTION:Tickets: https://lepointdevente.com/tickets/mns261128001\nArti
  sts: Ok Goodnight + The Anchoret + Eve + Système Féodal
 LOCATION:Le Ministère
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:🎵 | FRACTURUS\, OMNIVIDE\, BORNBROKEN & HATALOM @Piranha Bar (H
+ eaven)\, Montréal\,
+DTSTART:20261030T230000Z
+DTEND:20261031T020000Z
+UID:lpdv-FRACTURUS\, OMNIVIDE\, BORNBROKEN & HATALOM @Piranha Bar (Heaven)
+ \, Montréal\,-Le Piranha
+DESCRIPTION:Tickets: https://lepointdevente.com/tickets/7r1261030001\nArti
+ sts: FRACTURUS\, OMNIVIDE\, BORNBROKEN & HATALOM @Piranha Bar (Heaven)\, M
+ ontréal\,
+LOCATION:Le Piranha
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:🎵 | CYNIC
