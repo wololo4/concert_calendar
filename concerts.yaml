@@ -104,7 +104,9 @@ sources:
     organizer_url: https://www.eventbrite.com/o/les-productions-dungeon-works-46587222653
     
   - parser: lepointdevente
-    venue_url: https://lepointdevente.com/lieux/leministere
+    venue_urls: 
+        - https://lepointdevente.com/lieux/leministere
+        - https://thepointofsale.com/venues/piranhabar-3
 
   - parser: progstorm
     url: "https://www.progstorm.com"
