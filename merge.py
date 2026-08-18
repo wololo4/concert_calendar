@@ -27,7 +27,7 @@ def main():
             all_events.extend(cal.walk("VEVENT"))
             continue
         if parser == "lepointdevente":
-            cal = parse_lpdv()
+            cal = parse_lpdv(src.get("venues", []))
             all_events.extend(cal.walk("VEVENT"))
             continue
         if parser == "progstorm":
