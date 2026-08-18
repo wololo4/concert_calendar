@@ -75,6 +75,16 @@ DESCRIPTION:Tickets: https://www.eventbrite.com/e/shubh-saran-nrthrn-snooz
 LOCATION:Piranha Bar\, 680 Rue Sainte-Catherine Ouest
 END:VEVENT
 BEGIN:VEVENT
+SUMMARY:🎵 | Ok Goodnight + The Anchoret + Eve + Système Féodal
+DTSTART:20261129T000000Z
+DTEND:20261129T030000Z
+UID:lpdv-Ok Goodnight + The Anchoret + Eve + Système Féodal-Le Ministèr
+ e\, 4521\, boul. Saint-Laurent
+DESCRIPTION:Tickets: https://lepointdevente.com/tickets/mns261128001\nArti
+ sts: Ok Goodnight + The Anchoret + Eve + Système Féodal
+LOCATION:Le Ministère\, 4521\, boul. Saint-Laurent
+END:VEVENT
+BEGIN:VEVENT
 SUMMARY:🎵 | FRACTURUS\, OMNIVIDE\, BORNBROKEN & HATALOM @Piranha Bar (H
  eaven)\, Montréal\,
 DTSTART:20261030T230000Z
