@@ -91,7 +91,7 @@ def scrape_lpdv_html(url):
         events.append({
             "title": title,
             "date_str": date_str,
-            "url": url,
+            "url": event_url,
             "venue": f"{venue_name}, {venue_address}"
         })
 
