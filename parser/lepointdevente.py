@@ -53,12 +53,27 @@ def parse_date_any(date_str):
 
     return datetime(year, month, day, hour, minute)
 
-def scrape_lpdv_html(url, venue_name):
+def fetch_venue_details(url):
+    scraper = cloudscraper.create_scraper()
+    html = scraper.get(url).text
+    soup = BeautifulSoup(html, "html.parser")
+
+    name_tag = soup.find("h1")
+    venue_name = name_tag.get_text(strip=True) if name_tag else "Unknown Venue"
+
+    addr_tag = soup.find("p", class_="venue-address")
+    venue_address = addr_tag.get_text(strip=True) if addr_tag else venue_name
+
+    return venue_name, venue_address
+
+def scrape_lpdv_html(url):
     scraper = cloudscraper.create_scraper()
     html = scraper.get(url).text
 
     soup = BeautifulSoup(html, "html.parser")
     events = []
+
+    venue_name, venue_address = fetch_venue_details(venue_page_url)
 
     for article in soup.select("article.feature-canvas"):
         link = article.find("a", class_="feature-link")
@@ -73,7 +88,7 @@ def scrape_lpdv_html(url, venue_name):
             "title": title,
             "date_str": date_str,
             "url": event_url,
-            "venue": venue_name
+            "venue": f"{venue_name}, {venue_address}"
         })
 
     return events
