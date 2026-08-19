@@ -3,26 +3,13 @@ from utils.ics import ICSEventBuilder
 from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
 from bs4 import BeautifulSoup
-from utils.fetch import fetch_html
-import calendar
-import yaml
 
 MONTREAL_TZ = ZoneInfo("America/Toronto")
 UTC_TZ = ZoneInfo("UTC")
 
-def load_progstorm_config():
-  with open("concerts.yaml", "r", encoding="utf-8") as f:
-    data = yaml.safe_load(f)
-    for src in data.get("sources", []):
-      if src.get("parser") == "progstorm":
-        return src
-  return {}
-
 def determine_festival_year():
   today = datetime.now(MONTREAL_TZ)
-  if today.month >= 12:
-    return today.year + 1
-  return today.year
+  return today.year + 1 if today.month >= 12 else today.year
 
 def extract_meta(soup):
   container = soup.select_one(".sqs-html-content")
@@ -44,85 +31,78 @@ def extract_meta(soup):
       parsed_date = None
   return day_name, parsed_date, venue_text
 
-def fetch_bands(soup):
+def extract_bands(soup):
     return [
       a.get_text(strip=True)
       for a in soup.select(".sqs-html-content h4 a")
     ]
 
-def parse_progstorm():
-    config = load_progstorm_config()
-    if not config:
-        print("⚠️ Aucun bloc progstorm dans concerts.yaml")
-        return Calendar()
+def parse_progstorm_html(html, times_cfg):
+    soup = BeautifulSoup(html, "html.parser")
 
-    base_url = config.get("url")
-    times_cfg = config.get("times", {})
+    day_name, parsed_date, venue = extract_meta(soup)
+    if not parsed_date:
+       print("No date found in HTML")
+       return []
 
-    if not base_url or not times_cfg:
-        print("⚠️ progstorm.base_url ou progstorm.times manquant")
-        return Calendar()
-      
+    bands = extract_bands(soup)
+    if not bands:
+        print("No bands found")
+        return []
+
+    times = times_cfg.get(day_name, [])
+    if len(times) < len(bands):
+       print(f"Not enough times for {day_name}: {len(times)} time for {len(bands)} bands")
+       return []
+
+    events = []
+    for i, band in enumerate(bands):
+        start_time = times[i]
+        start_dt = datetime.strptime(
+            f"{parsed_date.strftime('%Y-%m-%d')} {start_time}",
+            "%Y-%m-%d %H:%M"
+        ).replace(tzinfo=MONTREAL_TZ)
+
+        if i == 0:
+            end_dt = start_dt + timedelta(hours=1)
+        else:
+           prev_time =times[i-1]
+           end_dt = datetime.strptime(
+              f"{parsed_date.strftime('%Y-%m-%d')} {prev_time}",
+              "%Y-%m-%d %H:%M"
+           ).replace(tzinfo=MONTREAL_TZ)
+
+        events.append({
+           "band": band,
+           "venue": venue,
+           "day_name": day_name,
+           "start_dt": start_dt,
+           "end_dt": end_dt,
+           "index": i
+        })
+
+    return events
+
+def build_progstorm_calendar(events):
     cal = Calendar()
-
     year = determine_festival_year()
+    for ev in events:
+        utc_start = ev["start_dt"].astimezone(UTC_TZ)
+        utc_end = ev["end_dt"].astimezone(UTC_TZ)
 
-    day_names = ["friday", "saturday", "sunday"]
+        uid = f"progstorm-{year}-{ev['day_name']}-{ev['index']}"
 
-    for day_name in day_names:
-        url = f"{base_url}/lineup{year}-{day_name}"
-        html = fetch_html(url)
-        if not html:
-            print(f" Failed to load {url}")
-            continue
+        vevent = (
+            ICSEventBuilder()
+            .uid(uid)
+            .start(utc_start)
+            .end(utc_end)
+            .summary(f"🎵 | {ev['band']}")
+            .location(ev["venue"])
+            .description(f"Concert: {ev['band']}\nJour: {ev['day_name'].capitalize()}")
+            .build()
+        )
 
-        soup = BeautifulSoup(html, "html.parser")
-        extracted_day, parsed_date, venue = extract_meta(soup)
-        if not parsed_date:
-            print(f" No date found in HTML for {day_name}")
-            continue
-             
-        bands = fetch_bands(soup)
-        if not bands:
-            print(f" No bands found for {day_name}")
-            continue
-
-        times = times_cfg.get(day_name, [])
-        if len(times) < len(bands):
-            print(f" Not enough times for {day_name}: {len(times)} time for {len(bands)} bands")
-            continue
-      
-        for i, band in enumerate(bands):
-            start_time = times[i]
-            start_dt = datetime.strptime(
-                f"{parsed_date.strftime('%Y-%m-%d')} {start_time}",
-                "%Y-%m-%d %H:%M"
-            ).replace(tzinfo=MONTREAL_TZ)
-            if i == 0:
-                end_dt = start_dt + timedelta(hours=1)
-            else:
-                prev_time = times[i - 1]
-                end_dt = datetime.strptime(
-                    f"{parsed_date.strftime('%Y-%m-%d')} {prev_time}",
-                    "%Y-%m-%d %H:%M"
-                ).replace(tzinfo=MONTREAL_TZ)
-
-            utc_start = start_dt.astimezone(UTC_TZ)
-            utc_end = end_dt.astimezone(UTC_TZ)
-
-            uid = f"progstorm-{year}-{day_name}-{i}"
-
-            event = (
-                ICSEventBuilder()
-                .uid(uid)
-                .start(utc_start)
-                .end(utc_end)
-                .summary(f"🎵 | {band}")
-                .location(venue)
-                .description(f"Concert: {band}\nJour: {day_name.capitalize()}")
-                .build()
-            )
-
-            cal.add_component(event)
+        cal.add_component(vevent)
 
     return cal

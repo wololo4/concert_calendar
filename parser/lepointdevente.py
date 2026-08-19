@@ -1,6 +1,4 @@
 import re
-import yaml
-import cloudscraper
 from datetime import datetime, timedelta
 from icalendar import Calendar
 from utils.ics import ICSEventBuilder
@@ -53,31 +51,15 @@ def parse_date_any(date_str):
 
     return datetime(year, month, day, hour, minute)
 
-def fetch_venue_details(url):
-    scraper = cloudscraper.create_scraper()
-    html = scraper.get(url).text
-    soup = BeautifulSoup(html, "html.parser")
-
-    h1_tags = soup.find_all("h1")
-    venue_name = h1_tags[1].get_text(strip=True) if len(h1_tags) > 1 else "Unknown Venue"
-
-    addr_block = soup.find("div", class_="profile-header-address")
-    if addr_block:
-        first_line = addr_block.find("div")
-        venue_address = first_line.get_text(strip=True)
-    else:
-        venue_address = ""
-
-    return venue_name, venue_address
-
-def scrape_lpdv_html(url):
-    scraper = cloudscraper.create_scraper()
-    html = scraper.get(url).text
-
+def parse_lpdv_html(html, artists):
     soup = BeautifulSoup(html, "html.parser")
     events = []
 
-    venue_name, venue_address = fetch_venue_details(url)
+    h1_tags = soup.find_all("h1")
+    venue_name = h1_tags[1].get_text(strip=True) if len(h1_tags) > 1 else "Unknown Venue"
+    addr_block = soup.find("div", class_="profile-header-address")
+    venue_address = addr_block.find("div").get_text(strip=True) if addr_block else ""
+    artists_lower = [a.lower() for a in artists]
     
     for article in soup.select("article.feature-canvas"):
         link = article.find("a", class_="feature-link")
@@ -88,6 +70,10 @@ def scrape_lpdv_html(url):
         title = article.find("h3", class_="feature-title").get_text(strip=True)
         date_str = article.find("div", class_="feature-date").get_text(strip=True)
 
+        title_clean = title.lower().strip()
+        if not any(a in title_clean for a in artists_lower if len(a) > 3):
+            continue
+
         events.append({
             "title": title,
             "date_str": date_str,
@@ -97,54 +83,29 @@ def scrape_lpdv_html(url):
 
     return events
 
-def build_event_lpdv(ev):
-    local_dt = parse_date_any(ev["date_str"])
-    local_dt = local_dt.replace(tzinfo=MONTREAL_TZ)
-    utc_dt = local_dt.astimezone(UTC_TZ)
-    utc_end = utc_dt + timedelta(hours=3)
-    title = ev['title'].split('@')[0].split('-')[0]
-    title_uni = title.replace('\\', '').replace(' +', ',')
-    url_id = ev['url'].split('/')[-1]
-
-    description = f"Tickets: {ev['url']}\nArtists: {title_uni}"
-
-    return (
-        ICSEventBuilder()
-        .uid(f"lpdv{url_id}")
-        .start(utc_dt)
-        .end(utc_end)
-        .summary(f"🎵 | {title_uni}")
-        .location(ev["venue"])
-        .description(description)
-        .build()
-    )
-
-def parse_lpdv(config):
-    base_url = config.get("base_url")
-    slugs = config.get("venues", [])
-
-    if not base_url or not slugs:
-        print("⚠️ No venues configured for LPDV")
-        return Calendar()
-
-    with open("concerts.yaml", "r", encoding="utf-8") as f:
-        data = yaml.safe_load(f)
-    artists = [a.lower() for a in data["artists"]]
-
-    all_events = []
-
-    for slug in slugs:
-        events_url = base_url + slug
-
-        print(f"Scraping LPDV venue: {slug}")
-        all_events.extend(scrape_lpdv_html(events_url))
-
+def build_event_lpdv(events):
     cal = Calendar()
+    for ev in events:
+        local_dt = parse_date_any(ev["date_str"]).replace(tzinfo=MONTREAL_TZ)
+        utc_dt = local_dt.astimezone(UTC_TZ)
+        utc_end = utc_dt + timedelta(hours=3)
+        title = ev['title'].split('@')[0].split('-')[0]
+        title_uni = title.replace('\\', '').replace(' +', ',')
+        url_id = ev['url'].split('/')[-1]
 
-    for ev in all_events:
-        title = ev["title"].lower()
-        if any(re.search(a, title) for a in artists):
-            print(f"Found LPDV event: {ev['title']} @ {ev['venue']}")
-            cal.add_component(build_event_lpdv(ev))
+        description = f"Tickets: {ev['url']}\nArtists: {title_uni}"
+
+        vevent = (
+            ICSEventBuilder()
+            .uid(f"lpdv{url_id}")
+            .start(utc_dt)
+            .end(utc_end)
+            .summary(f"🎵 | {title_uni}")
+            .location(ev["venue"])
+            .description(description)
+            .build()
+        )
+
+        cal.add_component(vevent)
 
     return cal

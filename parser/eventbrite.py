@@ -1,7 +1,5 @@
 import json
 import re
-import yaml
-import cloudscraper
 from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
 from icalendar import Calendar
@@ -10,22 +8,7 @@ from utils.ics import ICSEventBuilder
 MONTREAL_TZ = ZoneInfo("America/Toronto")
 UTC_TZ = ZoneInfo("UTC")
 
-def load_eventbrite_config():
-    with open("concerts.yaml", "r", encoding="utf-8") as f:
-        data = yaml.safe_load(f)
-
-    for src in data.get("sources", []):
-        if src.get("parser") == "eventbrite":
-            return src
-
-    return {}
-
-
-def scrape_organizer_page(url):
-    scraper = cloudscraper.create_scraper()
-    html = scraper.get(url).text
-
-    # NEW: Next.js JSON
+def extract_nextjs_events(html):
     match = re.search(
         r'<script[^>]*id="__NEXT_DATA__"[^>]*>(.*?)</script>',
         html,
@@ -44,14 +27,13 @@ def scrape_organizer_page(url):
         print("⚠️ organizer.events missing:", e)
         return []
 
-
-def extract_artists_from_name(name):
-    parts = [p.strip() for p in name.split(",")]
-    return parts
-
+def extract_artists(name):
+    if not name:
+        return []
+    return [p.strip() for p in name.split(",") if p.strip()]
 
 def build_event(ev):
-    artists = extract_artists_from_name(ev["name"])
+    artists = extract_artists(ev["name"])
     description = (
         f"Tickets: {ev['url']}\n"
         f"Artists: {', '.join(artists)}"
@@ -75,34 +57,20 @@ def build_event(ev):
         .build()
     )
 
+def parse_eventbrite_html(html, artists):
+    events = extract_nextjs_events(html)
+    filtered = []
+    artists_lower = [a.lower() for a in artists]
 
-def parse_eventbrite():
-    config = load_eventbrite_config()
-    if not config:
-        return Calendar()
+    for ev in events:
+        title = ev.get("name", "").lower()
+        parts = [p.strip() for p in re.split(f"[,+]", title) if p.strip()]
+        if any(part in artists_lower for part in parts):
+            filtered.append(ev)
+    return filtered
 
-    organizer_url = config.get("organizer_url")
-    if not organizer_url:
-        print("⚠️ No organizer_url in YAML")
-        return Calendar()
-
-    with open("concerts.yaml", "r", encoding="utf-8") as f:
-        data = yaml.safe_load(f)
-    artists = data["artists"]
-
-    print(f"Scraping Eventbrite organizer: {organizer_url}")
-
-    events = scrape_organizer_page(organizer_url)
+def build_eventbrite_calendar(events):
     cal = Calendar()
-
-    for artist in artists:
-        artist_lower = artist.lower()
-
-        for ev in events:
-            title = ev.get("name", "").lower()
-
-            if artist_lower in title:
-                print(f"Found Eventbrite event for {artist}: {ev['url']}")
-                cal.add_component(build_event(ev))
-
+    for ev in events:
+        cal.add_component(build_event(ev))
     return cal
