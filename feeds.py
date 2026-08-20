@@ -29,38 +29,52 @@ def load_feeds():
 def handle_ticketmaster(feeds, src, artists):
     base_url = src["url"]
     api_key = src.get("apikey")
-    city = src.get("city", "")
+    cities = src.get("city", "")
     country = src.get("country", "")
-    for artist in artists:
-        params = {
-            "apikey": api_key,
-            "keyword": artist,
-            "city": city,
-            "countryCode": country,
-            "size": 200
-        }
 
-        feeds.append((
-            "ticketmaster",
-            artist,
-            base_url,
-            params,
-            "ticketmaster"
-        ))
+    for city in cities:
+        for artist in artists:
+            params = {
+                "apikey": api_key,
+                "keyword": artist,
+                "city": city,
+                "countryCode": country,
+                "size": 200
+            }
+
+            feeds.append((
+                "ticketmaster",
+                f"{artist} ({city})",
+                base_url,
+                params,
+                "ticketmaster"
+            ))
 
 @register_feed("eventbrite")
 def handle_eventbrite(feeds, src, artists):
-    organizer_url = src.get("organizer_url")
-    if not organizer_url:
-        print("Missing organizer_url for Eventbrite")
+    organizer_url = src.get("organizer_url", [])
+    for org_url in organizer_url:
+        feeds.append((
+            "eventbrite", 
+            "eventbrite",
+            org_url,
+            {"artists": artists},
+            "eventbrite"
+        ))
+
+@register_feed("imperialbell")
+def handle_imperialbell(feeds, src, artists):
+    url = src.get("base_url")
+    if not url:
+        print("Missing url for Imperial Bell")
         return
     
     feeds.append((
-        "eventbrite", 
-        "eventbrite",
-        organizer_url,
+        "imperialbell",
+        "imperialbell",
+        url,
         {"artists": artists},
-        "eventbrite"
+        "imperialbell"
     ))
 
 @register_feed("lepointdevente")

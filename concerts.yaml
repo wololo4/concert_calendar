@@ -96,18 +96,27 @@ artists:
 sources:
   - parser: ticketmaster
     url: https://app.ticketmaster.com/discovery/v2/events.json
-    city: Montreal
+    city: [Montreal, Ottawa, Quebec]
     country: CA
     apikey: WRi7PHL3Afa9Dq8v4qwnb9sF7eJHSlXm
 
   - parser: eventbrite
-    organizer_url: https://www.eventbrite.com/o/les-productions-dungeon-works-46587222653
+    organizer_url: 
+      - https://www.eventbrite.com/o/les-productions-dungeon-works-46587222653
+      - https://www.eventbrite.ca/o/chord-productions-26304681803
     
   - parser: lepointdevente
     base_url: https://thepointofsale.com/venues/
     venues:
+      - l-anti-bar-and-spectacles
+      - club-soda
       - leministere
       - piranhabar-3
+      - sallemontaignecegeplimoilou
+      - la-source-de-la-martiniere
+
+  - parser: imperialbell
+    base_url: https://www.imperialbell.com/Programmation/Liste-des-spectacles
 
   - parser: progstorm
     url: "https://www.progstorm.com"
