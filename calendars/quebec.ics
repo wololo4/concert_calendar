@@ -1,12 +1,13 @@
 BEGIN:VCALENDAR
 BEGIN:VEVENT
-SUMMARY:🎵 | Anciients\, Unreqvited\, Exist\, Greylotus
-DTSTART:20260823T233000Z
-DTEND:20260824T023000Z
-UID:lpdvd7p260823001
-DESCRIPTION:Tickets: https://lepointdevente.com/tickets/d7p260823001\nArti
- sts: Anciients\, Unreqvited\, Exist\, Greylotus
-LOCATION:L'Anti Bar & Spectacles\, 251 Rue Dorchester
+SUMMARY:🎵 | The Pineapple Thief - Far and Wide Tour 2026
+DTSTART:20261123T010000Z
+DTEND:20261123T040000Z
+UID:tm-1Ad7Z_FGktdiYBJ
+DESCRIPTION:Tickets: https://www.ticketmaster.ca/the-pineapple-thief-far-a
+ nd-wide-quebec-quebec-11-22-2026/event/3100648A43B30EA6\nArtists: The Pine
+ apple Thief
+LOCATION:Théâtre Capitole\, 972 Rue Saint-Jean 
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:🎵 | An Abstract Illusion avec The Anchoret\, Omnivide\, Voidcha
@@ -17,6 +18,15 @@ UID:lpdvabs260826001
 DESCRIPTION:Tickets: https://lepointdevente.com/tickets/abs260826001\nArti
  sts: An Abstract Illusion avec The Anchoret\, Omnivide\, Voidchaser et Fra
  ctal Sun
+LOCATION:L'Anti Bar & Spectacles\, 251 Rue Dorchester
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:🎵 | Big D & The Kids Table avec Devon Kay & The Solutions
+DTSTART:20261018T000000Z
+DTEND:20261018T030000Z
+UID:lpdvd7p261016001
+DESCRIPTION:Tickets: https://lepointdevente.com/tickets/d7p261016001\nArti
+ sts: Big D & The Kids Table avec Devon Kay & The Solutions
 LOCATION:L'Anti Bar & Spectacles\, 251 Rue Dorchester
 END:VEVENT
 BEGIN:VEVENT
