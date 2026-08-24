@@ -8,14 +8,4 @@ DESCRIPTION:Tickets: https://www.ticketweb.ca/event/protest-the-hero-the-b
  ronson-tickets/15013393\nArtists: Protest the Hero
 LOCATION:The Bronson\, 211 Bronson Avenue
 END:VEVENT
-BEGIN:VEVENT
-SUMMARY:🎵 | Anciients\, Unreqvited\, Dawn of Ouroboros\, Poste
-DTSTART:20260821T230000Z
-DTEND:20260822T020000Z
-UID:eventbrite1987875113978
-DESCRIPTION:Tickets: https://www.eventbrite.ca/e/anciients-unreqvited-dawn
- -of-ouroboros-poste-tickets-1987875113978\nArtists: Anciients\, Unreqvited
- \, Dawn of Ouroboros\, Poste
-LOCATION:Rainbow Bistro\, 76 Murray St
-END:VEVENT
 END:VCALENDAR
