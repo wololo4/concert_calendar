@@ -118,9 +118,9 @@ sources:
   - parser: imperialbell
     base_url: https://www.imperialbell.com/Programmation/Liste-des-spectacles
 
-  - parser: progstorm
-    url: "https://www.progstorm.com"
-    times:
-      friday: ["22:30", "21:00", "19:30", "18:15", "17:00", "16:00"]
-      saturday: ["21:30", "20:00", "18:30", "17:15", "16:00", "15:00"]
-      sunday: ["21:30", "20:00", "18:30", "17:00", "16:00", "15:00"]
+#  - parser: progstorm
+#    url: "https://www.progstorm.com"
+#    times:
+#      friday: ["22:30", "21:00", "19:30", "18:15", "17:00", "16:00"]
+ #     saturday: ["21:30", "20:00", "18:30", "17:15", "16:00", "15:00"]
+#      sunday: ["21:30", "20:00", "18:30", "17:00", "16:00", "15:00"]
