@@ -71,9 +71,9 @@ def parse_lpdv_html(html, artists):
         date_str = article.find("div", class_="feature-date").get_text(strip=True)
 
         title_clean = title.lower().strip()
-        if not any(a in title_clean for a in artists_lower if len(a) > 3):
+        if not any(re.search(rf'\b{re.escape(a)}\b',title_clean) for a in artists_lower if len(a) > 3):
             continue
-
+            
         events.append({
             "title": title,
             "date_str": date_str,
