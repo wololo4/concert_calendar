@@ -8,4 +8,14 @@ DESCRIPTION:Tickets: https://www.ticketweb.ca/event/protest-the-hero-the-b
  ronson-tickets/15013393\nArtists: Protest the Hero
 LOCATION:The Bronson\, 211 Bronson Avenue
 END:VEVENT
+BEGIN:VEVENT
+SUMMARY:🎵 | SHUBH SARAN\, SNOOZE\, NRTHRN+ ARCHIVERS
+DTSTART:20261007T230000Z
+DTEND:20261008T020000Z
+UID:eventbrite1993501101458
+DESCRIPTION:Tickets: https://www.eventbrite.ca/e/shubh-saran-snooze-nrthrn
+ -archivers-tickets-1993501101458\nArtists: SHUBH SARAN\, SNOOZE\, NRTHRN+ 
+ ARCHIVERS
+LOCATION:Rainbow Bistro\, 76 Murray St
+END:VEVENT
 END:VCALENDAR
