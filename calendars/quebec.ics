@@ -1,5 +1,25 @@
 BEGIN:VCALENDAR
 BEGIN:VEVENT
+SUMMARY:🎵 | The Musical Box... and then there was... PHIL
+DTSTART:20270108T010000Z
+DTEND:20270108T040000Z
+UID:tm-1AsZk8YGkeDSMmT
+DESCRIPTION:Tickets: https://www.ticketmaster.ca/the-musical-box-and-then-
+ there-quebec-quebec-01-07-2027/event/31006430BBCF7BBF\nArtists: The Musica
+ l Box
+LOCATION:Théâtre Capitole\, 972 Rue Saint-Jean 
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:🎵 | The Musical Box... and then there was... PHIL
+DTSTART:20270109T010000Z
+DTEND:20270109T040000Z
+UID:tm-1AsZk8YGkeDVERA
+DESCRIPTION:Tickets: https://www.ticketmaster.ca/the-musical-box-and-then-
+ there-quebec-quebec-01-08-2027/event/31006430BBD27BC5\nArtists: The Musica
+ l Box
+LOCATION:Théâtre Capitole\, 972 Rue Saint-Jean 
+END:VEVENT
+BEGIN:VEVENT
 SUMMARY:🎵 | The Pineapple Thief - Far and Wide Tour 2026
 DTSTART:20261123T010000Z
 DTEND:20261123T040000Z
