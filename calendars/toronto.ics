@@ -19,6 +19,16 @@ DESCRIPTION:Tickets: https://www.ticketweb.ca/event/elder-island-hello-lee
 LOCATION:Lee's Palace\, 529 Bloor Street West
 END:VEVENT
 BEGIN:VEVENT
+SUMMARY:🎵 | Periphery - A Pale White Dot Tour
+DTSTART:20261026T213000Z
+DTEND:20261027T003000Z
+UID:tm-177Zv0G658v1VzJ
+DESCRIPTION:Tickets: https://www.ticketmaster.ca/periphery-a-pale-white-do
+ t-tour-toronto-ontario-10-26-2026/event/100064B4012B4E26\nArtists: Periphe
+ ry\, Ne Obliviscaris\, Greyhaven\, Ando San
+LOCATION:History Toronto\, 1663 Queen St. East
+END:VEVENT
+BEGIN:VEVENT
 SUMMARY:🎵 | Mastodon
 DTSTART:20260928T220000Z
 DTEND:20260929T010000Z
@@ -55,6 +65,16 @@ UID:tm-1A8Zk36GkeYFqsv
 DESCRIPTION:Tickets: https://www.ticketmaster.ca/the-pineapple-thief-toron
  to-ontario-11-25-2026/event/10006487B021DC41\nArtists: The Pineapple Thief
 LOCATION:The Danforth Music Hall\, 147 Danforth Ave.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:🎵 | Polyphia: BE NOT AFRAID World Tour 
+DTSTART:20270302T233000Z
+DTEND:20270303T023000Z
+UID:tm-177Zv0G6GmyX7u7
+DESCRIPTION:Tickets: https://www.ticketmaster.ca/polyphia-be-not-afraid-wo
+ rld-tour-toronto-ontario-03-02-2027/event/100064CBB9F84344\nArtists: Polyp
+ hia\, Intervals\, Ladrones\, RJ Pasin
+LOCATION:The Theatre at Great Canadian Toronto\, 1133 Queens Plate Dr
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:🎵 | Protest the Hero
