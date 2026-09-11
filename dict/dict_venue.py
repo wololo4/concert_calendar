@@ -46,10 +46,12 @@ VENUE_CITY = {
     "Théâtre Capitole": "Quebec",
 
     "The Danforth Music Hall": "Toronto",
+    "Hard Luck Bar": "Toronto",
     "HISTORY": "Toronto",
     "Lee's Palace": "Toronto",
     "The Opera House": "Toronto",
     "REBEL": "Toronto",
+    "Sneaky Dee's": "Toronto",
     "The Theatre at Great Canadian": "Toronto",
 }
 
