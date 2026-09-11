@@ -46,6 +46,13 @@ VENUE_CITY = {
     "Salle Montaigne" : "Quebec", 
     "La Source de la Martinière": "Quebec",
     "Théâtre Capitole": "Quebec",
+
+    "The Danforth Music Hall": "Toronto",
+    "HISTORY": "Toronto",
+    "Lee's Palace": "Toronto",
+    "The Opera House": "Toronto",
+    "REBEL": "Toronto",
+    "The Theatre at Great Canadian": "Toronto",
 }
 
 def extract_city_from_event(ev):
