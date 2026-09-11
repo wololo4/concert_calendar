@@ -21,7 +21,7 @@ VENUE_ALIASE = {
     "Salle Montaigne": [
         "Salle Montaigne",
         "Salle Montaigne - Cégep Limoilou"
-    ]
+    ],
     "Salle Wilfrid-Pelletier": [
         "Salle Wilfrid-Pelletier",
         "Wilfrid-Pelletier"
