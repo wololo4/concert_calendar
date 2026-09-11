@@ -111,9 +111,11 @@ sources:
     venues:
       - l-anti-bar-and-spectacles
       - club-soda
+      - hardluckbar
       - leministere
       - piranhabar-3
       - sallemontaignecegeplimoilou
+      - sneakydees
       - la-source-de-la-martiniere
 
   - parser: imperialbell
