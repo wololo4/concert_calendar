@@ -18,6 +18,11 @@ VENUE_ALIASE = {
         "Club Soda",
         "CLUB SODA"
     ],
+    "HISTORY": [
+        "History",
+        "HISTORY",
+        "History Toronto"
+    ],
     "Salle Montaigne": [
         "Salle Montaigne",
         "Salle Montaigne - Cégep Limoilou"
@@ -25,7 +30,11 @@ VENUE_ALIASE = {
     "Salle Wilfrid-Pelletier": [
         "Salle Wilfrid-Pelletier",
         "Wilfrid-Pelletier"
-    ]
+    ],
+    "The Theatre at Great Canadian" [
+        "The Theatre at Great Canadian",
+        "The Theatre at Great Canadian Toronto"
+    ],
 }
 
 VENUE_CITY = {
