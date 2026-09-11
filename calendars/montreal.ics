@@ -28,6 +28,28 @@ DESCRIPTION:Tickets: https://www.ticketmaster.ca/periphery-a-pale-white-do
 LOCATION:MTELUS\, 59 Rue Sainte-Catherine Est
 END:VEVENT
 BEGIN:VEVENT
+SUMMARY:🎵 | The Musical Box
+DTSTART:20270116T010000Z
+DTEND:20270116T040000Z
+UID:tm-1AsZk8YGkegMMpm
+DESCRIPTION:Tickets: https://am.ticketmaster.com/pda/en/buy/virtual-venue/
+ UDdXMDExNQ==?_gl=1*1c95vlg*_gcl_aw*R0NMLjE3NzQyOTkyNDYuRUFJYUlRb2JDaE1JbUs
+ tQTRQTzJrd01WRGtkX0FCMTJwQ0NfRUFBWUFTQUFFZ0lldHZEX0J3RQ..*_gcl_au*MTk3ODgw
+ MDIyNS4xNzczMTYxMTU0*_ga*MTI2MTM3NzM5My4xNzczMTYx\nArtists: The Musical Bo
+ x
+LOCATION:Wilfrid-Pelletier\, 175 Rue Sainte-Catherine Ouest
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:🎵 | THE MUSICAL BOX - SIÈGES PLATINE OFFICIELS
+DTSTART:20270116T010000Z
+DTEND:20270116T040000Z
+UID:tm-1AsZk8YGkem3pzX
+DESCRIPTION:Tickets: https://www.ticketmaster.ca/the-musical-box-sieges-pl
+ atine-officiels-montreal-quebec-01-15-2027/event/31006430AE496E3E\nArtists
+ : The Musical Box
+LOCATION:Wilfrid-Pelletier\, 175 Rue Sainte-Catherine Ouest
+END:VEVENT
+BEGIN:VEVENT
 SUMMARY:🎵 | Plini - An Unnameable Desire North American Tour
 DTSTART:20261021T230000Z
 DTEND:20261022T020000Z
