@@ -31,7 +31,7 @@ VENUE_ALIASE = {
         "Salle Wilfrid-Pelletier",
         "Wilfrid-Pelletier"
     ],
-    "The Theatre at Great Canadian" [
+    "The Theatre at Great Canadian": [
         "The Theatre at Great Canadian",
         "The Theatre at Great Canadian Toronto"
     ],
