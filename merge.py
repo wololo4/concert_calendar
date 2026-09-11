@@ -22,6 +22,10 @@ VENUE_ALIASE = {
         "Salle Montaigne",
         "Salle Montaigne - Cégep Limoilou"
     ]
+    "Salle Wilfrid-Pelletier": [
+        "Salle Wilfrid-Pelletier",
+        "Wilfrid-Pelletier"
+    ]
 }
 
 VENUE_CITY = {
@@ -31,6 +35,7 @@ VENUE_CITY = {
     "MTELUS": "Montreal",
     "L'Olympia": "Montreal", 
     "Piranha Bar": "Montreal",
+    "Salle Wilfrid-Pelletier": "Montreal",
     "Théâtre Beanfield": "Montreal",
 
     "The Bronson": "Ottawa",
