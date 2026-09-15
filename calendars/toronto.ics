@@ -1,5 +1,14 @@
 BEGIN:VCALENDAR
 BEGIN:VEVENT
+SUMMARY:🎵 | Insomnium & Amorphis
+DTSTART:20261120T000000Z
+DTEND:20261120T030000Z
+UID:tm-rZ7HnEZ1Af1d1f
+DESCRIPTION:Tickets: https://www.ticketweb.ca/event/insomnium-amorphis-the
+ -concert-hall-tickets/14283294\nArtists: Insomnium\, Amorphis\, Hinayana
+LOCATION:The Concert Hall\, The Masonic Temple
+END:VEVENT
+BEGIN:VEVENT
 SUMMARY:🎵 | Angine de Poitrine
 DTSTART:20261106T000000Z
 DTEND:20261106T030000Z
