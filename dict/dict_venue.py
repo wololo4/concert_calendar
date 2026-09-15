@@ -52,6 +52,7 @@ VENUE_CITY = {
     "The Opera House": "Toronto",
     "REBEL": "Toronto",
     "Sneaky Dee's": "Toronto",
+    "The Phoenix Concert Theatre": "Toronto",
     "The Theatre at Great Canadian": "Toronto",
 }
 
