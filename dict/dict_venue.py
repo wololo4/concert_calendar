@@ -37,6 +37,7 @@ VENUE_CITY = {
     "Théâtre Beanfield": "Montreal",
 
     "The Bronson": "Ottawa",
+    "Overflow Brewery": "Ottawa",
     "Rainbow Bistro": "Ottawa",
 
     "L'Anti Bar": "Quebec",
