@@ -34,7 +34,7 @@ VENUE_CITY = {
     "L'Olympia": "Montreal", 
     "Piranha Bar": "Montreal",
     "Salle Wilfrid-Pelletier": "Montreal",
-    "Le Studio Td": "Montreal",
+    "Le Studio TD": "Montreal",
     "Théâtre Beanfield": "Montreal",
 
     "The Bronson": "Ottawa",
