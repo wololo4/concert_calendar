@@ -104,7 +104,7 @@ sources:
 
   - parser: eventbrite
     base_url: https://www.eventbrite.com/o/
-    organizer_url: 
+    organizer: 
       - les-productions-dungeon-works-46587222653
       - chord-productions-26304681803
     
