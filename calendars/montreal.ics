@@ -9,6 +9,16 @@ DESCRIPTION:Tickets: https://www.ticketmaster.ca/mastodon-montreal-quebec-
 LOCATION:MTELUS\, 59 Rue Sainte-Catherine Est
 END:VEVENT
 BEGIN:VEVENT
+SUMMARY:🎵 | Amorphis & Insomnium
+DTSTART:20261119T003000Z
+DTEND:20261119T033000Z
+UID:tm-1kG8vPkaGA1pSJC
+DESCRIPTION:Tickets: https://www.ticketmaster.ca/amorphis-insomnium-montre
+ al-quebec-11-18-2026/event/310065189A5B398E\nArtists: Insomnium\, Amorphis
+ \, Hinayana
+LOCATION:Théâtre Beanfield\, 2490 Rue Notre-Dame Ouest 
+END:VEVENT
+BEGIN:VEVENT
 SUMMARY:🎵 | ELDER
 DTSTART:20261002T000000Z
 DTEND:20261002T030000Z
