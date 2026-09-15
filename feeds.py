@@ -52,12 +52,14 @@ def handle_ticketmaster(feeds, src, artists):
 
 @register_feed("eventbrite")
 def handle_eventbrite(feeds, src, artists):
-    organizer_url = src.get("organizer_url", [])
-    for org_url in organizer_url:
+    base_url = src["base_url"]
+    organizer = src.get("organizer", [])
+    for org in organizer:
+        url = base_url + organizer
         feeds.append((
             "eventbrite", 
             "eventbrite",
-            org_url,
+            url,
             {"artists": artists},
             "eventbrite"
         ))
@@ -79,7 +81,7 @@ def handle_imperialbell(feeds, src, artists):
 
 @register_feed("lepointdevente")
 def handle_lpvd(feeds, src, artists):
-    base_url =src["base_url"]
+    base_url = src["base_url"]
     slugs = src.get("venues", [])
     for slug in slugs:
         url = base_url + slug
