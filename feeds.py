@@ -55,7 +55,7 @@ def handle_eventbrite(feeds, src, artists):
     base_url = src["base_url"]
     organizer = src.get("organizer", [])
     for org in organizer:
-        url = base_url + organizer
+        url = base_url + org
         feeds.append((
             "eventbrite", 
             "eventbrite",
