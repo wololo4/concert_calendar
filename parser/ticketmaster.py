@@ -10,7 +10,7 @@ def event_has_artist(event, artists):
     for a in attractions:
         name = a.get("name", "").lower()
         for artist in artists:
-            if artist.lower() in name:
+            if artist.lower().strip() == name:
                 return True
     title = event.get("name", "").lower()
     for artist in artists:
