@@ -46,6 +46,7 @@ VENUE_CITY = {
     "La Source de la Martinière": "Quebec",
     "Théâtre Capitole": "Quebec",
 
+    "The Concert Hall": "Toronto",
     "The Danforth Music Hall": "Toronto",
     "Hard Luck Bar": "Toronto",
     "HISTORY": "Toronto",
