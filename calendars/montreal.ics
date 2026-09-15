@@ -50,6 +50,15 @@ DESCRIPTION:Tickets: https://www.ticketmaster.ca/the-musical-box-sieges-pl
 LOCATION:Wilfrid-Pelletier\, 175 Rue Sainte-Catherine Ouest
 END:VEVENT
 BEGIN:VEVENT
+SUMMARY:🎵 | The Pineapple Thief
+DTSTART:20261125T010000Z
+DTEND:20261125T040000Z
+UID:tm-1AsZk36GkeNxfB_
+DESCRIPTION:Tickets: https://www.ticketmaster.ca/the-pineapple-thief-montr
+ eal-quebec-11-24-2026/event/31006487A3894E99\nArtists: The Pineapple Thief
+LOCATION:Théâtre Beanfield\, 2490 Rue Notre-Dame Ouest 
+END:VEVENT
+BEGIN:VEVENT
 SUMMARY:🎵 | Plini - An Unnameable Desire North American Tour
 DTSTART:20261021T230000Z
 DTEND:20261022T020000Z
@@ -77,6 +86,15 @@ UID:tm-LvZ18QEKCNOd9Y7QfIe6O
 DESCRIPTION:Tickets: https://www.universe.com/events/protest-the-hero-tick
  ets-PQ7GZ4?ref=ticketmaster
 LOCATION:Fairmount Theatre\, 5240 Avenue du Parc
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:🎵 | Shubh Saran\, NRTHRN\, Snooze
+DTSTART:20261008T233000Z
+DTEND:20261009T023000Z
+UID:eventbrite1993634532554
+DESCRIPTION:Tickets: https://www.eventbrite.com/e/shubh-saran-nrthrn-snooz
+ e-tickets-1993634532554\nArtists: Shubh Saran\, NRTHRN\, Snooze
+LOCATION:Piranha Bar\, 680 Rue Sainte-Catherine Ouest
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:🎵 | ANGINE DE POITRINE
