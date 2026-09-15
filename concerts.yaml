@@ -23,6 +23,7 @@ artists:
   - Dvne
   - Earthside
   - Elder
+  - Evergrey
   - Exist
   - Fractal Sun
   - Gojira
@@ -110,9 +111,11 @@ sources:
     base_url: https://thepointofsale.com/venues/
     venues:
       - l-anti-bar-and-spectacles
+      - cafecampus
       - club-soda
       - hardluckbar
       - leministere
+      - petit-campus
       - piranhabar-3
       - sallemontaignecegeplimoilou
       - sneakydees
