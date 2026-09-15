@@ -19,15 +19,6 @@ DESCRIPTION:Tickets: https://www.ticketmaster.ca/elder-north-american-tour
 LOCATION:The Opera House\, 735 Queen St. E.
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:🎵 | Elder Island - Hello Baby Okay w/ Glassio
-DTSTART:20261004T010000Z
-DTEND:20261004T040000Z
-UID:tm-rZ7HnEZ1Afvbf7
-DESCRIPTION:Tickets: https://www.ticketweb.ca/event/elder-island-hello-lee
- s-palace-tickets/14058504\nArtists: Elder Island
-LOCATION:Lee's Palace\, 529 Bloor Street West
-END:VEVENT
-BEGIN:VEVENT
 SUMMARY:🎵 | Periphery - A Pale White Dot Tour
 DTSTART:20261026T213000Z
 DTEND:20261027T003000Z
@@ -64,15 +55,6 @@ UID:tm-177Zv0G65rcNeqk
 DESCRIPTION:Tickets: https://www.ticketmaster.ca/plini-an-unnameable-desir
  e-north-american-toronto-ontario-10-22-2026/event/100064B7AD8C2746\nArtist
  s: Plini\, Night Verses\, Portraits
-LOCATION:The Danforth Music Hall\, 147 Danforth Ave.
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:🎵 | The Pineapple Thief
-DTSTART:20261126T000000Z
-DTEND:20261126T030000Z
-UID:tm-1A8Zk36GkeYFqsv
-DESCRIPTION:Tickets: https://www.ticketmaster.ca/the-pineapple-thief-toron
- to-ontario-11-25-2026/event/10006487B021DC41\nArtists: The Pineapple Thief
 LOCATION:The Danforth Music Hall\, 147 Danforth Ave.
 END:VEVENT
 BEGIN:VEVENT
