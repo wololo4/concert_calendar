@@ -28,14 +28,14 @@ DESCRIPTION:Tickets: https://www.universe.com/events/elder-tickets-DJK2NP?
 LOCATION:Fairmount Theatre\, 5240 Avenue du Parc
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:🎵 | Hammerfall - Freedom World Crusade 2026
-DTSTART:20260920T233000Z
-DTEND:20260921T023000Z
-UID:tm-1Ad7Z_3GkRQaGsa
-DESCRIPTION:Tickets: https://www.ticketmaster.ca/hammerfall-freedom-world-
- crusade-2026-montreal-quebec-09-20-2026/event/3100652BDA24CC49\nArtists: H
- ammerfall\, Evergrey
-LOCATION:Le Studio TD\, 305\, rue Ste-Catherine Ouest
+SUMMARY:🎵 | Periphery - A Pale White Dot Tour
+DTSTART:20261027T223000Z
+DTEND:20261028T013000Z
+UID:tm-17G8v0G65K2trqs
+DESCRIPTION:Tickets: https://www.ticketmaster.ca/periphery-a-pale-white-do
+ t-tour-montreal-quebec-10-27-2026/event/310064B4CFA5E771\nArtists: Periphe
+ ry\, Ne Obliviscaris\, Greyhaven\, Ando San
+LOCATION:MTELUS\, 59 Rue Sainte-Catherine Est
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:🎵 | The Musical Box
@@ -58,16 +58,6 @@ DESCRIPTION:Tickets: https://www.ticketmaster.ca/the-musical-box-sieges-pl
  atine-officiels-montreal-quebec-01-15-2027/event/31006430AE496E3E\nArtists
  : The Musical Box
 LOCATION:Wilfrid-Pelletier\, 175 Rue Sainte-Catherine Ouest
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:🎵 | Periphery - A Pale White Dot Tour
-DTSTART:20261027T223000Z
-DTEND:20261028T013000Z
-UID:tm-17G8v0G65K2trqs
-DESCRIPTION:Tickets: https://www.ticketmaster.ca/periphery-a-pale-white-do
- t-tour-montreal-quebec-10-27-2026/event/310064B4CFA5E771\nArtists: Periphe
- ry\, Ne Obliviscaris\, Greyhaven\, Ando San
-LOCATION:MTELUS\, 59 Rue Sainte-Catherine Est
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:🎵 | The Pineapple Thief
