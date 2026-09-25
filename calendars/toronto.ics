@@ -28,16 +28,6 @@ DESCRIPTION:Tickets: https://www.ticketmaster.ca/elder-north-american-tour
 LOCATION:The Opera House\, 735 Queen St. E.
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:🎵 | Hammerfall - Freedom World Crusade 2026
-DTSTART:20260922T223000Z
-DTEND:20260923T013000Z
-UID:tm-rZ7HnEZ1AKJ84V
-DESCRIPTION:Tickets: https://www.ticketweb.ca/event/hammerfall-freedom-wor
- ld-the-phoenix-concert-theatre-tickets/13990574\nArtists: Hammerfall\, Eve
- rgrey\, Elvenking
-LOCATION:The Phoenix Concert Theatre\, 410 Sherbourne Street
-END:VEVENT
-BEGIN:VEVENT
 SUMMARY:🎵 | Periphery - A Pale White Dot Tour
 DTSTART:20261026T213000Z
 DTEND:20261027T003000Z
@@ -63,6 +53,16 @@ DTEND:20270130T030000Z
 UID:tm-1AvZZ_eGkDShsra
 DESCRIPTION:Tickets: https://www.ticketmaster.ca/the-musical-box-and-then-
  there-toronto-ontario-01-29-2027/event/1000642EF36F1789\nArtists: The Musi
+ cal Box
+LOCATION:The Danforth Music Hall\, 147 Danforth Ave.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:🎵 | The Musical Box: "...and then there was...PHIL"
+DTSTART:20270131T000000Z
+DTEND:20270131T030000Z
+UID:tm-1AvZZ_eGkDSjsLJ
+DESCRIPTION:Tickets: https://www.ticketmaster.ca/the-musical-box-and-then-
+ there-toronto-ontario-01-30-2027/event/1000642EF37317E6\nArtists: The Musi
  cal Box
 LOCATION:The Danforth Music Hall\, 147 Danforth Ave.
 END:VEVENT
@@ -101,7 +101,8 @@ DTSTART:20261122T000000Z
 DTEND:20261122T030000Z
 UID:tm-1A8ZkfkGkeNjjX2
 DESCRIPTION:Tickets: https://www.ticketmaster.ca/protest-the-hero-toronto-
- ontario-11-21-2026/event/10006506A371CF8F\nArtists: Protest the Hero
+ ontario-11-21-2026/event/10006506A371CF8F\nArtists: Protest the Hero\, Cho
+ ke\, Kaonashi
 LOCATION:The Opera House\, 735 Queen St. E.
 END:VEVENT
 BEGIN:VEVENT
