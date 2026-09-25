@@ -18,6 +18,7 @@ VENUE_ALIASE = {
     ],
     "Salle Wilfrid-Pelletier": [
         "Salle Wilfrid-Pelletier",
+        "Salle Wilfrid-Pelletier - PN",
         "Wilfrid-Pelletier"
     ],
     "The Theatre at Great Canadian": [
