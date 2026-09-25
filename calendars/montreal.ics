@@ -70,6 +70,15 @@ DESCRIPTION:Tickets: https://am.ticketmaster.com/pda/en/buy/virtual-venue/
 LOCATION:Wilfrid-Pelletier\, 175 Rue Sainte-Catherine Ouest
 END:VEVENT
 BEGIN:VEVENT
+SUMMARY:🎵 | The Musical Box... and then there was... PHIL
+DTSTART:20270117T010000Z
+DTEND:20270117T040000Z
+UID:tm-1AsZkfgGkdOe_ZT
+DESCRIPTION:Tickets: https://am.ticketmaster.com/pda/fr-ca/ism/P7W0116\nAr
+ tists: The Musical Box
+LOCATION:Salle Wilfrid-Pelletier - PN\, 175 Ste-Catherine Ouest
+END:VEVENT
+BEGIN:VEVENT
 SUMMARY:🎵 | The Pineapple Thief
 DTSTART:20261125T010000Z
 DTEND:20261125T040000Z
