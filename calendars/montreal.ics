@@ -108,6 +108,15 @@ DESCRIPTION:Tickets: https://www.universe.com/events/protest-the-hero-tick
 LOCATION:Fairmount Theatre\, 5240 Avenue du Parc
 END:VEVENT
 BEGIN:VEVENT
+SUMMARY:🎵 | TesseracT
+DTSTART:20270110T010000Z
+DTEND:20270110T040000Z
+UID:tm-1AsZk4vGkdPpaf2
+DESCRIPTION:Tickets: https://www.ticketmaster.ca/tesseract-montreal-quebec
+ -01-09-2027/event/31006541E558950F\nArtists: TesseracT\, Entheos\, Sunborn
+LOCATION:Théâtre Beanfield\, 2490 Rue Notre-Dame Ouest 
+END:VEVENT
+BEGIN:VEVENT
 SUMMARY:🎵 | Shubh Saran\, NRTHRN\, Snooze
 DTSTART:20261008T233000Z
 DTEND:20261009T023000Z
