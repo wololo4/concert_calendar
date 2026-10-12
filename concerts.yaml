@@ -122,6 +122,7 @@ sources:
       - sallemontaignecegeplimoilou
       - sneakydees
       - la-source-de-la-martiniere
+      - studiosonum
 
   - parser: imperialbell
     base_url: https://www.imperialbell.com/Programmation/Liste-des-spectacles
