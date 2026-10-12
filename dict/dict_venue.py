@@ -46,6 +46,7 @@ VENUE_CITY = {
     "L'Impérial": "Quebec",
     "Salle Montaigne" : "Quebec", 
     "La Source de la Martinière": "Quebec",
+    "Studio Sonum": "Quebec",
     "Théâtre Capitole": "Quebec",
 
     "The Concert Hall": "Toronto",
