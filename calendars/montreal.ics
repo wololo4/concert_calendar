@@ -108,6 +108,16 @@ DESCRIPTION:Tickets: https://www.universe.com/events/protest-the-hero-tick
 LOCATION:Fairmount Theatre\, 5240 Avenue du Parc
 END:VEVENT
 BEGIN:VEVENT
+SUMMARY:🎵 | Northlane : The Anemoia Tour
+DTSTART:20270303T000000Z
+DTEND:20270303T030000Z
+UID:tm-1AsZkfYGkdCctBI
+DESCRIPTION:Tickets: https://www.ticketmaster.ca/northlane-the-anemoia-tou
+ r-montreal-quebec-03-02-2027/event/31006530CEB69EA8\nArtists: Northlane\, 
+ ALLT\, Aviana\, Reliqa
+LOCATION:Théâtre Beanfield\, 2490 Rue Notre-Dame Ouest 
+END:VEVENT
+BEGIN:VEVENT
 SUMMARY:🎵 | TesseracT
 DTSTART:20270110T010000Z
 DTEND:20270110T040000Z

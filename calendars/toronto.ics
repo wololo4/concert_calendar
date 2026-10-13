@@ -28,6 +28,26 @@ DESCRIPTION:Tickets: https://www.ticketmaster.ca/periphery-a-pale-white-do
 LOCATION:History Toronto\, 1663 Queen St. East
 END:VEVENT
 BEGIN:VEVENT
+SUMMARY:🎵 | The Musical Box: "...and then there was...PHIL"
+DTSTART:20270130T000000Z
+DTEND:20270130T030000Z
+UID:tm-1AvZZ_eGkDShsra
+DESCRIPTION:Tickets: https://www.ticketmaster.ca/the-musical-box-and-then-
+ there-toronto-ontario-01-29-2027/event/1000642EF36F1789\nArtists: The Musi
+ cal Box
+LOCATION:The Danforth Music Hall\, 147 Danforth Ave.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:🎵 | The Musical Box: "...and then there was...PHIL"
+DTSTART:20270131T000000Z
+DTEND:20270131T030000Z
+UID:tm-1AvZZ_eGkDSjsLJ
+DESCRIPTION:Tickets: https://www.ticketmaster.ca/the-musical-box-and-then-
+ there-toronto-ontario-01-30-2027/event/1000642EF37317E6\nArtists: The Musi
+ cal Box
+LOCATION:The Danforth Music Hall\, 147 Danforth Ave.
+END:VEVENT
+BEGIN:VEVENT
 SUMMARY:🎵 | The Pineapple Thief
 DTSTART:20261126T000000Z
 DTEND:20261126T030000Z
@@ -65,6 +85,16 @@ DESCRIPTION:Tickets: https://www.ticketmaster.ca/protest-the-hero-toronto-
  ontario-11-21-2026/event/10006506A371CF8F\nArtists: Protest the Hero\, Cho
  ke\, Kaonashi
 LOCATION:The Opera House\, 735 Queen St. E.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:🎵 | Northlane: THE ANEMOIA TOUR
+DTSTART:20270303T230000Z
+DTEND:20270304T020000Z
+UID:tm-1A8ZkfsGkdNKE_C
+DESCRIPTION:Tickets: https://www.ticketmaster.ca/northlane-the-anemoia-tou
+ r-toronto-ontario-03-03-2027/event/10006531E34E764E\nArtists: Northlane\, 
+ Aviana\, ALLT\, Reliqa
+LOCATION:The Danforth Music Hall\, 147 Danforth Ave.
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:🎵 | TesseracT\, Entheos\, Sunborn
