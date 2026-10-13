@@ -9,7 +9,7 @@ UTC_TZ = ZoneInfo("UTC")
 
 def determine_festival_year():
   today = datetime.now(MONTREAL_TZ)
-  return today.year + 1 if today.month >= 12 else today.year
+  return today.year + 1 if today.month >= 10 else today.year
 
 def extract_meta(soup):
   container = soup.select_one(".sqs-html-content")
