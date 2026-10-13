@@ -32,10 +32,12 @@ def extract_meta(soup):
   return day_name, parsed_date, venue_text
 
 def extract_bands(soup):
-    return [
-      a.get_text(strip=True)
-      for a in soup.select(".sqs-html-content h4 a")
+    bands = [
+        h4.get_text(" ", strip=True)
+        for h4 in soup.select(".sqs-html-content h4")
+        if h4.get_text(" ", strip=True)
     ]
+    return bands or ["TO BE ANNOUNCED"]
 
 def parse_progstorm_html(html, times_cfg):
     soup = BeautifulSoup(html, "html.parser")
