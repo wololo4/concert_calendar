@@ -95,6 +95,7 @@ def get_event_start(ev):
 
 def main():
   feeds = load_feeds()
+  print(feeds)
   all_events = []
   session = get_robust_session()
 
