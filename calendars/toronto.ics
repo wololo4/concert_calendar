@@ -1,12 +1,32 @@
 BEGIN:VCALENDAR
 BEGIN:VEVENT
-SUMMARY:🎵 | Insomnium & Amorphis
-DTSTART:20261120T000000Z
-DTEND:20261120T030000Z
-UID:tm-rZ7HnEZ1Af1d1f
-DESCRIPTION:Tickets: https://www.ticketweb.ca/event/insomnium-amorphis-the
- -concert-hall-tickets/14283294\nArtists: Insomnium\, Amorphis\, Hinayana
-LOCATION:The Concert Hall\, The Masonic Temple
+SUMMARY:🎵 | Plini - An Unnameable Desire North American Tour
+DTSTART:20261022T220000Z
+DTEND:20261023T010000Z
+UID:tm-177Zv0G65rcNeqk
+DESCRIPTION:Tickets: https://www.ticketmaster.ca/plini-an-unnameable-desir
+ e-north-american-toronto-ontario-10-22-2026/event/100064B7AD8C2746\nArtist
+ s: Plini\, Night Verses\, Portraits
+LOCATION:The Danforth Music Hall\, 147 Danforth Ave.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:🎵 | Periphery - A Pale White Dot Tour
+DTSTART:20261026T213000Z
+DTEND:20261027T003000Z
+UID:tm-177Zv0G658v1VzJ
+DESCRIPTION:Tickets: https://www.ticketmaster.ca/periphery-a-pale-white-do
+ t-tour-toronto-ontario-10-26-2026/event/100064B4012B4E26\nArtists: Periphe
+ ry\, Ne Obliviscaris\, Greyhaven\, Ando San
+LOCATION:History Toronto\, 1663 Queen St. East
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:🎵 | FRACTURUS\, OMNIVIDE\, SELIAS\, THE OUTER GODS 
+DTSTART:20261029T230000Z
+DTEND:20261030T020000Z
+UID:lpdv7r1261029001
+DESCRIPTION:Tickets: https://lepointdevente.com/tickets/7r1261029001\nArti
+ sts: FRACTURUS\, OMNIVIDE\, SELIAS\, THE OUTER GODS 
+LOCATION:Sneaky Dee's\, 431 College St
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:🎵 | Angine de Poitrine
@@ -18,14 +38,50 @@ DESCRIPTION:Tickets: https://www.ticketmaster.ca/angine-de-poitrine-toront
 LOCATION:History Toronto\, 1663 Queen St. East
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:🎵 | Periphery - A Pale White Dot Tour
-DTSTART:20261026T213000Z
-DTEND:20261027T003000Z
-UID:tm-177Zv0G658v1VzJ
-DESCRIPTION:Tickets: https://www.ticketmaster.ca/periphery-a-pale-white-do
- t-tour-toronto-ontario-10-26-2026/event/100064B4012B4E26\nArtists: Periphe
- ry\, Ne Obliviscaris\, Greyhaven\, Ando San
-LOCATION:History Toronto\, 1663 Queen St. East
+SUMMARY:🎵 | Insomnium & Amorphis
+DTSTART:20261120T000000Z
+DTEND:20261120T030000Z
+UID:tm-rZ7HnEZ1Af1d1f
+DESCRIPTION:Tickets: https://www.ticketweb.ca/event/insomnium-amorphis-the
+ -concert-hall-tickets/14283294\nArtists: Insomnium\, Amorphis\, Hinayana
+LOCATION:The Concert Hall\, The Masonic Temple
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:🎵 | Protest the Hero
+DTSTART:20261122T000000Z
+DTEND:20261122T030000Z
+UID:tm-1A8ZkfkGkeNjjX2
+DESCRIPTION:Tickets: https://www.ticketmaster.ca/protest-the-hero-toronto-
+ ontario-11-21-2026/event/10006506A371CF8F\nArtists: Protest the Hero\, Cho
+ ke\, Kaonashi
+LOCATION:The Opera House\, 735 Queen St. E.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:🎵 | The Pineapple Thief
+DTSTART:20261126T000000Z
+DTEND:20261126T030000Z
+UID:tm-1A8Zk36GkeYFqsv
+DESCRIPTION:Tickets: https://www.ticketmaster.ca/the-pineapple-thief-toron
+ to-ontario-11-25-2026/event/10006487B021DC41\nArtists: The Pineapple Thief
+LOCATION:The Danforth Music Hall\, 147 Danforth Ave.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:🎵 | OK GOODNIGHT\, THE ANCHORET\, EVE\, MONOMYTH 
+DTSTART:20261126T000000Z
+DTEND:20261126T030000Z
+UID:lpdv7r1261125001
+DESCRIPTION:Tickets: https://lepointdevente.com/tickets/7r1261125001\nArti
+ sts: OK GOODNIGHT\, THE ANCHORET\, EVE\, MONOMYTH 
+LOCATION:Hard Luck Bar\, 772A Dundas St W
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:🎵 | TesseracT\, Entheos\, Sunborn
+DTSTART:20270111T000000Z
+DTEND:20270111T030000Z
+UID:tm-rZ7HnEZ1AfuN87
+DESCRIPTION:Tickets: https://www.ticketweb.ca/event/tesseract-entheos-sunb
+ orn-the-concert-hall-tickets/14363404\nArtists: TesseracT\, Entheos
+LOCATION:The Concert Hall\, The Masonic Temple
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:🎵 | The Musical Box: "...and then there was...PHIL"
@@ -48,25 +104,6 @@ DESCRIPTION:Tickets: https://www.ticketmaster.ca/the-musical-box-and-then-
 LOCATION:The Danforth Music Hall\, 147 Danforth Ave.
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:🎵 | Plini - An Unnameable Desire North American Tour
-DTSTART:20261022T220000Z
-DTEND:20261023T010000Z
-UID:tm-177Zv0G65rcNeqk
-DESCRIPTION:Tickets: https://www.ticketmaster.ca/plini-an-unnameable-desir
- e-north-american-toronto-ontario-10-22-2026/event/100064B7AD8C2746\nArtist
- s: Plini\, Night Verses\, Portraits
-LOCATION:The Danforth Music Hall\, 147 Danforth Ave.
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:🎵 | The Pineapple Thief
-DTSTART:20261126T000000Z
-DTEND:20261126T030000Z
-UID:tm-1A8Zk36GkeYFqsv
-DESCRIPTION:Tickets: https://www.ticketmaster.ca/the-pineapple-thief-toron
- to-ontario-11-25-2026/event/10006487B021DC41\nArtists: The Pineapple Thief
-LOCATION:The Danforth Music Hall\, 147 Danforth Ave.
-END:VEVENT
-BEGIN:VEVENT
 SUMMARY:🎵 | Polyphia: BE NOT AFRAID World Tour 
 DTSTART:20270302T233000Z
 DTEND:20270303T023000Z
@@ -77,16 +114,6 @@ DESCRIPTION:Tickets: https://www.ticketmaster.ca/polyphia-be-not-afraid-wo
 LOCATION:The Theatre at Great Canadian Toronto\, 1133 Queens Plate Dr
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:🎵 | Protest the Hero
-DTSTART:20261122T000000Z
-DTEND:20261122T030000Z
-UID:tm-1A8ZkfkGkeNjjX2
-DESCRIPTION:Tickets: https://www.ticketmaster.ca/protest-the-hero-toronto-
- ontario-11-21-2026/event/10006506A371CF8F\nArtists: Protest the Hero\, Cho
- ke\, Kaonashi
-LOCATION:The Opera House\, 735 Queen St. E.
-END:VEVENT
-BEGIN:VEVENT
 SUMMARY:🎵 | Northlane: THE ANEMOIA TOUR
 DTSTART:20270303T230000Z
 DTEND:20270304T020000Z
@@ -95,32 +122,5 @@ DESCRIPTION:Tickets: https://www.ticketmaster.ca/northlane-the-anemoia-tou
  r-toronto-ontario-03-03-2027/event/10006531E34E764E\nArtists: Northlane\, 
  Aviana\, ALLT\, Reliqa
 LOCATION:The Danforth Music Hall\, 147 Danforth Ave.
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:🎵 | TesseracT\, Entheos\, Sunborn
-DTSTART:20270111T000000Z
-DTEND:20270111T030000Z
-UID:tm-rZ7HnEZ1AfuN87
-DESCRIPTION:Tickets: https://www.ticketweb.ca/event/tesseract-entheos-sunb
- orn-the-concert-hall-tickets/14363404\nArtists: TesseracT\, Entheos
-LOCATION:The Concert Hall\, The Masonic Temple
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:🎵 | OK GOODNIGHT\, THE ANCHORET\, EVE\, MONOMYTH 
-DTSTART:20261126T000000Z
-DTEND:20261126T030000Z
-UID:lpdv7r1261125001
-DESCRIPTION:Tickets: https://lepointdevente.com/tickets/7r1261125001\nArti
- sts: OK GOODNIGHT\, THE ANCHORET\, EVE\, MONOMYTH 
-LOCATION:Hard Luck Bar\, 772A Dundas St W
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:🎵 | FRACTURUS\, OMNIVIDE\, SELIAS\, THE OUTER GODS 
-DTSTART:20261029T230000Z
-DTEND:20261030T020000Z
-UID:lpdv7r1261029001
-DESCRIPTION:Tickets: https://lepointdevente.com/tickets/7r1261029001\nArti
- sts: FRACTURUS\, OMNIVIDE\, SELIAS\, THE OUTER GODS 
-LOCATION:Sneaky Dee's\, 431 College St
 END:VEVENT
 END:VCALENDAR

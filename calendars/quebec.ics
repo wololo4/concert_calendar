@@ -1,23 +1,33 @@
 BEGIN:VCALENDAR
 BEGIN:VEVENT
-SUMMARY:🎵 | The Musical Box... and then there was... PHIL
-DTSTART:20270108T010000Z
-DTEND:20270108T040000Z
-UID:tm-1AsZk8YGkeDSMmT
-DESCRIPTION:Tickets: https://www.ticketmaster.ca/the-musical-box-and-then-
- there-quebec-quebec-01-07-2027/event/31006430BBCF7BBF\nArtists: The Musica
- l Box
-LOCATION:Théâtre Capitole\, 972 Rue Saint-Jean 
+SUMMARY:🎵 | FRACTURUS\, OMNIVIDE\, CHANGE MY BRAIN WITH CAKES & HATALOM
+  
+DTSTART:20261031T230000Z
+DTEND:20261101T020000Z
+UID:lpdv7r1261031001
+DESCRIPTION:Tickets: https://lepointdevente.com/tickets/7r1261031001\nArti
+ sts: FRACTURUS\, OMNIVIDE\, CHANGE MY BRAIN WITH CAKES & HATALOM 
+LOCATION:Studio Sonum\, 25 Rue Bigaouette\, Entrée en face de la Rivière
+  St-Charles
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:🎵 | The Musical Box... and then there was... PHIL
-DTSTART:20270109T010000Z
-DTEND:20270109T040000Z
-UID:tm-1AsZk8YGkeDVERA
-DESCRIPTION:Tickets: https://www.ticketmaster.ca/the-musical-box-and-then-
- there-quebec-quebec-01-08-2027/event/31006430BBD27BC5\nArtists: The Musica
- l Box
-LOCATION:Théâtre Capitole\, 972 Rue Saint-Jean 
+SUMMARY:🎵 | Angine de Poitrine
+DTSTART:20261107T010000Z
+DTEND:20261107T040000Z
+UID:imperialbellAngine-de-Poitrine?retour=spectacles
+DESCRIPTION:Tickets: https://www.imperialbell.com/Programmation/Liste-des-
+ spectacles/2026/11/6/4793/Angine-de-Poitrine?retour=spectacles\nArtists: A
+ ngine de Poitrine
+LOCATION:L'Impérial\, Quebec
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:🎵 | Protest The Hero avec CHOKE et KAONASHI
+DTSTART:20261118T003000Z
+DTEND:20261118T033000Z
+UID:lpdvd7p261117001
+DESCRIPTION:Tickets: https://lepointdevente.com/tickets/d7p261117001\nArti
+ sts: Protest The Hero avec CHOKE et KAONASHI
+LOCATION:Salle Montaigne - Cégep Limoilou\, 7600 3e avenue est
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:🎵 | The Pineapple Thief - Far and Wide Tour 2026
@@ -39,33 +49,23 @@ DESCRIPTION:Tickets: https://lepointdevente.com/tickets/abs261129001\nArti
 LOCATION:L'Anti Bar & Spectacles\, 251 Rue Dorchester
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:🎵 | Protest The Hero avec CHOKE et KAONASHI
-DTSTART:20261118T003000Z
-DTEND:20261118T033000Z
-UID:lpdvd7p261117001
-DESCRIPTION:Tickets: https://lepointdevente.com/tickets/d7p261117001\nArti
- sts: Protest The Hero avec CHOKE et KAONASHI
-LOCATION:Salle Montaigne - Cégep Limoilou\, 7600 3e avenue est
+SUMMARY:🎵 | The Musical Box... and then there was... PHIL
+DTSTART:20270108T010000Z
+DTEND:20270108T040000Z
+UID:tm-1AsZk8YGkeDSMmT
+DESCRIPTION:Tickets: https://www.ticketmaster.ca/the-musical-box-and-then-
+ there-quebec-quebec-01-07-2027/event/31006430BBCF7BBF\nArtists: The Musica
+ l Box
+LOCATION:Théâtre Capitole\, 972 Rue Saint-Jean 
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:🎵 | FRACTURUS\, OMNIVIDE\, CHANGE MY BRAIN WITH CAKES & HATALOM
-  
-DTSTART:20261031T230000Z
-DTEND:20261101T020000Z
-UID:lpdv7r1261031001
-DESCRIPTION:Tickets: https://lepointdevente.com/tickets/7r1261031001\nArti
- sts: FRACTURUS\, OMNIVIDE\, CHANGE MY BRAIN WITH CAKES & HATALOM 
-LOCATION:Studio Sonum\, 25 Rue Bigaouette\, Entrée en face de la Rivière
-  St-Charles
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:🎵 | Angine de Poitrine
-DTSTART:20261107T010000Z
-DTEND:20261107T040000Z
-UID:imperialbellAngine-de-Poitrine?retour=spectacles
-DESCRIPTION:Tickets: https://www.imperialbell.com/Programmation/Liste-des-
- spectacles/2026/11/6/4793/Angine-de-Poitrine?retour=spectacles\nArtists: A
- ngine de Poitrine
-LOCATION:L'Impérial\, Quebec
+SUMMARY:🎵 | The Musical Box... and then there was... PHIL
+DTSTART:20270109T010000Z
+DTEND:20270109T040000Z
+UID:tm-1AsZk8YGkeDVERA
+DESCRIPTION:Tickets: https://www.ticketmaster.ca/the-musical-box-and-then-
+ there-quebec-quebec-01-08-2027/event/31006430BBD27BC5\nArtists: The Musica
+ l Box
+LOCATION:Théâtre Capitole\, 972 Rue Saint-Jean 
 END:VEVENT
 END:VCALENDAR
