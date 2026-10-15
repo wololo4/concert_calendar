@@ -5,6 +5,7 @@ from icalendar import Calendar
 import requests
 from requests.adapters import HTTPAdapter
 from urllib3.util import Retry
+from datetime import datetime
 
 from dict.dict_venue import VENUE_ALIASE, VENUE_CITY
 from parser.imperialbell import build_event_imperialbell, parse_imperialbell_html
@@ -97,7 +98,6 @@ def fetch_and_parse_feed(feed, session):
 
   return vevents
 
-
 def main():
   feeds = load_feeds()
   all_events = []
@@ -105,13 +105,11 @@ def main():
   session = get_robust_session()
 
   print(f"Fetching {len(feeds)} feeds safely...")
-  # max_workers=2 prevents hammering remote servers and getting blocked/rate-limited
   with ThreadPoolExecutor(max_workers=2) as executor:
     futures = {
         executor.submit(fetch_and_press_feed_wrapper, feed, session): feed
         for feed in feeds
     }
-    # (Using a helper wrapper below for clean execution)
     for future in as_completed(futures):
       vevents = future.result()
       if vevents:
@@ -125,6 +123,15 @@ def main():
       city_events.setdefault(city, []).append(ev)
 
   for city, events in city_events.items():
+    # Sort events chronologically by start date to guarantee identical output order
+    events.sort(
+        key=lambda ev: (
+            ev.get("DTSTART").dt
+            if ev.get("DTSTART") and hasattr(ev.get("DTSTART"), "dt")
+            else datetime.min
+        )
+    )
+
     cal = Calendar()
     for ev in events:
       cal.add_component(ev)
