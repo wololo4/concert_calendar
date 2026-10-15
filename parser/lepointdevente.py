@@ -52,16 +52,27 @@ MONTHS = {
     },
 }
 
+# addresses for venues that only appear as card text (cafecampusshows page)
 KNOWN_ADDRESSES = {
     "petit campus": "57-B Rue Prince-Arthur Est",
     "café campus": "57 Rue Prince-Arthur Est",
     "cafe campus": "57 Rue Prince-Arthur Est",
 }
 
+
 def venue_from_card(text):
   name = text.split(",")[0].strip()
   addr = KNOWN_ADDRESSES.get(name.lower())
   return f"{name}, {addr}" if addr else name
+
+
+def slug_from_image(article):
+  img = article.find("img")
+  if not img or not img.get("src"):
+    return None
+  name = img["src"].split("/")[-1]
+  return re.sub(r"-\d+x\d+-[a-z]{2}-[0-9a-f]+\.\w+$", "", name) or None
+
 
 def parse_date_any(date_str):
   date_str = re.sub(r"(\d+)(st|nd|rd|th)", r"\1", date_str.strip())
@@ -95,27 +106,38 @@ def parse_lpdv_html(html, artists):
 
   events = []
   for article in soup.select("article.feature-canvas"):
-    if not (link := article.find("a", class_="feature-link")):
+    title_el = article.find("h3", class_="feature-title")
+    date_el = article.find("div", class_="feature-date")
+    if not title_el or not date_el:
       continue
-    title = article.find("h3", class_="feature-title").get_text(strip=True)
+
+    title = title_el.get_text(strip=True)
     if not any(
         re.search(rf"\b{re.escape(a)}\b", title.lower()) for a in artists_lower
     ):
       continue
 
-    date_el = article.find("div", class_="feature-date")
-    if not date_el:
-      continue
-
-    card_venue = next(
-       (s for s in article.stripped_strings if ", QC" in s), None
-    )
+    if link := article.find("a", class_="feature-link"):
+      # regular venue page
+      url = urljoin("https://lepointdevente.com", link["href"])
+      venue = page_venue or "Unknown Venue"
+    else:
+      # cafecampusshows page: no link, venue is on the card
+      slug = slug_from_image(article)
+      if not slug:
+        parent = article.find_parent(attrs={"data-tpos-event": True})
+        slug = parent["data-tpos-event"] if parent else None
+      if not slug:
+        continue
+      url = f"https://lepointdevente.com/tickets/{slug}"
+      city = article.find("div", class_="feature-city")
+      venue = venue_from_card(city.get_text(strip=True)) if city else "Unknown Venue"
 
     events.append({
         "title": title,
         "date_str": date_el.get_text(strip=True),
-        "url": urljoin("https://lepointdevente.com", link["href"]),
-        "venue": page_venue or (venue_from_card(card_venue) if card_venue else "Unknown Venue"),
+        "url": url,
+        "venue": venue,
     })
   return events
 
@@ -123,7 +145,10 @@ def parse_lpdv_html(html, artists):
 def build_event_lpdv(events):
   cal = Calendar()
   for ev in events:
-    local_dt = parse_date_any(ev["date_str"]).replace(tzinfo=MONTREAL_TZ)
+    try:
+      local_dt = parse_date_any(ev["date_str"]).replace(tzinfo=MONTREAL_TZ)
+    except Exception:
+      continue
     utc_dt = local_dt.astimezone(UTC_TZ)
     title_uni = (
         ev["title"].split("@")[0].split("-")[0].replace("\\", "").replace(" +", ",")
