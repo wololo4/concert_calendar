@@ -1,11 +1,11 @@
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from datetime import datetime, timezone
 import re
 from feeds import load_feeds
 from icalendar import Calendar
 import requests
 from requests.adapters import HTTPAdapter
 from urllib3.util import Retry
-from datetime import datetime
 
 from dict.dict_venue import VENUE_ALIASE, VENUE_CITY
 from parser.imperialbell import build_event_imperialbell, parse_imperialbell_html
@@ -98,6 +98,27 @@ def fetch_and_parse_feed(feed, session):
 
   return vevents
 
+
+def fetch_and_press_feed_wrapper(feed, session):
+  return fetch_and_parse_feed(feed, session)
+
+
+def get_event_start(ev):
+  dt_prop = ev.get("DTSTART")
+  if not dt_prop or not hasattr(dt_prop, "dt"):
+    return datetime.max
+
+  dt = dt_prop.dt
+
+  if not isinstance(dt, datetime):
+    dt = datetime(dt.year, dt.month, dt.day)
+
+  if dt.tzinfo is not None:
+    dt = dt.astimezone(timezone.utc).replace(tzinfo=None)
+
+  return dt
+
+
 def main():
   feeds = load_feeds()
   all_events = []
@@ -123,14 +144,7 @@ def main():
       city_events.setdefault(city, []).append(ev)
 
   for city, events in city_events.items():
-    # Sort events chronologically by start date to guarantee identical output order
-    events.sort(
-        key=lambda ev: (
-            ev.get("DTSTART").dt
-            if ev.get("DTSTART") and hasattr(ev.get("DTSTART"), "dt")
-            else datetime.min
-        )
-    )
+    events.sort(key=get_event_start)
 
     cal = Calendar()
     for ev in events:
@@ -141,10 +155,6 @@ def main():
       f.write(cal.to_ical())
 
     print(f"{city}.ics file created with {len(events)} events.")
-
-
-def fetch_and_press_feed_wrapper(feed, session):
-  return fetch_and_parse_feed(feed, session)
 
 
 if __name__ == "__main__":
