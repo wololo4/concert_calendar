@@ -104,23 +104,15 @@ def fetch_and_press_feed_wrapper(feed, session):
 
 
 def get_event_start(ev):
-  dt_prop = ev.get("DTSTART")
-  if not dt_prop:
-    return datetime.max
-
-  # Extract the underlying datetime/date object
-  dt = getattr(dt_prop, "dt", dt_prop)
-
-  if not isinstance(dt, datetime):
-    try:
+  try:
+    dt = ev.decoded("dtstart")
+    if not isinstance(dt, datetime):
       dt = datetime(dt.year, dt.month, dt.day)
-    except Exception:
-      return datetime.max
-
-  if dt.tzinfo is not None:
-    dt = dt.astimezone(timezone.utc).replace(tzinfo=None)
-
-  return dt
+    if dt.tzinfo is not None:
+      dt = dt.astimezone(timezone.utc).replace(tzinfo=None)
+    return dt
+  except Exception:
+    return datetime.max
 
 
 def main():
