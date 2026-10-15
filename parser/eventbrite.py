@@ -1,5 +1,4 @@
 from datetime import datetime, timedelta
-from ica_helper import ICSEventBuilder  # or utils.ics
 from icalendar import Calendar
 import json
 import re
