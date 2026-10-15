@@ -93,13 +93,13 @@ def parse_lpdv_html(html, artists):
     ):
       continue
 
-     date_el = article.find("div", class_="feature-date")
-     if not date_el:
-        continue
+    date_el = article.find("div", class_="feature-date")
+    if not date_el:
+      continue
 
-     card_venue = next(
-        (s for s in article.stripped_strings if ", QC" in s), None
-     )
+    card_venue = next(
+       (s for s in article.stripped_strings if ", QC" in s), None
+    )
 
     events.append({
         "title": title,
