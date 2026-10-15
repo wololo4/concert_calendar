@@ -20,11 +20,11 @@ def get_robust_session():
   retries = Retry(
       total=3, backoff_factor=1, status_forcelist=[500, 502, 503, 504, 429]
   )
-  adapter = HTTPAdapter(max_retries=retries)
+  # Increase pool size to match the higher worker count
+  adapter = HTTPAdapter(pool_connections=10, pool_maxsize=10, max_retries=retries)
   session.mount("https://", adapter)
   session.mount("http://", adapter)
   return session
-
 
 def extract_city_from_event(ev):
   loc = ev.get("LOCATION")
@@ -122,7 +122,7 @@ def main():
   session = get_robust_session()
 
   print(f"Fetching {len(feeds)} feeds safely...")
-  with ThreadPoolExecutor(max_workers=2) as executor:
+  with ThreadPoolExecutor(max_workers=5) as executor:
     futures = {
         executor.submit(fetch_and_press_feed_wrapper, feed, session): feed
         for feed in feeds
