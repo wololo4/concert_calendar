@@ -33,6 +33,7 @@ VENUE_CITY = {
     "Le Ministère": "Montreal",
     "MTELUS": "Montreal",
     "L'Olympia": "Montreal", 
+    "Petit Campus": "Montreal",
     "Piranha Bar": "Montreal",
     "Salle Wilfrid-Pelletier": "Montreal",
     "Le Studio TD": "Montreal",
