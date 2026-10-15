@@ -26,7 +26,7 @@ DTEND:20261031T020000Z
 UID:lpdv7r1261030001
 DESCRIPTION:Tickets: https://lepointdevente.com/tickets/7r1261030001\nArti
  sts: FRACTURUS\, OMNIVIDE\, BORNBROKEN & HATALOM 
-LOCATION:Piranha Bar\, Montreal\, QC
+LOCATION:Piranha Bar\, 680 Sainte-Catherine Ouest
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:🎵 | ANGINE DE POITRINE
@@ -35,7 +35,7 @@ DTEND:20261115T040000Z
 UID:lpdvclb261114001
 DESCRIPTION:Tickets: https://lepointdevente.com/tickets/clb261114001\nArti
  sts: ANGINE DE POITRINE
-LOCATION:Club Soda\, Montréal\, QC
+LOCATION:Club Soda\, 1225 St-Laurent
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:🎵 | Amorphis & Insomnium
@@ -72,7 +72,7 @@ DTEND:20261129T030000Z
 UID:lpdvmns261128001
 DESCRIPTION:Tickets: https://lepointdevente.com/tickets/mns261128001\nArti
  sts: Ok Goodnight\, The Anchoret\, Eve\, Système Féodal
-LOCATION:Le Ministère\, Montréal\, QC
+LOCATION:Le Ministère\, 4521\, boul. Saint-Laurent
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:🎵 | ELDER
