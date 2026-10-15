@@ -127,7 +127,8 @@ sources:
       - sneakydees
       - la-source-de-la-martiniere
       - studiosonum
-      - ../tickets/cafecampusshows
+    tickets:
+      - cafecampusshows
 
   - parser: imperialbell
     base_url: https://www.imperialbell.com/Programmation/Liste-des-spectacles
