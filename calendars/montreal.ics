@@ -9,6 +9,16 @@ DESCRIPTION:Tickets: https://lepointdevente.com/tickets/7r1261030001\nArti
 LOCATION:Piranha Bar\, 680 Sainte-Catherine Ouest
 END:VEVENT
 BEGIN:VEVENT
+SUMMARY:🎵 | CHRONOCHROMIE | PROFUSION ALBUM LAUNCH
+DTSTART:20261109T000000Z
+DTEND:20261109T030000Z
+UID:lpdv261108-chronochromie-profusion-album-launch-petit-campus-nov-8
+DESCRIPTION:Tickets: https://lepointdevente.com/tickets/261108-chronochrom
+ ie-profusion-album-launch-petit-campus-nov-8\nArtists: CHRONOCHROMIE | PRO
+ FUSION ALBUM LAUNCH
+LOCATION:Petit Campus\, 57-B Rue Prince-Arthur Est
+END:VEVENT
+BEGIN:VEVENT
 SUMMARY:🎵 | ANGINE DE POITRINE
 DTSTART:20261115T010000Z
 DTEND:20261115T040000Z
