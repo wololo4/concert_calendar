@@ -112,8 +112,11 @@ def main():
   unique = {str(ev.get("UID")): ev for ev in all_events}
   city_events = {}
   for ev in unique.values():
-    if (city := extract_city_from_event(ev)) is not None:
-      city_events.setdefault(city, []).append(ev)
+    city = extract_city_from_event(ev)
+    if city is None:
+      print(f"⚠️ No city for: {ev.get('SUMMARY')} @ {ev.get('LOCATION')}")
+      continue
+    city_events.setdefault(city, []).append(ev)
 
   for city, events in city_events.items():
     events.sort(key=get_event_start)
