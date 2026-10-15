@@ -1,68 +1,43 @@
+from datetime import datetime, timedelta
 from icalendar import Calendar
 from utils.ics import ICSEventBuilder
-from datetime import datetime, timedelta
 
-def add_duration(dt, hours=3):
-    return dt +timedelta(hours=hours)
-
-def event_has_artist(event, artists):
-    attractions = event.get("_embedded", {}).get("attractions", [])
-    for a in attractions:
-        name = a.get("name", "").lower()
-        for artist in artists:
-            if artist.lower().strip() == name:
-                return True
-    title = event.get("name", "").lower()
-    for artist in artists:
-        if title == artist.lower():
-            return True
-    return False
-
-def extract_artists(ev):
-    attractions = ev.get("_embedded", {}).get("attractions", [])
-    names = []
-    for a in attractions:
-        name = a.get("name", "").strip()
-        if name and name not in names:
-            names.append(name)
-    return names
 
 def parse_ticketmaster_json(raw_json, artists):
-    cal = Calendar()
-    events = raw_json.get("_embedded", {}).get("events", [])
-    for ev in events:
-        title = ev.get("name", "")
-        if not event_has_artist(ev, artists):
-            continue
+  cal = Calendar()
+  artists_lower = {a.lower().strip() for a in artists}
 
-        start_raw = ev.get("dates", {}).get("start", {}).get("dateTime")
-        if not start_raw:
-            continue
+  for ev in raw_json.get("_embedded", {}).get("events", []):
+    attractions = ev.get("_embedded", {}).get("attractions", [])
+    names = [a.get("name", "").strip() for a in attractions if a.get("name")]
 
-        start_dt = datetime.fromisoformat(start_raw.replace("Z", "+00:00"))
-        end_dt = add_duration(start_dt, hours=3)
+    matched = any(a.lower() in artists_lower for a in names) or ev.get(
+        "name", ""
+    ).lower() in artists_lower
+    if not matched:
+      continue
 
-        venue_data = ev.get("_embedded", {}).get("venues", [{}])[0]
-        venue = venue_data.get("name", "")
-        address = venue_data.get("address", {}).get("line1", "")
+    start_raw = ev.get("dates", {}).get("start", {}).get("dateTime")
+    if not start_raw:
+      continue
 
-        url = ev.get("url", "")
-        event_id = ev.get("id", "")
+    start_dt = datetime.fromisoformat(start_raw.replace("Z", "+00:00"))
+    venue = ev.get("_embedded", {}).get("venues", [{}])[0]
+    loc = f"{venue.get('name', '')}, {venue.get('address', {}).get('line1', '')}"
 
-        artist_names = extract_artists(ev)
-        description_text = f"Tickets: {url}"
-        if artist_names:
-            description_text += "\nArtists: " + ", ".join(artist_names)
-        
-        event = (
-            ICSEventBuilder()
-            .uid(f"tm-{event_id}")
-            .start(start_dt)
-            .end(end_dt)
-            .summary(f"🎵 | {title}")
-            .location(f"{venue}, {address}")
-            .description(description_text)
-            .build()
-        )
-        cal.add_component(event)
-    return cal
+    desc = f"Tickets: {ev.get('url', '')}"
+    if names:
+      desc += "\nArtists: " + ", ".join(names)
+
+    vevent = (
+        ICSEventBuilder()
+        .uid(f"tm-{ev.get('id', '')}")
+        .start(start_dt)
+        .end(start_dt + timedelta(hours=3))
+        .summary(f"🎵 | {ev.get('name', '')}")
+        .location(loc)
+        .description(desc)
+        .build()
+    )
+    cal.add_component(vevent)
+  return cal
