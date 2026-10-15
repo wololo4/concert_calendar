@@ -1,4 +1,5 @@
 from parser.progstorm import determine_festival_year
+from urllib.parse import urljoin
 import yaml
 
 FEED_HANDLERS = {}
@@ -66,18 +67,20 @@ def handle_imperialbell(feeds, src, artists):
   else:
     print("Missing url for Imperial Bell")
 
-
 @register_feed("lepointdevente")
 def handle_lpvd(feeds, src, artists):
-  for slug in src.get("venues", []):
+  base = src["base_url"]
+  pages = [urljoin(base, slug) for slug in src.get("venues", [])]
+  pages += [urljoin(base, f"../tickets/{slug}") for slug in src.get("tickets", [])]
+
+  for url in pages:
     feeds.append((
         "lepointdevente",
-        slug,
-        src["base_url"] + slug,
+        url.rstrip("/").split("/")[-1],
+        url,
         {"artists": artists},
         "lepointdevente",
     ))
-
 
 @register_feed("progstorm")
 def handle_progstorm(feeds, src, artists):
