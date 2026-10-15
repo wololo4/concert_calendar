@@ -52,6 +52,16 @@ MONTHS = {
     },
 }
 
+KNOWN_ADDRESSES = {
+    "petit campus": "57-B Rue Prince-Arthur Est",
+    "café campus": "57 Rue Prince-Arthur Est",
+    "cafe campus": "57 Rue Prince-Arthur Est",
+}
+
+def venue_from_card(text):
+  name = text.split(",")[0].strip()
+  addr = KNOWN_ADDRESSES.get(name.lower())
+  return f"{name}, {addr}" if addr else name
 
 def parse_date_any(date_str):
   date_str = re.sub(r"(\d+)(st|nd|rd|th)", r"\1", date_str.strip())
@@ -105,7 +115,7 @@ def parse_lpdv_html(html, artists):
         "title": title,
         "date_str": date_el.get_text(strip=True),
         "url": urljoin("https://lepointdevente.com", link["href"]),
-        "venue": card_venue or page_venue or "Unknown Venue",
+        "venue": page_venue or (venue_from_card(card_venue) if card_venue else "Unknown Venue"),
     })
   return events
 
