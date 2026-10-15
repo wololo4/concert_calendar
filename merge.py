@@ -32,8 +32,14 @@ def extract_city_from_event(ev):
   loc = ev.get("LOCATION")
   if not loc:
     return None
-  venue = loc.split(",")[0].strip()
-  venue = VENUE_ALIASE.get(venue, venue)
+
+  venue_raw = loc.split(",")[0].strip()
+  venue = venue_raw
+  for canonical, aliases in VENUE_ALIASE.items():
+    if venue_raw == canonical or venue_raw in aliases:
+      venue = canonical
+      break
+
   return VENUE_CITY.get(venue)
 
 
