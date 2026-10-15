@@ -1,76 +1,58 @@
+from datetime import datetime, timedelta
+from ica_helper import ICSEventBuilder  # or utils.ics
+from icalendar import Calendar
 import json
 import re
-from datetime import datetime, timedelta
-from zoneinfo import ZoneInfo
-from icalendar import Calendar
 from utils.ics import ICSEventBuilder
+from zoneinfo import ZoneInfo
 
 MONTREAL_TZ = ZoneInfo("America/Toronto")
 UTC_TZ = ZoneInfo("UTC")
 
-def extract_nextjs_events(html):
-    match = re.search(
-        r'<script[^>]*id="__NEXT_DATA__"[^>]*>(.*?)</script>',
-        html,
-        re.DOTALL
-    )
 
-    if not match:
-        print("⚠️ Could not find __NEXT_DATA__ JSON")
-        return []
+def parse_eventbrite_html(html, artists):
+  match = re.search(
+      r'<script[^>]*id="__NEXT_DATA__"[^>]*>(.*?)</script>', html, re.DOTALL
+  )
+  if not match:
+    return []
 
-    data = json.loads(match.group(1))
+  try:
+    events = json.loads(match.group(1))["props"]["pageProps"]["upcomingEvents"]
+  except Exception:
+    return []
 
-    try:
-        return data["props"]["pageProps"]["upcomingEvents"]
-    except Exception as e:
-        print("⚠️ organizer.events missing:", e)
-        return []
+  artists_lower = {a.lower().strip() for a in artists}
+  filtered = []
 
-def extract_artists(name):
-    if not name:
-        return []
-    return [p.strip() for p in name.split(",") if p.strip()]
+  for ev in events:
+    title = ev.get("name", "").lower()
+    parts = {p.strip() for p in re.split(r"[,+]", title) if p.strip()}
+    if parts & artists_lower:
+      filtered.append(ev)
 
-def build_event(ev):
-    artists = extract_artists(ev["name"])
-    description = (
-        f"Tickets: {ev['url']}\n"
-        f"Artists: {', '.join(artists)}"
-    )
+  return filtered
+
+
+def build_eventbrite_calendar(events):
+  cal = Calendar()
+  for ev in events:
+    artists = [p.strip() for p in ev["name"].split(",") if p.strip()]
     start_dt = datetime.fromisoformat(
         f"{ev['start_date']}T{ev['start_time']}"
     ).replace(tzinfo=MONTREAL_TZ)
     utc_start = start_dt.astimezone(UTC_TZ)
-    utc_end = utc_start + timedelta(hours=3)
+    loc = ev["primary_venue"]
 
-    location = ev["primary_venue"]
-
-    return (
+    vevent = (
         ICSEventBuilder()
         .uid(f"eventbrite{ev['id']}")
         .start(utc_start)
-        .end(utc_end)
+        .end(utc_start + timedelta(hours=3))
         .summary(f"🎵 | {ev['name']}")
-        .location(f"{location['name']}, {location['address']['address_1']}")
-        .description(description)
+        .location(f"{loc['name']}, {loc['address']['address_1']}")
+        .description(f"Tickets: {ev['url']}\nArtists: {', '.join(artists)}")
         .build()
     )
-
-def parse_eventbrite_html(html, artists):
-    events = extract_nextjs_events(html)
-    filtered = []
-    artists_lower = [a.lower() for a in artists]
-
-    for ev in events:
-        title = ev.get("name", "").lower()
-        parts = [p.strip() for p in re.split(f"[,+]", title) if p.strip()]
-        if any(part in artists_lower for part in parts):
-            filtered.append(ev)
-    return filtered
-
-def build_eventbrite_calendar(events):
-    cal = Calendar()
-    for ev in events:
-        cal.add_component(build_event(ev))
-    return cal
+    cal.add_component(vevent)
+  return cal
