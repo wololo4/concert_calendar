@@ -1,153 +1,130 @@
-import requests
+from concurrent.futures import ThreadPoolExecutor, as_completed
 import re
-from icalendar import Calendar
 from feeds import load_feeds
+from icalendar import Calendar
+import requests
 
 from dict.dict_venue import VENUE_ALIASE, VENUE_CITY
+from parser.imperialbell import build_event_imperialbell, parse_imperialbell_html
+from parser.eventbrite import build_eventbrite_calendar, parse_eventbrite_html
+from parser.lepointdevente import build_event_lpdv, parse_lpdv_html
+from parser.progstorm import build_progstorm_calendar, parse_progstorm_html
 from parser.ticketmaster import parse_ticketmaster_json
-from parser.progstorm import parse_progstorm_html, build_progstorm_calendar
-from parser.eventbrite import parse_eventbrite_html, build_eventbrite_calendar
-from parser.lepointdevente import parse_lpdv_html, build_event_lpdv
-from parser.imperialbell import parse_imperialbell_html, build_event_imperialbell
+
 
 def extract_city_from_event(ev):
-    loc = ev.get("LOCATION")
-    if not loc:
-        print("⚠️ Event has no LOCATION field")
-        return None
-    
-    venue_raw = loc.split(",")[0].strip()
-    venue = venue_raw
-    for canonical, aliases in VENUE_ALIASE.items():
-        if venue_raw in aliases:
-            venue = canonical
-            break
+  loc = ev.get("LOCATION")
+  if not loc:
+    print("⚠️ Event has no LOCATION field")
+    return None
 
-    if venue not in VENUE_CITY:
-        print(f"⚠️ Unknown venue: {venue_raw}")
-        return None
-    return VENUE_CITY[venue]
+  venue_raw = loc.split(",")[0].strip()
+  venue = venue_raw
+  for canonical, aliases in VENUE_ALIASE.items():
+    if venue_raw in aliases:
+      venue = canonical
+      break
+
+  if venue not in VENUE_CITY:
+    print(f"⚠️ Unknown venue: {venue_raw}")
+    return None
+  return VENUE_CITY[venue]
+
+
+def fetch_and_parse_feed(feed):
+  parser_name, label, url, params, parser_key = feed
+  headers = {"User-Agent": "Mozilla/5.0"}
+  vevents = []
+
+  try:
+    if parser_key == "ticketmaster":
+      raw = requests.get(url, params=params, headers=headers).json()
+      artist_part, city_part = label.rsplit("(", 1)
+      artist = artist_part.strip()
+      city = city_part.strip(") ").strip()
+      artists = [artist.lower()]
+      cal = parse_ticketmaster_json(raw, artists)
+      vevents = list(cal.walk("VEVENT"))
+      if vevents:
+        print(f"Found Ticketmaster events for: {artist} in {city}")
+
+    else:
+      raw = requests.get(url, headers=headers).text
+
+      if parser_key == "eventbrite":
+        artists = [a.lower() for a in params["artists"]]
+        events = parse_eventbrite_html(raw, artists)
+        for ev in events:
+          parts = [p.strip() for p in re.split(r"[,+]", ev["name"].lower())]
+          for p in parts:
+            if p in artists:
+              pass  # matched tracking if needed
+        cal = build_eventbrite_calendar(events)
+        vevents = list(cal.walk("VEVENT"))
+
+      elif parser_key == "imperialbell":
+        artists = [a.lower() for a in params["artists"]]
+        events = parse_imperialbell_html(raw, artists)
+        cal = build_event_imperialbell(events)
+        vevents = list(cal.walk("VEVENT"))
+
+      elif parser_key == "lepointdevente":
+        artists = [a.lower() for a in params["artists"]]
+        events = parse_lpdv_html(raw, artists)
+        cal = build_event_lpdv(events)
+        vevents = list(cal.walk("VEVENT"))
+
+      elif parser_key == "progstorm":
+        times_cfg = params["times"]
+        events = parse_progstorm_html(raw, times_cfg)
+        if events:
+          print("Found Progstorm events")
+        cal = build_progstorm_calendar(events)
+        vevents = list(cal.walk("VEVENT"))
+
+  except Exception as e:
+    print(f"⚠️ Error fetching/parsing {parser_name} ({label}): {e}")
+
+  return vevents
+
 
 def main():
-    feeds = load_feeds()
-    all_events = []
-    city_events = {}
+  feeds = load_feeds()
+  all_events = []
+  city_events = {}
 
-    eventbrite_matched = set()
-    lpdv_matched = set()
-    progstorm_matched = False
+  # Fetch all feeds concurrently in parallel
+  print(f"Fetching {len(feeds)} feeds concurrently...")
+  with ThreadPoolExecutor(max_workers=10) as executor:
+    futures = {
+        executor.submit(fetch_and_parse_feed, feed): feed for feed in feeds
+    }
+    for future in as_completed(futures):
+      vevents = future.result()
+      if vevents:
+        all_events.extend(vevents)
 
-    for parser_name, label, url, params, parser_key in feeds:
-        if parser_key == "ticketmaster":
-            raw = requests.get(url, params=params, headers={"User-Agent": "Mozilla/5.0"}).json()
-        else:
-            raw = requests.get(url, headers={"User-Agent": "Mozilla/5.0"}).text
+  # Deduplicate events by UID
+  unique = {str(ev.get("UID")): ev for ev in all_events}
 
-        if parser_key == "eventbrite":
-            artists = [a.lower() for a in params["artists"]]
-            events = parse_eventbrite_html(raw, artists)
-            for ev in events:
-                parts = [p.strip() for p in re.split(r"[,+]", ev["name"].lower())]
-                for p in parts:
-                    if p in artists:
-                        eventbrite_matched.add(p.capitalize())
-            cal = build_eventbrite_calendar(events)
-            vevents = list(cal.walk("VEVENT"))
-            all_events.extend(vevents)
-            for ev_raw, ev_ical in zip(events, vevents):
-                city = extract_city_from_event(ev_ical)
-                if city is None:
-                    continue
-                raw_title = ev_raw["name"].lower()
-                for a in artists:
-                    if a in raw_title:
-                        print(f"Found Eventbrite events for: {a.capitalize()} in {city}")
-                city_events.setdefault(city, []).append(ev_ical)
-        if parser_key == "imperialbell":
-            artists = [a.lower() for a in params["artists"]]
-            events = parse_imperialbell_html(raw, artists)
-            cal = build_event_imperialbell(events)
-            vevents = list(cal.walk("VEVENT"))
-            all_events.extend(vevents)
-            for ev_raw, ev_ical in zip(events, vevents):
-                city = extract_city_from_event(ev_ical)
-                if city is None:
-                    continue
-                raw_title = ev_raw["title"].lower()
-                for a in artists:
-                    if a in raw_title:
-                        print(f"Found ImperialBell events for: {a.capitalize()} in {city}")
-                city_events.setdefault(city, []).append(ev_ical)
-        if parser_key == "lepointdevente":
-            artists = [a.lower() for a in params["artists"]]
-            events = parse_lpdv_html(raw, artists)
-            for ev in events:
-                parts = [p.strip() for p in re.split(r"[,+]", ev["title"].lower())]
-                for p in parts:
-                    if p.lower() in artists:
-                        lpdv_matched.add(p.capitalize())
-            cal = build_event_lpdv(events)
-            vevents = list(cal.walk("VEVENT"))
-            all_events.extend(vevents)
-            for ev in vevents:
-                city = extract_city_from_event(ev)
-                if city is None:
-                    continue
-                title = ev.get("SUMMARY", "").lower()
-                matched_artist = None
-                for a in artists:
-                    if a in title:
-                        print(f"Found LPDV events for: {a.capitalize()} in {city}")
-                city_events.setdefault(city, []).append(ev)
-        if parser_key == "progstorm":
-            times_cfg = params["times"]
-            events = parse_progstorm_html(raw, times_cfg)
-            if events and not progstorm_matched:
-                print("Found Progstorm events")
-                progstorm_matched = True
-            cal = build_progstorm_calendar(events)
-            vevents = list(cal.walk("VEVENT"))
-            all_events.extend(vevents)
-            for ev in vevents:
-                city = extract_city_from_event(ev)
-                if city is None:
-                    continue
-                city_events.setdefault(city, []).append(ev)
-        if parser_key == "ticketmaster":
-            artist_part, city_part = label.rsplit("(",1)
-            artist = artist_part.strip()
-            city = city_part.strip(") ").strip()
+  # Sort events into respective city calendars
+  for ev in unique.values():
+    city = extract_city_from_event(ev)
+    if city is not None:
+      city_events.setdefault(city, []).append(ev)
 
-            artists = [artist.lower()]
-            cal = parse_ticketmaster_json(raw, artists)
-            vevents = list(cal.walk("VEVENT"))
-            if vevents:
-                print(f"Found Ticketmaster events for: {artist} in {city}")
-            all_events.extend(vevents)
-            for ev in vevents:
-                event_city = extract_city_from_event(ev)
-                if event_city is None:
-                    continue
-                city_events.setdefault(event_city, []).append(ev)
+  # Write out `.ics` files per city
+  for city, events in city_events.items():
+    cal = Calendar()
+    for ev in events:
+      cal.add_component(ev)
 
-    unique = {str(ev.get("UID")): ev for ev in all_events}
+    filename = f"calendars/{city.lower()}.ics"
+    with open(filename, "wb") as f:
+      f.write(cal.to_ical())
 
-    for city, events in city_events.items():
-        city_unique = {}
-        for ev in events:
-            uid = str(ev.get("UID"))
-            if uid in unique:
-                city_unique[uid] = unique[uid]
+    print(f"{city}.ics file created with {len(events)} events.")
 
-        cal = Calendar()
-        for ev in city_unique.values():
-            cal.add_component(ev)
-
-        filename = f"calendars/{city.lower()}.ics"
-        with open(filename, "wb") as f:
-            f.write(cal.to_ical())
-
-        print(f"{city}.ics file created with {len(city_unique)} events.")
 
 if __name__ == "__main__":
-    main()
+  main()
