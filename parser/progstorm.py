@@ -12,7 +12,6 @@ def determine_festival_year():
   today = datetime.now(MONTREAL_TZ)
   return today.year + 1 if today.month >= 10 else today.year
 
-
 def parse_progstorm_html(html, times_cfg):
   soup = BeautifulSoup(html, "html.parser")
   container = soup.select_one(".sqs-html-content")
@@ -27,8 +26,10 @@ def parse_progstorm_html(html, times_cfg):
   except Exception:
     return []
 
+  # bands live in separate blocks, so search the whole page
+  h4s = soup.select(".sqs-html-content h4") or soup.select("h4")
   bands = [
-      h4.get_text(" ", strip=True) for h4 in container.select("h4") if h4.get_text()
+      h4.get_text(" ", strip=True) for h4 in h4s if h4.get_text(strip=True)
   ] or ["TO BE ANNOUNCED"]
   times = times_cfg.get(day_name, [])
   if len(times) < len(bands):
@@ -56,7 +57,6 @@ def parse_progstorm_html(html, times_cfg):
         "index": i,
     })
   return events
-
 
 def build_progstorm_calendar(events):
   cal = Calendar()
