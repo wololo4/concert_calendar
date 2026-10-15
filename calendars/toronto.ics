@@ -48,15 +48,6 @@ DESCRIPTION:Tickets: https://www.ticketmaster.ca/the-musical-box-and-then-
 LOCATION:The Danforth Music Hall\, 147 Danforth Ave.
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:🎵 | The Pineapple Thief
-DTSTART:20261126T000000Z
-DTEND:20261126T030000Z
-UID:tm-1A8Zk36GkeYFqsv
-DESCRIPTION:Tickets: https://www.ticketmaster.ca/the-pineapple-thief-toron
- to-ontario-11-25-2026/event/10006487B021DC41\nArtists: The Pineapple Thief
-LOCATION:The Danforth Music Hall\, 147 Danforth Ave.
-END:VEVENT
-BEGIN:VEVENT
 SUMMARY:🎵 | Plini - An Unnameable Desire North American Tour
 DTSTART:20261022T220000Z
 DTEND:20261023T010000Z
@@ -64,6 +55,15 @@ UID:tm-177Zv0G65rcNeqk
 DESCRIPTION:Tickets: https://www.ticketmaster.ca/plini-an-unnameable-desir
  e-north-american-toronto-ontario-10-22-2026/event/100064B7AD8C2746\nArtist
  s: Plini\, Night Verses\, Portraits
+LOCATION:The Danforth Music Hall\, 147 Danforth Ave.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:🎵 | The Pineapple Thief
+DTSTART:20261126T000000Z
+DTEND:20261126T030000Z
+UID:tm-1A8Zk36GkeYFqsv
+DESCRIPTION:Tickets: https://www.ticketmaster.ca/the-pineapple-thief-toron
+ to-ontario-11-25-2026/event/10006487B021DC41\nArtists: The Pineapple Thief
 LOCATION:The Danforth Music Hall\, 147 Danforth Ave.
 END:VEVENT
 BEGIN:VEVENT

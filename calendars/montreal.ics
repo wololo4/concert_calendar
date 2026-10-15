@@ -79,16 +79,6 @@ DESCRIPTION:Tickets: https://www.ticketmaster.ca/the-pineapple-thief-montr
 LOCATION:Théâtre Beanfield\, 2490 Rue Notre-Dame Ouest 
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:🎵 | Plini - An Unnameable Desire North American Tour
-DTSTART:20261021T230000Z
-DTEND:20261022T020000Z
-UID:tm-17G8v0G65SicWpC
-DESCRIPTION:Tickets: https://www.ticketmaster.ca/plini-an-unnameable-desir
- e-north-american-montreal-quebec-10-21-2026/event/310064BCECB7D58E\nArtist
- s: Plini\, Night Verses\, Portraits
-LOCATION:Théâtre Beanfield\, 2490 Rue Notre-Dame Ouest 
-END:VEVENT
-BEGIN:VEVENT
 SUMMARY:🎵 |  Polyphia: BE NOT AFRAID World Tour
 DTSTART:20270303T233000Z
 DTEND:20270304T023000Z
@@ -97,6 +87,16 @@ DESCRIPTION:Tickets: https://www.ticketmaster.ca/polyphia-be-not-afraid-wo
  rld-tour-montreal-quebec-03-03-2027/event/310064CAB7E169D4\nArtists: Polyp
  hia\, Intervals\, Ladrones\, RJ Pasin
 LOCATION:L'Olympia\, 1004 Sainte-Catherine Street East
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:🎵 | Plini - An Unnameable Desire North American Tour
+DTSTART:20261021T230000Z
+DTEND:20261022T020000Z
+UID:tm-17G8v0G65SicWpC
+DESCRIPTION:Tickets: https://www.ticketmaster.ca/plini-an-unnameable-desir
+ e-north-american-montreal-quebec-10-21-2026/event/310064BCECB7D58E\nArtist
+ s: Plini\, Night Verses\, Portraits
+LOCATION:Théâtre Beanfield\, 2490 Rue Notre-Dame Ouest 
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:🎵 | PROTEST THE HERO
