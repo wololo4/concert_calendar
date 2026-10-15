@@ -1,5 +1,15 @@
 BEGIN:VCALENDAR
 BEGIN:VEVENT
+SUMMARY:🎵 | Amorphis & Insomnium
+DTSTART:20261119T003000Z
+DTEND:20261119T033000Z
+UID:tm-1kG8vPkaGA1pSJC
+DESCRIPTION:Tickets: https://www.ticketmaster.ca/amorphis-insomnium-montre
+ al-quebec-11-18-2026/event/310065189A5B398E\nArtists: Insomnium\, Amorphis
+ \, Hinayana
+LOCATION:Théâtre Beanfield\, 2490 Rue Notre-Dame Ouest 
+END:VEVENT
+BEGIN:VEVENT
 SUMMARY:🎵 | ELDER
 DTSTART:20270101T010000Z
 DTEND:20270101T040000Z
@@ -70,6 +80,25 @@ DESCRIPTION:Tickets: https://www.ticketmaster.ca/plini-an-unnameable-desir
 LOCATION:Théâtre Beanfield\, 2490 Rue Notre-Dame Ouest 
 END:VEVENT
 BEGIN:VEVENT
+SUMMARY:🎵 | The Pineapple Thief
+DTSTART:20261125T010000Z
+DTEND:20261125T040000Z
+UID:tm-1AsZk36GkeNxfB_
+DESCRIPTION:Tickets: https://www.ticketmaster.ca/the-pineapple-thief-montr
+ eal-quebec-11-24-2026/event/31006487A3894E99\nArtists: The Pineapple Thief
+LOCATION:Théâtre Beanfield\, 2490 Rue Notre-Dame Ouest 
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:🎵 |  Polyphia: BE NOT AFRAID World Tour
+DTSTART:20270303T233000Z
+DTEND:20270304T023000Z
+UID:tm-17G8v0G6GnMzpEf
+DESCRIPTION:Tickets: https://www.ticketmaster.ca/polyphia-be-not-afraid-wo
+ rld-tour-montreal-quebec-03-03-2027/event/310064CAB7E169D4\nArtists: Polyp
+ hia\, Intervals\, Ladrones\, RJ Pasin
+LOCATION:L'Olympia\, 1004 Sainte-Catherine Street East
+END:VEVENT
+BEGIN:VEVENT
 SUMMARY:🎵 | PROTEST THE HERO
 DTSTART:20261119T003000Z
 DTEND:20261119T033000Z
@@ -89,16 +118,6 @@ DESCRIPTION:Tickets: https://www.ticketmaster.ca/northlane-the-anemoia-tou
 LOCATION:Théâtre Beanfield\, 2490 Rue Notre-Dame Ouest 
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:🎵 |  Polyphia: BE NOT AFRAID World Tour
-DTSTART:20270303T233000Z
-DTEND:20270304T023000Z
-UID:tm-17G8v0G6GnMzpEf
-DESCRIPTION:Tickets: https://www.ticketmaster.ca/polyphia-be-not-afraid-wo
- rld-tour-montreal-quebec-03-03-2027/event/310064CAB7E169D4\nArtists: Polyp
- hia\, Intervals\, Ladrones\, RJ Pasin
-LOCATION:L'Olympia\, 1004 Sainte-Catherine Street East
-END:VEVENT
-BEGIN:VEVENT
 SUMMARY:🎵 | TesseracT
 DTSTART:20270110T010000Z
 DTEND:20270110T040000Z
@@ -108,15 +127,6 @@ DESCRIPTION:Tickets: https://www.ticketmaster.ca/tesseract-montreal-quebec
 LOCATION:Théâtre Beanfield\, 2490 Rue Notre-Dame Ouest 
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:🎵 | Ok Goodnight\, The Anchoret\, Eve\, Système Féodal
-DTSTART:20261129T000000Z
-DTEND:20261129T030000Z
-UID:lpdvmns261128001
-DESCRIPTION:Tickets: https://lepointdevente.com/tickets/mns261128001\nArti
- sts: Ok Goodnight\, The Anchoret\, Eve\, Système Féodal
-LOCATION:Le Ministère\, 4521\, boul. Saint-Laurent
-END:VEVENT
-BEGIN:VEVENT
 SUMMARY:🎵 | ANGINE DE POITRINE
 DTSTART:20261115T010000Z
 DTEND:20261115T040000Z
@@ -124,6 +134,15 @@ UID:lpdvclb261114001
 DESCRIPTION:Tickets: https://lepointdevente.com/tickets/clb261114001\nArti
  sts: ANGINE DE POITRINE
 LOCATION:Club Soda\, 1225 St-Laurent
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:🎵 | Ok Goodnight\, The Anchoret\, Eve\, Système Féodal
+DTSTART:20261129T000000Z
+DTEND:20261129T030000Z
+UID:lpdvmns261128001
+DESCRIPTION:Tickets: https://lepointdevente.com/tickets/mns261128001\nArti
+ sts: Ok Goodnight\, The Anchoret\, Eve\, Système Féodal
+LOCATION:Le Ministère\, 4521\, boul. Saint-Laurent
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:🎵 | FRACTURUS\, OMNIVIDE\, BORNBROKEN & HATALOM 

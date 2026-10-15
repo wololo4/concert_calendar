@@ -28,6 +28,26 @@ DESCRIPTION:Tickets: https://www.ticketmaster.ca/periphery-a-pale-white-do
 LOCATION:History Toronto\, 1663 Queen St. East
 END:VEVENT
 BEGIN:VEVENT
+SUMMARY:🎵 | The Musical Box: "...and then there was...PHIL"
+DTSTART:20270130T000000Z
+DTEND:20270130T030000Z
+UID:tm-1AvZZ_eGkDShsra
+DESCRIPTION:Tickets: https://www.ticketmaster.ca/the-musical-box-and-then-
+ there-toronto-ontario-01-29-2027/event/1000642EF36F1789\nArtists: The Musi
+ cal Box
+LOCATION:The Danforth Music Hall\, 147 Danforth Ave.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:🎵 | The Musical Box: "...and then there was...PHIL"
+DTSTART:20270131T000000Z
+DTEND:20270131T030000Z
+UID:tm-1AvZZ_eGkDSjsLJ
+DESCRIPTION:Tickets: https://www.ticketmaster.ca/the-musical-box-and-then-
+ there-toronto-ontario-01-30-2027/event/1000642EF37317E6\nArtists: The Musi
+ cal Box
+LOCATION:The Danforth Music Hall\, 147 Danforth Ave.
+END:VEVENT
+BEGIN:VEVENT
 SUMMARY:🎵 | The Pineapple Thief
 DTSTART:20261126T000000Z
 DTEND:20261126T030000Z
@@ -86,15 +106,6 @@ DESCRIPTION:Tickets: https://www.ticketweb.ca/event/tesseract-entheos-sunb
 LOCATION:The Concert Hall\, The Masonic Temple
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:🎵 | FRACTURUS\, OMNIVIDE\, SELIAS\, THE OUTER GODS 
-DTSTART:20261029T230000Z
-DTEND:20261030T020000Z
-UID:lpdv7r1261029001
-DESCRIPTION:Tickets: https://lepointdevente.com/tickets/7r1261029001\nArti
- sts: FRACTURUS\, OMNIVIDE\, SELIAS\, THE OUTER GODS 
-LOCATION:Sneaky Dee's\, 431 College St
-END:VEVENT
-BEGIN:VEVENT
 SUMMARY:🎵 | OK GOODNIGHT\, THE ANCHORET\, EVE\, MONOMYTH 
 DTSTART:20261126T000000Z
 DTEND:20261126T030000Z
@@ -102,5 +113,14 @@ UID:lpdv7r1261125001
 DESCRIPTION:Tickets: https://lepointdevente.com/tickets/7r1261125001\nArti
  sts: OK GOODNIGHT\, THE ANCHORET\, EVE\, MONOMYTH 
 LOCATION:Hard Luck Bar\, 772A Dundas St W
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:🎵 | FRACTURUS\, OMNIVIDE\, SELIAS\, THE OUTER GODS 
+DTSTART:20261029T230000Z
+DTEND:20261030T020000Z
+UID:lpdv7r1261029001
+DESCRIPTION:Tickets: https://lepointdevente.com/tickets/7r1261029001\nArti
+ sts: FRACTURUS\, OMNIVIDE\, SELIAS\, THE OUTER GODS 
+LOCATION:Sneaky Dee's\, 431 College St
 END:VEVENT
 END:VCALENDAR
