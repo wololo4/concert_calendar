@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 from datetime import datetime, timedelta
 from icalendar import Calendar
 from utils.ics import ICSEventBuilder
+from urllib.parse import urljoin
 import re
 from zoneinfo import ZoneInfo
 
@@ -76,9 +77,10 @@ def parse_date_any(date_str):
 def parse_lpdv_html(html, artists):
   soup = BeautifulSoup(html, "html.parser")
   h1s = soup.find_all("h1")
-  venue_name = h1s[1].get_text(strip=True) if len(h1s) > 1 else "Unknown Venue"
+  venue_name = h1s[1].get_text(strip=True) if len(h1s) > 1 else ""
   addr_block = soup.find("div", class_="profile-header-address")
   venue_address = addr_block.find("div").get_text(strip=True) if addr_block else ""
+  page_venue = ", ".join(p for p in (venue_name, venue_address) if p)
   artists_lower = [a.lower() for a in artists if len(a) > 3]
 
   events = []
@@ -91,13 +93,19 @@ def parse_lpdv_html(html, artists):
     ):
       continue
 
+     date_el = article.find("div", class_="feature-date")
+     if not date_el:
+        continue
+
+     card_venue = next(
+        (s for s in article.stripped_strings if ", QC" in s), None
+     )
+
     events.append({
         "title": title,
-        "date_str": article.find(
-            "div", class_="feature-date"
-        ).get_text(strip=True),
-        "url": "https://lepointdevente.com" + link["href"],
-        "venue": f"{venue_name}, {venue_address}",
+        "date_str": date_el.get_text(strip=True),
+        "url": urljoin("https://lepointdevente.com", link["href"]),
+        "venue": card_venue or page_venue or "Unknown Venue",
     })
   return events
 
