@@ -16,91 +16,63 @@ from parser.ticketmaster import parse_ticketmaster_json
 
 
 def get_robust_session():
-  session = requests.Session()
+  s = requests.Session()
   retries = Retry(
       total=3, backoff_factor=1, status_forcelist=[500, 502, 503, 504, 429]
   )
-  # Increase pool size to match the higher worker count
-  adapter = HTTPAdapter(pool_connections=10, pool_maxsize=10, max_retries=retries)
-  session.mount("https://", adapter)
-  session.mount("http://", adapter)
-  return session
+  adapter = HTTPAdapter(
+      pool_connections=10, pool_maxsize=10, max_retries=retries
+  )
+  s.mount("https://", adapter)
+  s.mount("http://", adapter)
+  return s
+
 
 def extract_city_from_event(ev):
   loc = ev.get("LOCATION")
   if not loc:
     return None
-
-  venue_raw = loc.split(",")[0].strip()
-  venue = venue_raw
-  for canonical, aliases in VENUE_ALIASE.items():
-    if venue_raw in aliases:
-      venue = canonical
-      break
-
-  if venue not in VENUE_CITY:
-    return None
-  return VENUE_CITY[venue]
+  venue = loc.split(",")[0].strip()
+  venue = VENUE_ALIASE.get(venue, venue)
+  return VENUE_CITY.get(venue)
 
 
 def fetch_and_parse_feed(feed, session):
   parser_name, label, url, params, parser_key = feed
   headers = {"User-Agent": "Mozilla/5.0"}
-  vevents = []
-
   try:
     if parser_key == "ticketmaster":
-      response = session.get(url, params=params, headers=headers, timeout=15)
-      response.raise_for_status()
-      raw = response.json()
-
-      artist_part, city_part = label.rsplit("(", 1)
-      artist = artist_part.strip()
-      city = city_part.strip(") ").strip()
+      raw = session.get(
+          url, params=params, headers=headers, timeout=15
+      ).json()
+      artist, city = label.rsplit("(", 1)
+      artist, city = artist.strip(), city.strip(") ").strip()
       cal = parse_ticketmaster_json(raw, [artist.lower()])
-      vevents = list(cal.walk("VEVENT"))
-      if vevents:
+      if cal.walk("VEVENT"):
         print(f"Found Ticketmaster events for: {artist} in {city}")
+      return list(cal.walk("VEVENT"))
 
+    raw = session.get(url, headers=headers, timeout=15).text
+    artists = [a.lower() for a in params.get("artists", [])]
+
+    if parser_key == "eventbrite":
+      cal = build_eventbrite_calendar(parse_eventbrite_html(raw, artists))
+    elif parser_key == "imperialbell":
+      cal = build_event_imperialbell(parse_imperialbell_html(raw, artists))
+    elif parser_key == "lepointdevente":
+      cal = build_event_lpdv(parse_lpdv_html(raw, artists))
+    elif parser_key == "progstorm":
+      cal = build_progstorm_calendar(
+          parse_progstorm_html(raw, params["times"])
+      )
+      print("Found Progstorm events")
     else:
-      response = session.get(url, headers=headers, timeout=15)
-      response.raise_for_status()
-      raw = response.text
+      return []
 
-      if parser_key == "eventbrite":
-        artists = [a.lower() for a in params["artists"]]
-        events = parse_eventbrite_html(raw, artists)
-        cal = build_eventbrite_calendar(events)
-        vevents = list(cal.walk("VEVENT"))
-
-      elif parser_key == "imperialbell":
-        artists = [a.lower() for a in params["artists"]]
-        events = parse_imperialbell_html(raw, artists)
-        cal = build_event_imperialbell(events)
-        vevents = list(cal.walk("VEVENT"))
-
-      elif parser_key == "lepointdevente":
-        artists = [a.lower() for a in params["artists"]]
-        events = parse_lpdv_html(raw, artists)
-        cal = build_event_lpdv(events)
-        vevents = list(cal.walk("VEVENT"))
-
-      elif parser_key == "progstorm":
-        times_cfg = params["times"]
-        events = parse_progstorm_html(raw, times_cfg)
-        cal = build_progstorm_calendar(events)
-        vevents = list(cal.walk("VEVENT"))
-        if vevents:
-          print("Found Progstorm events")
-
+    return list(cal.walk("VEVENT"))
   except Exception as e:
     print(f"⚠️ Error fetching/parsing {parser_name} ({label}): {e}")
-
-  return vevents
-
-
-def fetch_and_press_feed_wrapper(feed, session):
-  return fetch_and_parse_feed(feed, session)
+    return []
 
 
 def get_event_start(ev):
@@ -108,9 +80,9 @@ def get_event_start(ev):
     dt = ev.decoded("dtstart")
     if not isinstance(dt, datetime):
       dt = datetime(dt.year, dt.month, dt.day)
-    if dt.tzinfo is not None:
-      dt = dt.astimezone(timezone.utc).replace(tzinfo=None)
-    return dt
+    return (
+        dt.astimezone(timezone.utc).replace(tzinfo=None) if dt.tzinfo else dt
+    )
   except Exception:
     return datetime.max
 
@@ -118,38 +90,31 @@ def get_event_start(ev):
 def main():
   feeds = load_feeds()
   all_events = []
-  city_events = {}
   session = get_robust_session()
 
   print(f"Fetching {len(feeds)} feeds safely...")
   with ThreadPoolExecutor(max_workers=5) as executor:
     futures = {
-        executor.submit(fetch_and_press_feed_wrapper, feed, session): feed
+        executor.submit(fetch_and_parse_feed, feed, session): feed
         for feed in feeds
     }
-    for future in as_completed(futures):
-      vevents = future.result()
-      if vevents:
-        all_events.extend(vevents)
+    for f in as_completed(futures):
+      if res := f.result():
+        all_events.extend(res)
 
   unique = {str(ev.get("UID")): ev for ev in all_events}
-
+  city_events = {}
   for ev in unique.values():
-    city = extract_city_from_event(ev)
-    if city is not None:
+    if (city := extract_city_from_event(ev)) is not None:
       city_events.setdefault(city, []).append(ev)
 
   for city, events in city_events.items():
     events.sort(key=get_event_start)
-
     cal = Calendar()
     for ev in events:
       cal.add_component(ev)
-
-    filename = f"calendars/{city.lower()}.ics"
-    with open(filename, "wb") as f:
+    with open(f"calendars/{city.lower()}.ics", "wb") as f:
       f.write(cal.to_ical())
-
     print(f"{city}.ics file created with {len(events)} events.")
 
 
