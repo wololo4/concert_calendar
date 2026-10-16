@@ -76,6 +76,7 @@ def fetch_and_parse_feed(feed, session):
       )
       print("Found Progstorm events")
     else:
+      print(f"⚠️ No handler for parser_key '{parser_key}' ({label})")
       return []
 
     return list(cal.walk("VEVENT"))
