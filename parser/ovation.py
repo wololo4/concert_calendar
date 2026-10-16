@@ -111,7 +111,6 @@ def parse_ovation_html(html, artists):
           "uid": f"ovation{event_id}{year}{month:02d}{day:02d}",
       })
 
-  print(f"OVATION parser: {n_cards} cards, {n_dates} with a date, {len(events)} kept")
   return events
 
 
