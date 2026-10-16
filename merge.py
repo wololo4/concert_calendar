@@ -71,7 +71,6 @@ def fetch_and_parse_feed(feed, session):
       cal = build_event_lpdv(parse_lpdv_html(raw, artists))
     elif parser_key == "ovation":
       parsed = parse_ovation_html(raw, artists)
-      print("OVATION parsed events:", len(parsed))
       cal = build_event_ovation(parsed)
     elif parser_key == "progstorm":
       cal = build_progstorm_calendar(
