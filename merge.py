@@ -63,13 +63,6 @@ def fetch_and_parse_feed(feed, session):
     raw = resp.text
     artists = [a.lower() for a in params.get("artists", [])]
 
-    if parser_key == "ovation":
-      print("OVATION status:", resp.status_code, "final url:", resp.url)
-      print("OVATION length:", len(raw))
-      print("OVATION eventId count:", raw.count("eventId="))
-      print("OVATION has Musical Box:", "Musical Box" in raw)
-      print("OVATION first 500 chars:", raw[:500].replace("\n", " "))
-
     if parser_key == "eventbrite":
       cal = build_eventbrite_calendar(parse_eventbrite_html(raw, artists))
     elif parser_key == "imperialbell":
