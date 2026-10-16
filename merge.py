@@ -118,4 +118,28 @@ def main():
         executor.submit(fetch_and_parse_feed, feed, session): feed
         for feed in feeds
     }
-    for f in
+    for f in as_completed(futures):
+      if res := f.result():
+        all_events.extend(res)
+
+  unique = {str(ev.get("UID")): ev for ev in all_events}
+  city_events = {}
+  for ev in unique.values():
+    city = extract_city_from_event(ev)
+    if city is None:
+      print(f"⚠️ No city for: {ev.get('SUMMARY')} @ {ev.get('LOCATION')}")
+      continue
+    city_events.setdefault(city, []).append(ev)
+
+  for city, events in city_events.items():
+    events.sort(key=get_event_start)
+    cal = Calendar()
+    for ev in events:
+      cal.add_component(ev)
+    with open(f"calendars/{city.lower()}.ics", "wb") as f:
+      f.write(cal.to_ical())
+    print(f"{city}.ics file created with {len(events)} events.")
+
+
+if __name__ == "__main__":
+  main()
