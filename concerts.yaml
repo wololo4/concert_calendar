@@ -133,6 +133,9 @@ sources:
   - parser: imperialbell
     base_url: https://www.imperialbell.com/Programmation/Liste-des-spectacles
 
+  - parser: ovation
+    base_url: https://m.ovation.ca/00000V/en/Search/AllEvents?categoryId=undefined
+
   - parser: progstorm
     url: "https://www.progstorm.com"
     times:
