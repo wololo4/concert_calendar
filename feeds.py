@@ -86,6 +86,13 @@ def handle_lpvd(feeds, src, artists):
         "lepointdevente",
     ))
 
+@register_feed("ovation")
+def handle_ovation(feeds, src, artists):
+  if url := src.get("base_url"):
+    feeds.append(("ovation", "ovation", url, {"artists": artists}, "ovation"))
+  else:
+    print("Missing url for Ovation")
+
 @register_feed("progstorm")
 def handle_progstorm(feeds, src, artists):
   year = determine_festival_year()
