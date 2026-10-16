@@ -49,12 +49,9 @@ def fetch_and_parse_feed(feed, session):
   headers = {"User-Agent": "Mozilla/5.0"}
   try:
     if parser_key == "ticketmaster":
-    raw = session.get(url, headers=headers, timeout=15).text
-    if parser_key == "ovation":
-      print("OVATION length:", len(raw))
-      print("OVATION eventId count:", raw.count("eventId="))
-      print("OVATION has Musical Box:", "Musical Box" in raw)
-      print("OVATION first 500 chars:", raw[:500].replace("\n", " "))
+      raw = session.get(
+          url, params=params, headers=headers, timeout=15
+      ).json()
       artist, city = label.rsplit("(", 1)
       artist, city = artist.strip(), city.strip(") ").strip()
       cal = parse_ticketmaster_json(raw, [artist.lower()])
@@ -62,8 +59,16 @@ def fetch_and_parse_feed(feed, session):
         print(f"Found Ticketmaster events for: {artist} in {city}")
       return list(cal.walk("VEVENT"))
 
-    raw = session.get(url, headers=headers, timeout=15).text
+    resp = session.get(url, headers=headers, timeout=15)
+    raw = resp.text
     artists = [a.lower() for a in params.get("artists", [])]
+
+    if parser_key == "ovation":
+      print("OVATION status:", resp.status_code, "final url:", resp.url)
+      print("OVATION length:", len(raw))
+      print("OVATION eventId count:", raw.count("eventId="))
+      print("OVATION has Musical Box:", "Musical Box" in raw)
+      print("OVATION first 500 chars:", raw[:500].replace("\n", " "))
 
     if parser_key == "eventbrite":
       cal = build_eventbrite_calendar(parse_eventbrite_html(raw, artists))
@@ -72,7 +77,9 @@ def fetch_and_parse_feed(feed, session):
     elif parser_key == "lepointdevente":
       cal = build_event_lpdv(parse_lpdv_html(raw, artists))
     elif parser_key == "ovation":
-      cal = build_event_ovation(parse_ovation_html(raw, artists))
+      parsed = parse_ovation_html(raw, artists)
+      print("OVATION parsed events:", len(parsed))
+      cal = build_event_ovation(parsed)
     elif parser_key == "progstorm":
       cal = build_progstorm_calendar(
           parse_progstorm_html(raw, params["times"])
@@ -111,28 +118,4 @@ def main():
         executor.submit(fetch_and_parse_feed, feed, session): feed
         for feed in feeds
     }
-    for f in as_completed(futures):
-      if res := f.result():
-        all_events.extend(res)
-
-  unique = {str(ev.get("UID")): ev for ev in all_events}
-  city_events = {}
-  for ev in unique.values():
-    city = extract_city_from_event(ev)
-    if city is None:
-      print(f"⚠️ No city for: {ev.get('SUMMARY')} @ {ev.get('LOCATION')}")
-      continue
-    city_events.setdefault(city, []).append(ev)
-
-  for city, events in city_events.items():
-    events.sort(key=get_event_start)
-    cal = Calendar()
-    for ev in events:
-      cal.add_component(ev)
-    with open(f"calendars/{city.lower()}.ics", "wb") as f:
-      f.write(cal.to_ical())
-    print(f"{city}.ics file created with {len(events)} events.")
-
-
-if __name__ == "__main__":
-  main()
+    for f in
