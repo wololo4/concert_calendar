@@ -42,6 +42,7 @@ VENUE_CITY = {
     "The Bronson": "Ottawa",
     "Overflow Brewery": "Ottawa",
     "Rainbow Bistro": "Ottawa",
+    "Salle Odyssée": "Ottawa",
 
     "L'Anti Bar": "Quebec",
     "L'Impérial": "Quebec",
