@@ -101,10 +101,10 @@ artists:
   - Zopp
 
 sources:
-  - parser: ticketmaster
-    url: https://app.ticketmaster.com/discovery/v2/events.json
-    city: [Montreal, Ottawa, Quebec, Toronto]
-    country: CA
+#  - parser: ticketmaster
+#    url: https://app.ticketmaster.com/discovery/v2/events.json
+#    city: [Montreal, Ottawa, Quebec, Toronto]
+#    country: CA
 
   - parser: eventbrite
     base_url: https://www.eventbrite.com/o/
