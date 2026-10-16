@@ -49,9 +49,12 @@ def fetch_and_parse_feed(feed, session):
   headers = {"User-Agent": "Mozilla/5.0"}
   try:
     if parser_key == "ticketmaster":
-      raw = session.get(
-          url, params=params, headers=headers, timeout=15
-      ).json()
+    raw = session.get(url, headers=headers, timeout=15).text
+    if parser_key == "ovation":
+      print("OVATION length:", len(raw))
+      print("OVATION eventId count:", raw.count("eventId="))
+      print("OVATION has Musical Box:", "Musical Box" in raw)
+      print("OVATION first 500 chars:", raw[:500].replace("\n", " "))
       artist, city = label.rsplit("(", 1)
       artist, city = artist.strip(), city.strip(") ").strip()
       cal = parse_ticketmaster_json(raw, [artist.lower()])
