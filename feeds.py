@@ -40,7 +40,7 @@ def handle_ticketmaster(feeds, src, artists):
           f"{artist} ({city})",
           src["url"],
           {
-              "apikey": src.get("apikey"),
+              "apikey": os.environ["TICKETMASTER_API_KEY"],
               "keyword": artist,
               "city": city,
               "countryCode": src.get("country", ""),
