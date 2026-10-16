@@ -69,7 +69,7 @@ def fetch_and_parse_feed(feed, session):
     elif parser_key == "lepointdevente":
       cal = build_event_lpdv(parse_lpdv_html(raw, artists))
     elif parser_key == "ovation":
-      cal = build_event_ovation(parse_ovation_html(raw
+      cal = build_event_ovation(parse_ovation_html(raw, artists))
     elif parser_key == "progstorm":
       cal = build_progstorm_calendar(
           parse_progstorm_html(raw, params["times"])
