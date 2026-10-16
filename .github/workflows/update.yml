@@ -25,6 +25,8 @@ jobs:
 
       - name: Generate concert calendar
         run: xvfb-run -a python merge.py
+        env:
+          TICKETMASTER_API_KEY: ${{ secrets.TICKETMASTER_API_KEY }}
 
       - name: Save calendar
         run: |
