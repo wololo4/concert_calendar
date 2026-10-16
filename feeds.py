@@ -1,6 +1,10 @@
 from parser.progstorm import determine_festival_year
 from urllib.parse import urljoin
+import os
+from dotenv import load_dotenv
 import yaml
+
+load_dotenv()
 
 FEED_HANDLERS = {}
 
