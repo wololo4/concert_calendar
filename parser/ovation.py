@@ -93,11 +93,18 @@ def parse_ovation_html(html, artists):
       continue
     hour = int(hh) % 12 + (12 if ap.lower() == "p" else 0)
 
-    venue = "Gatineau"
+    venue = None
     for line in lines[date_idx + 1:]:
       if key := next((k for k in VENUES if k in line.lower()), None):
         venue = VENUES[key]
         break
+
+    if venue is None:
+      print(
+          f"⚠️ Ovation: unknown venue for '{title}' "
+          f"(card lines: {lines[date_idx + 1:]}). Add it to VENUES."
+      )
+      venue = "Gatineau"
 
     tickets = card.find("a", href=re.compile(r"/Event/Tickets/"))
     url = urljoin(BASE, (tickets or link)["href"])
