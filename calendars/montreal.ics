@@ -85,6 +85,15 @@ DESCRIPTION:Tickets: https://lepointdevente.com/tickets/mns261128001\nArti
 LOCATION:Le Ministère\, 4521\, boul. Saint-Laurent
 END:VEVENT
 BEGIN:VEVENT
+SUMMARY:🎵 | Pélikel & Karcius
+DTSTART:20261209T003000Z
+DTEND:20261209T033000Z
+UID:lpdv261208-petit-campus-8-dec-pelikel-karcius
+DESCRIPTION:Tickets: https://lepointdevente.com/tickets/261208-petit-campu
+ s-8-dec-pelikel-karcius\nArtists: Pélikel & Karcius
+LOCATION:Petit Campus\, 57-B Rue Prince-Arthur Est
+END:VEVENT
+BEGIN:VEVENT
 SUMMARY:🎵 | ELDER
 DTSTART:20270101T010000Z
 DTEND:20270101T040000Z
