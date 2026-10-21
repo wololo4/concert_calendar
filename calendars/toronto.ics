@@ -123,4 +123,14 @@ DESCRIPTION:Tickets: https://www.ticketmaster.ca/northlane-the-anemoia-tou
  Aviana\, ALLT\, Reliqa
 LOCATION:The Danforth Music Hall\, 147 Danforth Ave.
 END:VEVENT
+BEGIN:VEVENT
+SUMMARY:🎵 | Angine de Poitrine
+DTSTART:20270718T233000Z
+DTEND:20270719T023000Z
+UID:tm-1AvZZ_fGkT4iF4n
+DESCRIPTION:Tickets: https://www.ticketmaster.ca/angine-de-poitrine-toront
+ o-ontario-07-18-2027/event/1000654FD5B0856A\nArtists: Angine de Poitrine\,
+  Voivod
+LOCATION:RBC Amphitheatre\, 909 Lakeshore Blvd. W.
+END:VEVENT
 END:VCALENDAR
