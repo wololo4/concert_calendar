@@ -40,6 +40,7 @@ VENUE_CITY = {
     "Théâtre Beanfield": "Montreal",
 
     "The Bronson": "Ottawa",
+    "History Ottawa": "Ottawa",
     "Overflow Brewery": "Ottawa",
     "Rainbow Bistro": "Ottawa",
     "Salle Odyssée": "Ottawa",
@@ -57,6 +58,7 @@ VENUE_CITY = {
     "HISTORY": "Toronto",
     "Lee's Palace": "Toronto",
     "The Opera House": "Toronto",
+    "RBC Amphitheatre": "Toronto",
     "REBEL": "Toronto",
     "Sneaky Dee's": "Toronto",
     "The Phoenix Concert Theatre": "Toronto",
