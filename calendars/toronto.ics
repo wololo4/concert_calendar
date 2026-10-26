@@ -96,6 +96,16 @@ DESCRIPTION:Tickets: https://www.ticketmaster.ca/northlane-the-anemoia-tou
 LOCATION:The Danforth Music Hall\, 147 Danforth Ave.
 END:VEVENT
 BEGIN:VEVENT
+SUMMARY:🎵 | Haken: In A Fever Dream Tour
+DTSTART:20270321T220000Z
+DTEND:20270322T010000Z
+UID:tm-168Zk4kebZAG5dku
+DESCRIPTION:Tickets: https://www.ticketmaster.ca/haken-in-a-fever-dream-to
+ ur-toronto-ontario-03-21-2027/event/10006546098BA25C\nArtists: Haken\, Tha
+ nk You Scientist\, Einar Solberg
+LOCATION:The Danforth Music Hall\, 147 Danforth Ave.
+END:VEVENT
+BEGIN:VEVENT
 SUMMARY:🎵 | Angine de Poitrine
 DTSTART:20270718T233000Z
 DTEND:20270719T023000Z

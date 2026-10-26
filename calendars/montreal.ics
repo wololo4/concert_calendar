@@ -117,6 +117,16 @@ DESCRIPTION:Tickets: https://www.ticketmaster.ca/polyphia-be-not-afraid-wo
 LOCATION:L'Olympia\, 1004 Sainte-Catherine Street East
 END:VEVENT
 BEGIN:VEVENT
+SUMMARY:🎵 | Haken - In A Fever Dream Tour
+DTSTART:20270323T230000Z
+DTEND:20270324T020000Z
+UID:tm-1AsZk48GkeO4kwE
+DESCRIPTION:Tickets: https://www.ticketmaster.ca/haken-in-a-fever-dream-to
+ ur-montreal-quebec-03-23-2027/event/31006550A0546CA7\nArtists: Haken\, Tha
+ nk You Scientist\, Einar Solberg
+LOCATION:Théâtre Beanfield\, 2490 Rue Notre-Dame Ouest 
+END:VEVENT
+BEGIN:VEVENT
 SUMMARY:🎵 | TO BE ANNOUNCED
 DTSTART:20270820T200000Z
 DTEND:20270820T210000Z
