@@ -1,5 +1,23 @@
 BEGIN:VCALENDAR
 BEGIN:VEVENT
+SUMMARY:🎵 | Morsefest Montreal
+DTSTART:20270621T230000Z
+DTEND:20270622T020000Z
+UID:morsefest-montreal-2027-2027-06-21
+DESCRIPTION:Morsefest Montreal\nTickets: https://morsefest.com/events/mont
+ real-2027
+LOCATION:Théâtre Paradoxe\, Montreal\, QC
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:🎵 | Morsefest Montreal
+DTSTART:20270622T230000Z
+DTEND:20270623T020000Z
+UID:morsefest-montreal-2027-2027-06-22
+DESCRIPTION:Morsefest Montreal\nTickets: https://morsefest.com/events/mont
+ real-2027
+LOCATION:Théâtre Paradoxe\, Montreal\, QC
+END:VEVENT
+BEGIN:VEVENT
 SUMMARY:🎵 | TO BE ANNOUNCED
 DTSTART:20270820T200000Z
 DTEND:20270820T210000Z
