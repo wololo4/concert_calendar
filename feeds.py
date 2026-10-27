@@ -86,6 +86,19 @@ def handle_lpvd(feeds, src, artists):
         "lepointdevente",
     ))
 
+@register_feed("morsefest")
+def handle_morsefest(feeds, src, artst):
+  if url := src.get("url"):
+    feeds.append((
+      "morsefest",
+      "montreal-2027",
+      url,
+      {},
+      "morsefest",
+    ))
+  else:
+    print("Missing url for Morsefest")
+
 @register_feed("ovation")
 def handle_ovation(feeds, src, artists):
   if url := src.get("base_url"):
