@@ -40,6 +40,7 @@ VENUE_CITY = {
     "Salle Wilfrid-Pelletier": "Montreal",
     "Le Studio TD": "Montreal",
     "Théâtre Beanfield": "Montreal",
+    "Théâtre Paradoxe": "Montreal",
 
     "The Bronson": "Ottawa",
     "History Ottawa": "Ottawa",
