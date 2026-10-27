@@ -84,6 +84,17 @@ DESCRIPTION:Tickets: https://www.ticketmaster.ca/the-musical-box-and-then-
 LOCATION:The Danforth Music Hall\, 147 Danforth Ave.
 END:VEVENT
 BEGIN:VEVENT
+SUMMARY:🎵 | Meshuggah: The Forty-Year Anomaly w/ Testament & Blood Inca
+ ntation
+DTSTART:20270213T000000Z
+DTEND:20270213T030000Z
+UID:tm-1A8Zk4fGkePJPTE
+DESCRIPTION:Tickets: https://www.ticketmaster.ca/meshuggah-the-fortyyear-a
+ nomaly-w-testament-toronto-ontario-02-12-2027/event/10006554A59A5FE7\nArti
+ sts: Meshuggah\, Testament\, Blood Incantation
+LOCATION:Coca-Cola Coliseum\, 45 Manitoba Drive
+END:VEVENT
+BEGIN:VEVENT
 SUMMARY:🎵 | Polyphia: BE NOT AFRAID World Tour 
 DTSTART:20270302T233000Z
 DTEND:20270303T023000Z

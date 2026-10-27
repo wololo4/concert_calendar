@@ -143,6 +143,17 @@ DESCRIPTION:Tickets: https://am.ticketmaster.com/pda/fr-ca/ism/P7W0116\nAr
 LOCATION:Salle Wilfrid-Pelletier - PN\, 175 Ste-Catherine Ouest
 END:VEVENT
 BEGIN:VEVENT
+SUMMARY:🎵 | Meshuggah: The Forty-Year Anomaly w/ Testament & Blood Inca
+ ntation
+DTSTART:20270214T000000Z
+DTEND:20270214T030000Z
+UID:tm-1AsZk4fGkdTnr8-
+DESCRIPTION:Tickets: https://www.ticketmaster.ca/meshuggah-the-fortyyear-a
+ nomaly-w-testament-laval-quebec-02-13-2027/event/31006554FFA9E421\nArtists
+ : Meshuggah\, Testament\, Blood Incantation
+LOCATION:Place Bell\, 1950 Rue Claude-Gagne
+END:VEVENT
+BEGIN:VEVENT
 SUMMARY:🎵 | Northlane : The Anemoia Tour
 DTSTART:20270303T000000Z
 DTEND:20270303T030000Z
