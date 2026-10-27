@@ -103,34 +103,34 @@ artists:
   - Zopp
 
 sources:
-#  - parser: ticketmaster
- #   url: https://app.ticketmaster.com/discovery/v2/events.json
-  #  city: [Laval, Montreal, Ottawa, Quebec, Toronto]
-   # country: CA
+  - parser: ticketmaster
+    url: https://app.ticketmaster.com/discovery/v2/events.json
+    city: [Laval, Montreal, Ottawa, Quebec, Toronto]
+    country: CA
 
-#  - parser: eventbrite
- #   base_url: https://www.eventbrite.com/o/
-  #  organizer: 
-   #   - les-productions-dungeon-works-46587222653
-    #  - chord-productions-26304681803
+  - parser: eventbrite
+    base_url: https://www.eventbrite.com/o/
+    organizer: 
+      - les-productions-dungeon-works-46587222653
+      - chord-productions-26304681803
     
-#  - parser: lepointdevente
- #   base_url: https://thepointofsale.com/venues/
-  #  venues:
-   #   - l-anti-bar-and-spectacles
-    #  - cafecampus
-     # - club-soda
-      #- hardluckbar
-#      - leministere
- #     - petitcampus
-  #    - petit-campus
-   #   - piranhabar-3
-    #  - sallemontaignecegeplimoilou
-     # - sneakydees
-      #- la-source-de-la-martiniere
-      #- studiosonum
-#    tickets:
- #     - cafecampusshows
+  - parser: lepointdevente
+    base_url: https://thepointofsale.com/venues/
+    venues:
+      - l-anti-bar-and-spectacles
+      - cafecampus
+      - club-soda
+      - hardluckbar
+      - leministere
+      - petitcampus
+      - petit-campus
+      - piranhabar-3
+      - sallemontaignecegeplimoilou
+      - sneakydees
+      - la-source-de-la-martiniere
+      - studiosonum
+    tickets:
+      - cafecampusshows
 
   - parser: imperialbell
     base_url: https://www.imperialbell.com/Programmation/Liste-des-spectacles
