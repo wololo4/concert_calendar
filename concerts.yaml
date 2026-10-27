@@ -138,6 +138,9 @@ sources:
   - parser: ovation
     base_url: https://m.ovation.ca/00000V/en/Search/AllEvents?categoryId=undefined
 
+  - parser: morsefest
+    url: https://morsefest.com/events
+
   - parser: progstorm
     url: "https://www.progstorm.com"
     times:
