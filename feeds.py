@@ -91,7 +91,7 @@ def handle_morsefest(feeds, src, artst):
   if url := src.get("url"):
     feeds.append((
       "morsefest",
-      "montreal-2027",
+      "montreal",
       url,
       {},
       "morsefest",
