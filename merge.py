@@ -12,6 +12,7 @@ from parser.imperialbell import build_event_imperialbell, parse_imperialbell_htm
 from parser.eventbrite import build_eventbrite_calendar, parse_eventbrite_html
 from parser.lepointdevente import build_event_lpdv, parse_lpdv_html
 from parser.ovation import build_event_ovation, parse_ovation_html
+from parser.morsefest import build_event_morsefest, parse_morsefest_html
 from parser.progstorm import build_progstorm_calendar, parse_progstorm_html
 from parser.ticketmaster import parse_ticketmaster_json
 
@@ -69,6 +70,9 @@ def fetch_and_parse_feed(feed, session):
       cal = build_event_imperialbell(parse_imperialbell_html(raw, artists))
     elif parser_key == "lepointdevente":
       cal = build_event_lpdv(parse_lpdv_html(raw, artists))
+    elif parser_key == "morsefest":
+      cal = build_event_morsefest(parse_morsefest_html(raw, url))
+      print(f"Found {len(list(cal.walk('VEVENT')))} Morsefest events")
     elif parser_key == "ovation":
       parsed = parse_ovation_html(raw, artists)
       cal = build_event_ovation(parsed)
