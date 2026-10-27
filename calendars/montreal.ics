@@ -1,5 +1,107 @@
 BEGIN:VCALENDAR
 BEGIN:VEVENT
+SUMMARY:🎵 | Periphery - A Pale White Dot Tour
+DTSTART:20261027T223000Z
+DTEND:20261028T013000Z
+UID:tm-17G8v0G65K2trqs
+DESCRIPTION:Tickets: https://www.ticketmaster.ca/periphery-a-pale-white-do
+ t-tour-montreal-quebec-10-27-2026/event/310064B4CFA5E771\nArtists: Periphe
+ ry\, Ne Obliviscaris\, Greyhaven\, Ando San
+LOCATION:MTELUS\, 59 Rue Sainte-Catherine Est
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:🎵 | FRACTURUS\, OMNIVIDE\, BORNBROKEN & HATALOM 
+DTSTART:20261030T230000Z
+DTEND:20261031T020000Z
+UID:lpdv7r1261030001
+DESCRIPTION:Tickets: https://lepointdevente.com/tickets/7r1261030001\nArti
+ sts: FRACTURUS\, OMNIVIDE\, BORNBROKEN & HATALOM 
+LOCATION:Piranha Bar\, 680 Sainte-Catherine Ouest
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:🎵 | CHRONOCHROMIE | PROFUSION ALBUM LAUNCH
+DTSTART:20261109T000000Z
+DTEND:20261109T030000Z
+UID:lpdv261108-chronochromie-profusion-album-launch-petit-campus-nov-8
+DESCRIPTION:Tickets: https://lepointdevente.com/tickets/261108-chronochrom
+ ie-profusion-album-launch-petit-campus-nov-8\nArtists: CHRONOCHROMIE | PRO
+ FUSION ALBUM LAUNCH
+LOCATION:Petit Campus\, 57-B Rue Prince-Arthur Est
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:🎵 | ANGINE DE POITRINE
+DTSTART:20261115T010000Z
+DTEND:20261115T040000Z
+UID:lpdvclb261114001
+DESCRIPTION:Tickets: https://lepointdevente.com/tickets/clb261114001\nArti
+ sts: ANGINE DE POITRINE
+LOCATION:Club Soda\, 1225 St-Laurent
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:🎵 | Amorphis & Insomnium
+DTSTART:20261119T003000Z
+DTEND:20261119T033000Z
+UID:tm-1kG8vPkaGA1pSJC
+DESCRIPTION:Tickets: https://www.ticketmaster.ca/amorphis-insomnium-montre
+ al-quebec-11-18-2026/event/310065189A5B398E\nArtists: Insomnium\, Amorphis
+ \, Hinayana
+LOCATION:Théâtre Beanfield\, 2490 Rue Notre-Dame Ouest
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:🎵 | PROTEST THE HERO
+DTSTART:20261119T003000Z
+DTEND:20261119T033000Z
+UID:tm-LvZ18QEKCNOd9Y7QfIe6O
+DESCRIPTION:Tickets: https://www.universe.com/events/protest-the-hero-tick
+ ets-PQ7GZ4?ref=ticketmaster\nArtists: Protest the Hero
+LOCATION:Fairmount Theatre\, 5240 Avenue du Parc
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:🎵 | The Pineapple Thief
+DTSTART:20261125T010000Z
+DTEND:20261125T040000Z
+UID:tm-1AsZk36GkeNxfB_
+DESCRIPTION:Tickets: https://www.ticketmaster.ca/the-pineapple-thief-montr
+ eal-quebec-11-24-2026/event/31006487A3894E99\nArtists: The Pineapple Thief
+LOCATION:Théâtre Beanfield\, 2490 Rue Notre-Dame Ouest
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:🎵 | Ok Goodnight\, The Anchoret\, Eve\, Système Féodal
+DTSTART:20261129T000000Z
+DTEND:20261129T030000Z
+UID:lpdvmns261128001
+DESCRIPTION:Tickets: https://lepointdevente.com/tickets/mns261128001\nArti
+ sts: Ok Goodnight\, The Anchoret\, Eve\, Système Féodal
+LOCATION:Le Ministère\, 4521\, boul. Saint-Laurent
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:🎵 | Pélikel & Karcius
+DTSTART:20261209T003000Z
+DTEND:20261209T033000Z
+UID:lpdv261208-petit-campus-8-dec-pelikel-karcius
+DESCRIPTION:Tickets: https://lepointdevente.com/tickets/261208-petit-campu
+ s-8-dec-pelikel-karcius\nArtists: Pélikel & Karcius
+LOCATION:Petit Campus\, 57-B Rue Prince-Arthur Est
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:🎵 | ELDER
+DTSTART:20270101T010000Z
+DTEND:20270101T040000Z
+UID:tm-LvZ18QLCMv8d7tYZMtejO
+DESCRIPTION:Tickets: https://www.universe.com/events/elder-tickets-DJK2NP?
+ ref=ticketmaster
+LOCATION:Fairmount Theatre\, 5240 Avenue du Parc
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:🎵 | TesseracT
+DTSTART:20270110T010000Z
+DTEND:20270110T040000Z
+UID:tm-1AsZk4vGkdPpaf2
+DESCRIPTION:Tickets: https://www.ticketmaster.ca/tesseract-montreal-quebec
+ -01-09-2027/event/31006541E558950F\nArtists: TesseracT\, Entheos\, Sunborn
+LOCATION:Théâtre Beanfield\, 2490 Rue Notre-Dame Ouest
+END:VEVENT
+BEGIN:VEVENT
 SUMMARY:🎵 | The Musical Box... and then there was... PHIL
 DTSTART:20270116T010000Z
 DTEND:20270116T040000Z
@@ -19,6 +121,47 @@ UID:tm-1AsZkfgGkdOe_ZT
 DESCRIPTION:Tickets: https://am.ticketmaster.com/pda/fr-ca/ism/P7W0116\nAr
  tists: The Musical Box
 LOCATION:Salle Wilfrid-Pelletier - PN\, 175 Ste-Catherine Ouest
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:🎵 | Meshuggah: The Forty-Year Anomaly w/ Testament & Blood Inca
+ ntation
+DTSTART:20270214T000000Z
+DTEND:20270214T030000Z
+UID:tm-1AsZk4fGkdTnr8-
+DESCRIPTION:Tickets: https://www.ticketmaster.ca/meshuggah-the-fortyyear-a
+ nomaly-w-testament-laval-quebec-02-13-2027/event/31006554FFA9E421\nArtists
+ : Meshuggah\, Testament\, Blood Incantation
+LOCATION:Place Bell\, 1950 Rue Claude-Gagne
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:🎵 | Northlane : The Anemoia Tour
+DTSTART:20270303T000000Z
+DTEND:20270303T030000Z
+UID:tm-1AsZkfYGkdCctBI
+DESCRIPTION:Tickets: https://www.ticketmaster.ca/northlane-the-anemoia-tou
+ r-montreal-quebec-03-02-2027/event/31006530CEB69EA8\nArtists: Northlane\, 
+ ALLT\, Aviana\, Reliqa
+LOCATION:Théâtre Beanfield\, 2490 Rue Notre-Dame Ouest
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:🎵 | Polyphia: BE NOT AFRAID World Tour
+DTSTART:20270303T233000Z
+DTEND:20270304T023000Z
+UID:tm-17G8v0G6GnMzpEf
+DESCRIPTION:Tickets: https://www.ticketmaster.ca/polyphia-be-not-afraid-wo
+ rld-tour-montreal-quebec-03-03-2027/event/310064CAB7E169D4\nArtists: Polyp
+ hia\, Intervals\, Ladrones\, RJ Pasin
+LOCATION:L'Olympia\, 1004 Sainte-Catherine Street East
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:🎵 | Haken - In A Fever Dream Tour
+DTSTART:20270323T230000Z
+DTEND:20270324T020000Z
+UID:tm-1AsZk48GkeO4kwE
+DESCRIPTION:Tickets: https://www.ticketmaster.ca/haken-in-a-fever-dream-to
+ ur-montreal-quebec-03-23-2027/event/31006550A0546CA7\nArtists: Haken\, Tha
+ nk You Scientist\, Einar Solberg
+LOCATION:Théâtre Beanfield\, 2490 Rue Notre-Dame Ouest
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:🎵 | Morsefest Montreal
