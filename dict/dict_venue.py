@@ -28,6 +28,7 @@ VENUE_ALIASE = {
 }
 
 VENUE_CITY = {
+    "Centre Bell": "Montreal",
     "Club Soda": "Montreal",
     "Fairmount Theatre": "Montreal",
     "Le Ministère": "Montreal",
@@ -35,6 +36,7 @@ VENUE_CITY = {
     "L'Olympia": "Montreal", 
     "Petit Campus": "Montreal",
     "Piranha Bar": "Montreal",
+    "Place Bell": "Montreal", 
     "Salle Wilfrid-Pelletier": "Montreal",
     "Le Studio TD": "Montreal",
     "Théâtre Beanfield": "Montreal",
@@ -52,6 +54,7 @@ VENUE_CITY = {
     "Studio Sonum": "Quebec",
     "Théâtre Capitole": "Quebec",
 
+    "Coca-Cola Coliseum": "Toronto",
     "The Concert Hall": "Toronto",
     "The Danforth Music Hall": "Toronto",
     "Hard Luck Bar": "Toronto",
