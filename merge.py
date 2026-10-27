@@ -61,7 +61,8 @@ def fetch_and_parse_feed(feed, session):
       return list(cal.walk("VEVENT"))
 
     resp = session.get(url, headers=headers, timeout=15)
-    raw = resp.text
+    resp.raise_for_status()
+    raw = resp.content.decode("utf-8")
     artists = [a.lower() for a in params.get("artists", [])]
 
     if parser_key == "eventbrite":
