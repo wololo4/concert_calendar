@@ -10,6 +10,34 @@ DESCRIPTION:Tickets: https://www.ticketmaster.ca/periphery-a-pale-white-do
 LOCATION:MTELUS\, 59 Rue Sainte-Catherine Est
 END:VEVENT
 BEGIN:VEVENT
+SUMMARY:🎵 | FRACTURUS\, OMNIVIDE\, BORNBROKEN & HATALOM 
+DTSTART:20261030T230000Z
+DTEND:20261031T020000Z
+UID:lpdv7r1261030001
+DESCRIPTION:Tickets: https://lepointdevente.com/tickets/7r1261030001\nArti
+ sts: FRACTURUS\, OMNIVIDE\, BORNBROKEN & HATALOM 
+LOCATION:Piranha Bar\, 680 Sainte-Catherine Ouest
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:🎵 | CHRONOCHROMIE | PROFUSION ALBUM LAUNCH
+DTSTART:20261109T000000Z
+DTEND:20261109T030000Z
+UID:lpdv261108-chronochromie-profusion-album-launch-petit-campus-nov-8
+DESCRIPTION:Tickets: https://lepointdevente.com/tickets/261108-chronochrom
+ ie-profusion-album-launch-petit-campus-nov-8\nArtists: CHRONOCHROMIE | PRO
+ FUSION ALBUM LAUNCH
+LOCATION:Petit Campus\, 57-B Rue Prince-Arthur Est
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:🎵 | ANGINE DE POITRINE
+DTSTART:20261115T010000Z
+DTEND:20261115T040000Z
+UID:lpdvclb261114001
+DESCRIPTION:Tickets: https://lepointdevente.com/tickets/clb261114001\nArti
+ sts: ANGINE DE POITRINE
+LOCATION:Club Soda\, 1225 St-Laurent
+END:VEVENT
+BEGIN:VEVENT
 SUMMARY:🎵 | Amorphis & Insomnium
 DTSTART:20261119T003000Z
 DTEND:20261119T033000Z
@@ -36,6 +64,24 @@ UID:tm-1AsZk36GkeNxfB_
 DESCRIPTION:Tickets: https://www.ticketmaster.ca/the-pineapple-thief-montr
  eal-quebec-11-24-2026/event/31006487A3894E99\nArtists: The Pineapple Thief
 LOCATION:Théâtre Beanfield\, 2490 Rue Notre-Dame Ouest 
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:🎵 | Ok Goodnight\, The Anchoret\, Eve\, Système Féodal
+DTSTART:20261129T000000Z
+DTEND:20261129T030000Z
+UID:lpdvmns261128001
+DESCRIPTION:Tickets: https://lepointdevente.com/tickets/mns261128001\nArti
+ sts: Ok Goodnight\, The Anchoret\, Eve\, Système Féodal
+LOCATION:Le Ministère\, 4521\, boul. Saint-Laurent
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:🎵 | Pélikel & Karcius
+DTSTART:20261209T003000Z
+DTEND:20261209T033000Z
+UID:lpdv261208-petit-campus-8-dec-pelikel-karcius
+DESCRIPTION:Tickets: https://lepointdevente.com/tickets/261208-petit-campu
+ s-8-dec-pelikel-karcius\nArtists: Pélikel & Karcius
+LOCATION:Petit Campus\, 57-B Rue Prince-Arthur Est
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:🎵 | ELDER

@@ -1,5 +1,16 @@
 BEGIN:VCALENDAR
 BEGIN:VEVENT
+SUMMARY:🎵 | FRACTURUS\, OMNIVIDE\, CHANGE MY BRAIN WITH CAKES & HATALOM
+  
+DTSTART:20261031T230000Z
+DTEND:20261101T020000Z
+UID:lpdv7r1261031001
+DESCRIPTION:Tickets: https://lepointdevente.com/tickets/7r1261031001\nArti
+ sts: FRACTURUS\, OMNIVIDE\, CHANGE MY BRAIN WITH CAKES & HATALOM 
+LOCATION:Studio Sonum\, 25 Rue Bigaouette\, Entrée en face de la Rivière
+  St-Charles
+END:VEVENT
+BEGIN:VEVENT
 SUMMARY:🎵 | Angine de Poitrine
 DTSTART:20261107T010000Z
 DTEND:20261107T040000Z
@@ -10,6 +21,15 @@ DESCRIPTION:Tickets: https://www.imperialbell.com/Programmation/Liste-des-
 LOCATION:L'Impérial\, Quebec
 END:VEVENT
 BEGIN:VEVENT
+SUMMARY:🎵 | Protest The Hero avec CHOKE et KAONASHI
+DTSTART:20261118T003000Z
+DTEND:20261118T033000Z
+UID:lpdvd7p261117001
+DESCRIPTION:Tickets: https://lepointdevente.com/tickets/d7p261117001\nArti
+ sts: Protest The Hero avec CHOKE et KAONASHI
+LOCATION:Salle Montaigne - Cégep Limoilou\, 7600 3e avenue est
+END:VEVENT
+BEGIN:VEVENT
 SUMMARY:🎵 | The Pineapple Thief - Far and Wide Tour 2026
 DTSTART:20261123T010000Z
 DTEND:20261123T040000Z
@@ -18,6 +38,15 @@ DESCRIPTION:Tickets: https://www.ticketmaster.ca/the-pineapple-thief-far-a
  nd-wide-quebec-quebec-11-22-2026/event/3100648A43B30EA6\nArtists: The Pine
  apple Thief
 LOCATION:Théâtre Capitole\, 972 Rue Saint-Jean 
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:🎵 | Ok Goodnight avec The Anchoret\, Eve et Hillward
+DTSTART:20261130T000000Z
+DTEND:20261130T030000Z
+UID:lpdvabs261129001
+DESCRIPTION:Tickets: https://lepointdevente.com/tickets/abs261129001\nArti
+ sts: Ok Goodnight avec The Anchoret\, Eve et Hillward
+LOCATION:L'Anti Bar & Spectacles\, 251 Rue Dorchester
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:🎵 | The Musical Box... and then there was... PHIL
@@ -38,5 +67,14 @@ DESCRIPTION:Tickets: https://www.ticketmaster.ca/the-musical-box-and-then-
  there-quebec-quebec-01-08-2027/event/31006430BBD27BC5\nArtists: The Musica
  l Box
 LOCATION:Théâtre Capitole\, 972 Rue Saint-Jean 
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:🎵 | Haken 
+DTSTART:20270324T230000Z
+DTEND:20270325T020000Z
+UID:lpdvd7p270324001
+DESCRIPTION:Tickets: https://lepointdevente.com/tickets/d7p270324001\nArti
+ sts: Haken 
+LOCATION:Salle Montaigne - Cégep Limoilou\, 7600 3e avenue est
 END:VEVENT
 END:VCALENDAR
