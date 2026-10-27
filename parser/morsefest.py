@@ -26,7 +26,14 @@ MONTHS.update({name[:3]: number for name, number in MONTHS.copy().items()})
 
 def parse_morsefest_dates(date_text, year):
     """Parse date ranges such as 'Jun 21–22' or 'Jun 30–Jul 1'."""
-    text = date_text.strip().replace("\u2013", "-").replace("\u2014", "-")
+    text = (
+        date_text.strip()
+        .replace("\u00e2\u0080\u0093", "-")  # Mojibake en dash
+        .replace("\u00e2\u0080\u0094", "-")  # Mojibake em dash
+        .replace("\u2013", "-")              # En dash
+        .replace("\u2014", "-")              # Em dash
+        .replace("\u2212", "-")              # Minus sign
+    )
 
     match = re.fullmatch(
         r"([A-Za-z]+)\s+(\d{1,2})\s*-\s*"
