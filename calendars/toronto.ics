@@ -1,20 +1,12 @@
 BEGIN:VCALENDAR
 BEGIN:VEVENT
-SUMMARY:🎵 | FRACTURUS\, OMNIVIDE\, SELIAS\, THE OUTER GODS 
-DTSTART:20261029T230000Z
-DTEND:20261030T020000Z
-UID:lpdv7r1261029001
-DESCRIPTION:Tickets: https://lepointdevente.com/tickets/7r1261029001\nArti
- sts: FRACTURUS\, OMNIVIDE\, SELIAS\, THE OUTER GODS 
-LOCATION:Sneaky Dee's\, 431 College St
-END:VEVENT
-BEGIN:VEVENT
 SUMMARY:🎵 | Angine de Poitrine
 DTSTART:20261106T000000Z
 DTEND:20261106T030000Z
 UID:tm-177Zv0G61Shy4ZE
 DESCRIPTION:Tickets: https://www.ticketmaster.ca/angine-de-poitrine-toront
- o-ontario-11-05-2026/event/100064ACDBE55027\nArtists: Angine de Poitrine
+ o-ontario-11-05-2026/event/100064ACDBE55027\nArtists: Angine de Poitrine\,
+  Fuudge
 LOCATION:History Toronto\, 1663 Queen St. East
 END:VEVENT
 BEGIN:VEVENT
