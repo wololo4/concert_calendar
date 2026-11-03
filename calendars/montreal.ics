@@ -65,15 +65,6 @@ DESCRIPTION:Tickets: https://lepointdevente.com/tickets/261208-petit-campu
 LOCATION:Petit Campus\, 57-B Rue Prince-Arthur Est
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:🎵 | ELDER
-DTSTART:20270101T010000Z
-DTEND:20270101T040000Z
-UID:tm-LvZ18QLCMv8d7tYZMtejO
-DESCRIPTION:Tickets: https://www.universe.com/events/elder-tickets-DJK2NP?
- ref=ticketmaster
-LOCATION:Fairmount Theatre\, 5240 Avenue du Parc
-END:VEVENT
-BEGIN:VEVENT
 SUMMARY:🎵 | TesseracT
 DTSTART:20270110T010000Z
 DTEND:20270110T040000Z
@@ -143,6 +134,15 @@ DESCRIPTION:Tickets: https://www.ticketmaster.ca/haken-in-a-fever-dream-to
  ur-montreal-quebec-03-23-2027/event/31006550A0546CA7\nArtists: Haken\, Tha
  nk You Scientist\, Einar Solberg
 LOCATION:Théâtre Beanfield\, 2490 Rue Notre-Dame Ouest
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:🎵 | ELDER
+DTSTART:20270411T000000Z
+DTEND:20270411T030000Z
+UID:tm-LvZ18QLCMv8d7tYZMtejO
+DESCRIPTION:Tickets: https://www.universe.com/events/elder-tickets-DJK2NP?
+ ref=ticketmaster
+LOCATION:Fairmount Theatre\, 5240 Avenue du Parc
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:🎵 | Morsefest Montreal
