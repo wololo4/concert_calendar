@@ -117,6 +117,16 @@ DESCRIPTION:Tickets: https://www.ticketmaster.ca/haken-in-a-fever-dream-to
 LOCATION:The Danforth Music Hall\, 147 Danforth Ave.
 END:VEVENT
 BEGIN:VEVENT
+SUMMARY:🎵 | Elder - North American Tour 2026
+DTSTART:20270412T230000Z
+DTEND:20270413T020000Z
+UID:tm-177Zv0G61xJPmS6
+DESCRIPTION:Tickets: https://www.ticketmaster.ca/elder-north-american-tour
+ -2026-toronto-ontario-04-12-2027/event/100064A8A696ECC7\nArtists: Elder\, 
+ Blackwater Holylight
+LOCATION:The Opera House\, 735 Queen St. E.
+END:VEVENT
+BEGIN:VEVENT
 SUMMARY:🎵 | Angine de Poitrine
 DTSTART:20270718T233000Z
 DTEND:20270719T023000Z
