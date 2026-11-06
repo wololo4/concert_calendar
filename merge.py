@@ -114,15 +114,18 @@ def get_event_start(ev):
     return datetime.max
 
 
-def write_calendar(path, events):
+def write_calendar(path, events, name=None):
   cal = Calendar()
+  cal.add("prodid", "-//wololo4//concert_calendar//EN")
+  cal.add("version", "2.0")
+  if name:
+    cal.add("x-wr-calname", name)
   for ev in events:
     cal.add_component(ev)
   tmp = f"{path}.tmp"
   with open(tmp, "wb") as f:
     f.write(cal.to_ical())
   os.replace(tmp, path)  # a crash can't leave a half-written calendar
-
 
 def main():
   feeds = load_feeds()
@@ -176,7 +179,7 @@ def main():
   os.makedirs("calendars", exist_ok=True)
   for city, events in city_events.items():
     events.sort(key=get_event_start)
-    write_calendar(f"calendars/{city.lower()}.ics", events)
+    write_calendar(f"calendars/{city.lower()}.ics", events, name=f"Concerts {city}")
     print(f"{city}.ics file created with {len(events)} events.")
 
   # Checklist issue: only the cities listed in CITIES
