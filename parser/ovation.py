@@ -4,6 +4,7 @@ from icalendar import Calendar
 from urllib.parse import urljoin
 from utils.ics import ICSEventBuilder
 import re
+import unicodedata
 from zoneinfo import ZoneInfo
 
 LOCAL_TZ = ZoneInfo("America/Toronto")
@@ -29,6 +30,11 @@ VENUES = {
 }
 
 
+def _norm(text):
+  s = unicodedata.normalize("NFKD", str(text).lower())
+  return "".join(c for c in s if not unicodedata.combining(c))
+
+
 def _clean(text):
   return re.sub(r"\s+", " ", text).strip()
 
@@ -49,12 +55,20 @@ def _infer_year(weekday, month, day):
 
 def parse_ovation_html(html, artists):
   soup = BeautifulSoup(html, "html.parser")
-  artists_lower = [a.lower() for a in artists if len(a) > 3]
-  events = []
-  n_cards = n_dates = 0
+  names = sorted({_norm(a) for a in artists if len(a) > 3}, key=len, reverse=True)
+  pattern = (
+      re.compile(r"\b(?:" + "|".join(re.escape(a) for a in names) + r")\b")
+      if names
+      else None
+  )
 
-  for show in soup.select("div.show[data-event-id]"):
-    n_cards += 1
+  shows = soup.select("div.show[data-event-id]")
+  if not shows:
+    print("⚠️ Ovation: no event cards found (layout change or blocked page)")
+    return []
+
+  events, n_dates = [], 0
+  for show in shows:
     event_id = show["data-event-id"]
 
     title_el = show.select_one(".title")
@@ -63,33 +77,36 @@ def parse_ovation_html(html, artists):
       continue
 
     title = _clean(title_el.get_text(" ", strip=True))
-    m = DATE_RE.match(_clean(date_el.get_text(" ", strip=True)))
-    if not m:
-      continue
-    n_dates += 1
+    date_text = _clean(date_el.get_text(" ", strip=True))
+    m = DATE_RE.match(date_text)
+    if m:
+      n_dates += 1
 
-    if not any(
-        re.search(rf"\b{re.escape(a)}\b", title.lower()) for a in artists_lower
-    ):
+    if not pattern or not pattern.search(_norm(title)):
+      continue
+
+    # from here on the show is one of your artists, so report any drop
+    if not m:
+      print(f"⚠️ Ovation: skipped '{title}' (unreadable date '{date_text}')")
       continue
 
     wd_s, mon_s, days_s, hh, mm, ap = m.groups()
     try:
       month = MONTHS.index(mon_s[:3].lower()) + 1
     except ValueError:
+      print(f"⚠️ Ovation: skipped '{title}' (unknown month '{mon_s}')")
       continue
     weekday = WEEKDAYS.index(wd_s[:3].lower()) if wd_s[:3].lower() in WEEKDAYS else None
     days = [int(d) for d in re.findall(r"\d+", days_s)]
     year = _infer_year(weekday, month, days[0])
     if not year:
+      print(f"⚠️ Ovation: skipped '{title}' (no matching year for '{date_text}')")
       continue
     hour = int(hh) % 12 + (12 if ap.lower() == "p" else 0)
 
-    info_text = _clean(show.select_one(".info-show").get_text(" ", strip=True)) \
-        if show.select_one(".info-show") else ""
-    venue = next(
-        (v for k, v in VENUES.items() if k in info_text.lower()), None
-    )
+    info_el = show.select_one(".info-show")
+    info_text = _norm(_clean(info_el.get_text(" ", strip=True))) if info_el else ""
+    venue = next((v for k, v in VENUES.items() if _norm(k) in info_text), None)
     if venue is None:
       print(
           f"⚠️ Ovation: unknown venue for '{title}' "
@@ -111,6 +128,11 @@ def parse_ovation_html(html, artists):
           "uid": f"ovation{event_id}{year}{month:02d}{day:02d}",
       })
 
+  if n_dates == 0:
+    print(
+        f"⚠️ Ovation: {len(shows)} cards but no readable dates "
+        "(date format changed?)"
+    )
   return events
 
 
@@ -119,7 +141,7 @@ def build_event_ovation(events):
   for ev in events:
     utc_dt = ev["start"].replace(tzinfo=LOCAL_TZ).astimezone(UTC_TZ)
     title_uni = (
-        ev["title"].split("@")[0].replace("\\", "").replace(" +", ",")
+        ev["title"].split("@")[0].replace("\\", "").replace(" +", ",").strip()
     )
 
     vevent = (
