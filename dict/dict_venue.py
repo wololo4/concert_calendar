@@ -1,3 +1,6 @@
+import re
+import unicodedata
+
 VENUE_ALIASE = {
     "L'Anti Bar": [
         "L'Anti Bar",
