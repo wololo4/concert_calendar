@@ -15,6 +15,7 @@ from parser.ovation import build_event_ovation, parse_ovation_html
 from parser.morsefest import build_event_morsefest, parse_morsefest_html
 from parser.progstorm import build_progstorm_calendar, parse_progstorm_html
 from parser.ticketmaster import parse_ticketmaster_json
+from tickets import load_state, mark_events, sync_issue
 
 
 def get_robust_session():
@@ -120,6 +121,11 @@ def main():
         all_events.extend(res)
 
   unique = {str(ev.get("UID")): ev for ev in all_events}
+
+  # Read ticked boxes from the GitHub issue and mark those events
+  state = load_state()
+  mark_events(unique.values(), state)
+
   city_events = {}
   for ev in unique.values():
     city = extract_city_from_event(ev)
@@ -136,6 +142,11 @@ def main():
     with open(f"calendars/{city.lower()}.ics", "wb") as f:
       f.write(cal.to_ical())
     print(f"{city}.ics file created with {len(events)} events.")
+
+  # Rebuild the checklist issue (upcoming events only, ticks preserved)
+  sync_issue(
+      [(ev, city) for city, evs in city_events.items() for ev in evs], state
+  )
 
 
 if __name__ == "__main__":
