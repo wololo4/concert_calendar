@@ -169,7 +169,7 @@ DTEND:20270622T020000Z
 DTSTAMP:20270621T230000Z
 UID:morsefest-montreal-2027-2027-06-21
 DESCRIPTION:Morsefest Montreal\nTickets: https://morsefest.com/events/mont
- real-2027
+ real-2027\nStart time assumed 19:00 (not listed on the page).
 LOCATION:Théâtre Paradoxe\, Montreal\, QC
 END:VEVENT
 BEGIN:VEVENT
@@ -179,7 +179,7 @@ DTEND:20270623T020000Z
 DTSTAMP:20270622T230000Z
 UID:morsefest-montreal-2027-2027-06-22
 DESCRIPTION:Morsefest Montreal\nTickets: https://morsefest.com/events/mont
- real-2027
+ real-2027\nStart time assumed 19:00 (not listed on the page).
 LOCATION:Théâtre Paradoxe\, Montreal\, QC
 END:VEVENT
 BEGIN:VEVENT
