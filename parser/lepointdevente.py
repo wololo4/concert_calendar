@@ -122,9 +122,7 @@ def parse_lpdv_html(html, artists):
   soup = BeautifulSoup(html, "html.parser")
   articles = soup.select("article.feature-canvas")
   if not articles:
-    raise ValueError(
-        "no event cards found on the page (layout change or empty venue)"
-    )
+    return []  # empty venue page, nothing to add
 
   h1s = soup.find_all("h1")
   venue_name = h1s[1].get_text(strip=True) if len(h1s) > 1 else ""
