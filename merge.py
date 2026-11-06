@@ -17,6 +17,7 @@ from parser.progstorm import build_progstorm_calendar, parse_progstorm_html
 from parser.ticketmaster import parse_ticketmaster_json
 from tickets import load_state, mark_events, sync_issue
 
+CITIES = {"Montreal"}   # only these cities are written and listed
 
 def get_robust_session():
   s = requests.Session()
@@ -131,6 +132,8 @@ def main():
     city = extract_city_from_event(ev)
     if city is None:
       print(f"⚠️ No city for: {ev.get('SUMMARY')} @ {ev.get('LOCATION')}")
+      continue
+    if city not in CITIES:
       continue
     city_events.setdefault(city, []).append(ev)
 
