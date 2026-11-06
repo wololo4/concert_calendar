@@ -17,7 +17,8 @@ from parser.progstorm import build_progstorm_calendar, parse_progstorm_html
 from parser.ticketmaster import parse_ticketmaster_json
 from tickets import load_state, mark_events, sync_issue
 
-CITIES = {"Montreal"}   # only these cities are written and listed
+CITIES = {"Montreal"}  # cities listed in the ticket checklist issue
+
 
 def get_robust_session():
   s = requests.Session()
@@ -133,10 +134,9 @@ def main():
     if city is None:
       print(f"⚠️ No city for: {ev.get('SUMMARY')} @ {ev.get('LOCATION')}")
       continue
-    if city not in CITIES:
-      continue
     city_events.setdefault(city, []).append(ev)
 
+  # Every city keeps its own calendar file
   for city, events in city_events.items():
     events.sort(key=get_event_start)
     cal = Calendar()
@@ -146,9 +146,15 @@ def main():
       f.write(cal.to_ical())
     print(f"{city}.ics file created with {len(events)} events.")
 
-  # Rebuild the checklist issue (upcoming events only, ticks preserved)
+  # Checklist issue: only the cities listed in CITIES
   sync_issue(
-      [(ev, city) for city, evs in city_events.items() for ev in evs], state
+      [
+          (ev, city)
+          for city, evs in city_events.items()
+          if city in CITIES
+          for ev in evs
+      ],
+      state,
   )
 
 
