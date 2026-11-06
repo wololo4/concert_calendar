@@ -1,4 +1,3 @@
-
 from bs4 import BeautifulSoup
 from datetime import date, datetime, timedelta
 from icalendar import Calendar
@@ -6,9 +5,12 @@ from urllib.parse import urljoin, urlparse
 from utils.ics import ICSEventBuilder
 from zoneinfo import ZoneInfo
 import re
+import unicodedata
 
 MONTREAL_TZ = ZoneInfo("America/Toronto")
 UTC_TZ = ZoneInfo("UTC")
+
+DEFAULT_START_HOUR = 19  # the listing has no show times
 
 MONTHS = {
     month.lower(): i
@@ -22,6 +24,12 @@ MONTHS = {
     )
 }
 MONTHS.update({name[:3]: number for name, number in MONTHS.copy().items()})
+MONTHS["sept"] = 9
+
+
+def _norm(text):
+    s = unicodedata.normalize("NFKD", str(text).casefold())
+    return "".join(c for c in s if not unicodedata.combining(c)).strip()
 
 
 def parse_morsefest_dates(date_text, year):
@@ -98,9 +106,14 @@ def parse_morsefest_html(html, listing_url):
     soup = BeautifulSoup(html, "html.parser")
     events = []
 
-    for card in soup.select('a[data-attr="event-link"]'):
+    cards = soup.select('a[data-attr="event-link"]')
+    if not cards:
+        print("⚠️ Morsefest: no event cards found (layout change or blocked page)")
+        return []
+
+    for card in cards:
         heading = card.find(["h1", "h2", "h3"])
-        if not heading or heading.get_text(" ", strip=True).casefold() != "montreal":
+        if not heading or _norm(heading.get_text(" ", strip=True)) != "montreal":
             continue
 
         href = card.get("href")
@@ -147,7 +160,7 @@ def build_event_morsefest(events):
                 event_date.year,
                 event_date.month,
                 event_date.day,
-                19,
+                DEFAULT_START_HOUR,
                 0,
                 tzinfo=MONTREAL_TZ,
             )
@@ -166,7 +179,9 @@ def build_event_morsefest(events):
                 .summary("🎵 | Morsefest Montreal")
                 .location(event["venue"])
                 .description(
-                    f"Morsefest Montreal\nTickets: {event['url']}"
+                    f"Morsefest Montreal\nTickets: {event['url']}\n"
+                    f"Start time assumed {DEFAULT_START_HOUR}:00 "
+                    "(not listed on the page)."
                 )
                 .build()
             )
