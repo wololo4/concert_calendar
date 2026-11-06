@@ -1,8 +1,12 @@
 BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//wololo4//concert_calendar//EN
+X-WR-CALNAME:Concerts Ottawa
 BEGIN:VEVENT
 SUMMARY:🎵 | Protest the Hero\, Choke\, Kaonashi\, Purple Castle
 DTSTART:20261121T000000Z
 DTEND:20261121T030000Z
+DTSTAMP:20261121T000000Z
 UID:tm-rZ7HnEZ1A4ZKCK
 DESCRIPTION:Tickets: https://www.ticketweb.ca/event/protest-the-hero-choke
  -kaonashi-the-bronson-tickets/15013393\nArtists: Protest the Hero\, Kaonas
@@ -13,6 +17,7 @@ BEGIN:VEVENT
 SUMMARY:🎵 | The Musical Box | ...and then there was... PHIL
 DTSTART:20270129T010000Z
 DTEND:20270129T040000Z
+DTSTAMP:20270129T010000Z
 UID:ovation0E055K20270128
 DESCRIPTION:Tickets: https://m.ovation.ca/00000V/en/Event/Tickets/?eventId
  =0E055K\nArtists: The Musical Box | ...and then there was... PHIL
@@ -22,6 +27,7 @@ BEGIN:VEVENT
 SUMMARY:🎵 | Angine de Poitrine
 DTSTART:20270331T230000Z
 DTEND:20270401T020000Z
+DTSTAMP:20270331T230000Z
 UID:tm-1Ad7Z_fGkTJq1KK
 DESCRIPTION:Tickets: https://www.ticketmaster.ca/angine-de-poitrine-ottawa
  -ontario-03-31-2027/event/3100654FE674A4D3\nArtists: Angine de Poitrine
@@ -31,6 +37,7 @@ BEGIN:VEVENT
 SUMMARY:🎵 | Angine de Poitrine
 DTSTART:20270401T230000Z
 DTEND:20270402T020000Z
+DTSTAMP:20270401T230000Z
 UID:tm-1Ad7Z_fGkTJqBK_
 DESCRIPTION:Tickets: https://www.ticketmaster.ca/angine-de-poitrine-ottawa
  -ontario-04-01-2027/event/3100654FE677A4D9\nArtists: Angine de Poitrine
