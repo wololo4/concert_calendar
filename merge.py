@@ -9,6 +9,7 @@ import requests
 from requests.adapters import HTTPAdapter
 from urllib3.util import Retry
 
+import tm_search
 from dict.dict_venue import VENUE_ALIASE, VENUE_CITY
 from parser.imperialbell import build_event_imperialbell, parse_imperialbell_html
 from parser.eventbrite import build_eventbrite_calendar, parse_eventbrite_html
@@ -16,7 +17,6 @@ from parser.lepointdevente import build_event_lpdv, parse_lpdv_html
 from parser.ovation import build_event_ovation, parse_ovation_html
 from parser.morsefest import build_event_morsefest, parse_morsefest_html
 from parser.progstorm import build_progstorm_calendar, parse_progstorm_html
-from parser.ticketmaster import parse_ticketmaster_json
 from tickets import load_state, mark_events, sync_issue
 
 CITIES = {"Montreal"}  # cities listed in the ticket checklist issue
@@ -56,15 +56,15 @@ def fetch_and_parse_feed(feed, session):
   headers = {"User-Agent": "Mozilla/5.0"}
   try:
     if parser_key == "ticketmaster":
-      resp = session.get(url, params=params, headers=headers, timeout=15)
-      resp.raise_for_status()
-      raw = resp.json()
-      artist, city = label.rsplit("(", 1)
-      artist, city = artist.strip(), city.strip(") ").strip()
-      cal = parse_ticketmaster_json(raw, [artist.lower()])
-      if cal.walk("VEVENT"):
-        print(f"Found Ticketmaster events for: {artist} in {city}")
-      return list(cal.walk("VEVENT")), None
+      events, errors = tm_search.fetch_events(session, url, params)
+      err = None
+      if errors:
+        err = (
+            f"{parser_name}: {len(errors)} request(s) failed, "
+            f"first: {errors[0]}"
+        )
+        print(f"⚠️ {err}")
+      return events, err
 
     resp = session.get(url, headers=headers, timeout=15)
     resp.raise_for_status()
@@ -114,18 +114,15 @@ def get_event_start(ev):
     return datetime.max
 
 
-def write_calendar(path, events, name=None):
+def write_calendar(path, events):
   cal = Calendar()
-  cal.add("prodid", "-//wololo4//concert_calendar//EN")
-  cal.add("version", "2.0")
-  if name:
-    cal.add("x-wr-calname", name)
   for ev in events:
     cal.add_component(ev)
   tmp = f"{path}.tmp"
   with open(tmp, "wb") as f:
     f.write(cal.to_ical())
   os.replace(tmp, path)  # a crash can't leave a half-written calendar
+
 
 def main():
   feeds = load_feeds()
@@ -179,7 +176,7 @@ def main():
   os.makedirs("calendars", exist_ok=True)
   for city, events in city_events.items():
     events.sort(key=get_event_start)
-    write_calendar(f"calendars/{city.lower()}.ics", events, name=f"Concerts {city}")
+    write_calendar(f"calendars/{city.lower()}.ics", events)
     print(f"{city}.ics file created with {len(events)} events.")
 
   # Checklist issue: only the cities listed in CITIES
@@ -194,7 +191,7 @@ def main():
         state,
     )
   except Exception as e:
-    print(f"⚠️ Could not update the ticket checklist: {e}")
+    print(f"⚠️ Could not update the checklist: {e}")
 
   print(f"\nFailed feeds: {len(failed)}")
   for err in failed[:20]:
