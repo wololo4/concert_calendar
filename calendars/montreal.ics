@@ -150,6 +150,16 @@ DESCRIPTION:Tickets: https://www.ticketmaster.ca/haken-in-a-fever-dream-to
 LOCATION:Théâtre Beanfield\, 2490 Rue Notre-Dame Ouest
 END:VEVENT
 BEGIN:VEVENT
+SUMMARY:🎵 | ELDER
+DTSTART:20270411T000000Z
+DTEND:20270411T030000Z
+DTSTAMP:20270411T000000Z
+UID:tm-LvZ18QLCMv8d7tYZMtejO
+DESCRIPTION:Tickets: https://www.universe.com/events/elder-tickets-DJK2NP?
+ ref=ticketmaster
+LOCATION:Fairmount Theatre\, 5240 Avenue du Parc
+END:VEVENT
+BEGIN:VEVENT
 SUMMARY:🎵 | Morsefest Montreal
 DTSTART:20270621T230000Z
 DTEND:20270622T020000Z
