@@ -1,8 +1,14 @@
-from icalendar import Calendar, Event
-from datetime import datetime
+from datetime import timezone
+from icalendar import Event
+
 
 def to_rfc5545(dt):
+    # Aware datetimes are converted to UTC before the "Z" is added.
+    # Naive datetimes are written as-is (treated as UTC), as before.
+    if dt.tzinfo is not None:
+        dt = dt.astimezone(timezone.utc)
     return dt.strftime("%Y%m%dT%H%M%SZ")
+
 
 class ICSEventBuilder:
     def __init__(self):
@@ -33,4 +39,8 @@ class ICSEventBuilder:
         return self
 
     def build(self):
+        # DTSTAMP is required by RFC 5545. Reusing DTSTART keeps it
+        # deterministic, so the files don't change between runs.
+        if "DTSTAMP" not in self.event and "DTSTART" in self.event:
+            self.event["DTSTAMP"] = self.event["DTSTART"]
         return self.event
