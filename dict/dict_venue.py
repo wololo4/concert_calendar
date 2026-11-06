@@ -69,3 +69,35 @@ VENUE_CITY = {
     "The Theatre at Great Canadian": "Toronto",
 }
 
+# ---------------------------------------------------------------------------
+# Fallback lookup that ignores case, accents and punctuation. It is only used
+# when the exact name is not found, so names that match today behave the same.
+# ---------------------------------------------------------------------------
+def _norm(name):
+    s = unicodedata.normalize("NFKD", str(name or ""))
+    s = "".join(c for c in s if not unicodedata.combining(c))
+    return re.sub(r"[^a-z0-9]+", " ", s.lower()).strip()
+
+
+_NORM_INDEX = {}
+for _venue, _city in VENUE_CITY.items():
+    _NORM_INDEX[_norm(_venue)] = _city
+for _canonical, _aliases in VENUE_ALIASE.items():
+    if _canonical in VENUE_CITY:
+        for _alias in _aliases:
+            _NORM_INDEX.setdefault(_norm(_alias), VENUE_CITY[_canonical])
+
+
+class _VenueCity(dict):
+    def get(self, key, default=None):
+        if dict.__contains__(self, key):
+            return dict.__getitem__(self, key)
+        return _NORM_INDEX.get(_norm(key), default)
+
+    def __missing__(self, key):
+        found = _NORM_INDEX.get(_norm(key))
+        if found is None:
+            raise KeyError(key)
+        return found
+
+VENUE_CITY = _VenueCity(VENUE_CITY)
