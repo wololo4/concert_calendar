@@ -1,7 +1,4 @@
 BEGIN:VCALENDAR
-VERSION:2.0
-PRODID:-//wololo4//concert_calendar//EN
-X-WR-CALNAME:Concerts Ottawa
 BEGIN:VEVENT
 SUMMARY:🎵 | Protest the Hero\, Choke\, Kaonashi\, Purple Castle
 DTSTART:20261121T000000Z

@@ -1,18 +1,4 @@
 BEGIN:VCALENDAR
-VERSION:2.0
-PRODID:-//wololo4//concert_calendar//EN
-X-WR-CALNAME:Concerts Toronto
-BEGIN:VEVENT
-SUMMARY:🎵 | Angine de Poitrine
-DTSTART:20261106T000000Z
-DTEND:20261106T030000Z
-DTSTAMP:20261106T000000Z
-UID:tm-177Zv0G61Shy4ZE
-DESCRIPTION:Tickets: https://www.ticketmaster.ca/angine-de-poitrine-toront
- o-ontario-11-05-2026/event/100064ACDBE55027\nArtists: Angine de Poitrine\,
-  Fuudge
-LOCATION:History Toronto\, 1663 Queen St. East
-END:VEVENT
 BEGIN:VEVENT
 SUMMARY:🎵 | Insomnium & Amorphis
 DTSTART:20261120T000000Z

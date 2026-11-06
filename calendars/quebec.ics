@@ -1,7 +1,4 @@
 BEGIN:VCALENDAR
-VERSION:2.0
-PRODID:-//wololo4//concert_calendar//EN
-X-WR-CALNAME:Concerts Quebec
 BEGIN:VEVENT
 SUMMARY:🎵 | Angine de Poitrine
 DTSTART:20261107T010000Z

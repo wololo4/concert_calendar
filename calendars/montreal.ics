@@ -1,7 +1,4 @@
 BEGIN:VCALENDAR
-VERSION:2.0
-PRODID:-//wololo4//concert_calendar//EN
-X-WR-CALNAME:Concerts Montreal
 BEGIN:VEVENT
 SUMMARY:🎵 | CHRONOCHROMIE | PROFUSION ALBUM LAUNCH
 DTSTART:20261109T000000Z
@@ -151,16 +148,6 @@ DESCRIPTION:Tickets: https://www.ticketmaster.ca/haken-in-a-fever-dream-to
  ur-montreal-quebec-03-23-2027/event/31006550A0546CA7\nArtists: Haken\, Tha
  nk You Scientist\, Einar Solberg
 LOCATION:Théâtre Beanfield\, 2490 Rue Notre-Dame Ouest
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:🎵 | ELDER
-DTSTART:20270411T000000Z
-DTEND:20270411T030000Z
-DTSTAMP:20270411T000000Z
-UID:tm-LvZ18QLCMv8d7tYZMtejO
-DESCRIPTION:Tickets: https://www.universe.com/events/elder-tickets-DJK2NP?
- ref=ticketmaster
-LOCATION:Fairmount Theatre\, 5240 Avenue du Parc
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:🎵 | Morsefest Montreal
