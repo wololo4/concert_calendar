@@ -47,5 +47,6 @@ jobs:
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
           git add calendars/*.ics
+          if [ -f ticketmaster_ids.json ]; then git add ticketmaster_ids.json; fi
           git commit -m "Concert calendar update" || exit 0
           git push
