@@ -20,8 +20,10 @@ BATCH_SIZE = 40          # attraction IDs per request
 PAGE_SIZE = 200
 MAX_PAGES = 5            # 200 x 5 stays under the API's 1000-result limit
 MIN_INTERVAL = 0.25      # seconds between requests (API limit is 5 per second)
-KEYWORD_FALLBACK = True  # also keyword-search artists with no attraction
-
+# Only these artists receive a keyword search even when an attraction ID exists.
+KEYWORD_FALLBACK_ARTISTS = {
+    "elder",
+}
 _lock = threading.Lock()
 _last = 0.0
 _requests = 0
@@ -230,13 +232,25 @@ def fetch_events(session, url, params):
         add(_paged(session, url, {**base, "city": city, "attractionId": ",".join(batch)}))
       except Exception as e:
         errors.append(f"{city} batch: {_redact(e)}")
+        
+  # Keyword fallback for artists without an attraction ID,
+  # plus explicitly configured exceptions with valid attraction IDs.
+  fallback_artists = {
+      a.casefold(): a for a in unresolved
+  }
 
-  if KEYWORD_FALLBACK:
-    for artist in unresolved:
-      try:
-        add(_paged(session, url, {**base, "keyword": artist}), city_filter=True)
-      except Exception as e:
-        errors.append(f"keyword '{artist}': {_redact(e)}")
+  for artist in artists:
+    if artist.casefold().strip() in KEYWORD_FALLBACK_ARTISTS:
+      fallback_artists[artist.casefold()] = artist
+
+  for artist in fallback_artists.values():
+    try:
+      add(
+          _paged(session, url, {**base, "keyword": artist}),
+          city_filter=True,
+      )
+    except Exception as e:
+      errors.append(f"keyword '{artist}': {_redact(e)}")
 
   events = sorted(collected.values(), key=lambda e: (_start(e), e.get("id", "")))
   vevents = _parse(events, artists)
