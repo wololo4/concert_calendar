@@ -1,6 +1,8 @@
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone
+import os
 import re
+import sys
 from feeds import load_feeds
 from icalendar import Calendar
 import requests
@@ -49,19 +51,20 @@ def extract_city_from_event(ev):
 
 
 def fetch_and_parse_feed(feed, session):
+  """Returns (events, error). error is None when the feed succeeded."""
   parser_name, label, url, params, parser_key = feed
   headers = {"User-Agent": "Mozilla/5.0"}
   try:
     if parser_key == "ticketmaster":
-      raw = session.get(
-          url, params=params, headers=headers, timeout=15
-      ).json()
+      resp = session.get(url, params=params, headers=headers, timeout=15)
+      resp.raise_for_status()
+      raw = resp.json()
       artist, city = label.rsplit("(", 1)
       artist, city = artist.strip(), city.strip(") ").strip()
       cal = parse_ticketmaster_json(raw, [artist.lower()])
       if cal.walk("VEVENT"):
         print(f"Found Ticketmaster events for: {artist} in {city}")
-      return list(cal.walk("VEVENT"))
+      return list(cal.walk("VEVENT")), None
 
     resp = session.get(url, headers=headers, timeout=15)
     resp.raise_for_status()
@@ -86,13 +89,17 @@ def fetch_and_parse_feed(feed, session):
       )
       print("Found Progstorm events")
     else:
-      print(f"⚠️ No handler for parser_key '{parser_key}' ({label})")
-      return []
+      msg = f"No handler for parser_key '{parser_key}' ({label})"
+      print(f"⚠️ {msg}")
+      return [], msg
 
-    return list(cal.walk("VEVENT"))
+    return list(cal.walk("VEVENT")), None
   except Exception as e:
-    print(f"⚠️ Error fetching/parsing {parser_name} ({label}): {e}")
-    return []
+    # never print the Ticketmaster API key
+    msg = re.sub(r"apikey=[^&\s]+", "apikey=***", str(e))
+    err = f"{parser_name} ({label}): {msg}"
+    print(f"⚠️ Error fetching/parsing {err}")
+    return [], err
 
 
 def get_event_start(ev):
@@ -107,25 +114,54 @@ def get_event_start(ev):
     return datetime.max
 
 
+def write_calendar(path, events):
+  cal = Calendar()
+  for ev in events:
+    cal.add_component(ev)
+  tmp = f"{path}.tmp"
+  with open(tmp, "wb") as f:
+    f.write(cal.to_ical())
+  os.replace(tmp, path)  # a crash can't leave a half-written calendar
+
+
 def main():
   feeds = load_feeds()
-  all_events = []
   session = get_robust_session()
 
   print(f"Fetching {len(feeds)} feeds safely...")
+  results = [([], "not run")] * len(feeds)
   with ThreadPoolExecutor(max_workers=5) as executor:
     futures = {
-        executor.submit(fetch_and_parse_feed, feed, session): feed
-        for feed in feeds
+        executor.submit(fetch_and_parse_feed, feed, session): i
+        for i, feed in enumerate(feeds)
     }
     for f in as_completed(futures):
-      if res := f.result():
-        all_events.extend(res)
+      i = futures[f]
+      try:
+        results[i] = f.result()
+      except Exception as e:
+        results[i] = ([], f"{feeds[i][0]} ({feeds[i][1]}): {e}")
 
-  unique = {str(ev.get("UID")): ev for ev in all_events}
+  # Same as before (unique by UID), but in feed order so the result is
+  # the same on every run
+  failed = [err for _, err in results if err]
+  unique = {}
+  for events, _ in results:
+    for ev in events:
+      unique[str(ev.get("UID"))] = ev
 
-  # Read ticked boxes from the GitHub issue and mark those events
-  state = load_state()
+  if not unique:
+    print("ABORTING: no events fetched, calendars left untouched.")
+    sys.exit(1)
+
+  # Read ticked boxes from the GitHub issue and mark those events.
+  # If the checklist can't be read, stop: writing the calendars now would
+  # silently remove the TICKET BOUGHT lines.
+  try:
+    state = load_state()
+  except Exception as e:
+    print(f"ABORTING: could not read the ticket checklist: {e}")
+    sys.exit(1)
   mark_events(unique.values(), state)
 
   city_events = {}
@@ -137,25 +173,29 @@ def main():
     city_events.setdefault(city, []).append(ev)
 
   # Every city keeps its own calendar file
+  os.makedirs("calendars", exist_ok=True)
   for city, events in city_events.items():
     events.sort(key=get_event_start)
-    cal = Calendar()
-    for ev in events:
-      cal.add_component(ev)
-    with open(f"calendars/{city.lower()}.ics", "wb") as f:
-      f.write(cal.to_ical())
+    write_calendar(f"calendars/{city.lower()}.ics", events)
     print(f"{city}.ics file created with {len(events)} events.")
 
   # Checklist issue: only the cities listed in CITIES
-  sync_issue(
-      [
-          (ev, city)
-          for city, evs in city_events.items()
-          if city in CITIES
-          for ev in evs
-      ],
-      state,
-  )
+  try:
+    sync_issue(
+        [
+            (ev, city)
+            for city, evs in city_events.items()
+            if city in CITIES
+            for ev in evs
+        ],
+        state,
+    )
+  except Exception as e:
+    print(f"⚠️ Could not update the ticket checklist: {e}")
+
+  print(f"\nFailed feeds: {len(failed)}")
+  for err in failed[:20]:
+    print(f"  - {err}")
 
 
 if __name__ == "__main__":
