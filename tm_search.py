@@ -2,8 +2,9 @@
 
 Each artist's Ticketmaster attraction ID is looked up once and cached in
 ticketmaster_ids.json, then many attractions are requested per call.
-Artists with no attraction yet are re-checked every NEGATIVE_TTL_DAYS days,
-at most ceil(n / NEGATIVE_TTL_DAYS) of them per day, so the work is spread out.
+Artists with no attraction yet are re-checked every NEGATIVE_TTL_DAYS days and
+known IDs are refreshed every POSITIVE_TTL_DAYS days. Both are spread out so
+that only about ceil(n / TTL) artists are looked up per day.
 """
 from datetime import datetime, timezone
 import json
@@ -16,12 +17,13 @@ import unicodedata
 from parser.ticketmaster import parse_ticketmaster_json
 
 CACHE_FILE = "ticketmaster_ids.json"
-NEGATIVE_TTL_DAYS = 30   # re-check artists with no attraction this often
+NEGATIVE_TTL_DAYS = 30    # re-check artists with no attraction this often
+POSITIVE_TTL_DAYS = 180   # refresh known attraction IDs this often
 FORCE_RECHECK = os.environ.get("TM_FORCE_RECHECK") == "1"
-BATCH_SIZE = 40          # attraction IDs per request
+BATCH_SIZE = 40           # attraction IDs per request
 PAGE_SIZE = 200
-MAX_PAGES = 5            # 200 x 5 stays under the API's 1000-result limit
-MIN_INTERVAL = 0.25      # seconds between requests (API limit is 5 per second)
+MAX_PAGES = 5             # 200 x 5 stays under the API's 1000-result limit
+MIN_INTERVAL = 0.25       # seconds between requests (API limit is 5 per second)
 
 # Artists with no attraction are NOT keyword-searched; the periodic re-check
 # above picks them up once Ticketmaster creates an attraction for them.
@@ -140,34 +142,38 @@ def resolve_ids(session, events_url, apikey, artists, errors):
     e = stored.get(key)
     return e if isinstance(e, dict) else None
 
-  # Artists that were looked up before but still have no attraction
-  waiting = [k for k in set(keys) if known(k) and not known(k).get("ids")]
-  cap = max(1, -(-len(waiting) // NEGATIVE_TTL_DAYS))  # ceil(n / TTL) per day
-  done_today = sum(1 for k in waiting if stored[k].get("checked") == today)
-  due = sorted(
-      (
-          k
-          for k in waiting
-          if _age_days(stored[k].get("checked")) >= NEGATIVE_TTL_DAYS
-      ),
-      key=lambda k: (stored[k].get("checked") or "", k),  # most overdue first
-  )
+  def pick_due(group, ttl):
+    """Due artists, most overdue first, at most ceil(n / ttl) per day."""
+    cap = max(1, -(-len(group) // ttl))
+    done_today = sum(1 for k in group if stored[k].get("checked") == today)
+    due = sorted(
+        (k for k in group if _age_days(stored[k].get("checked")) >= ttl),
+        key=lambda k: (stored[k].get("checked") or "", k),
+    )
+    return set(due[: max(0, cap - done_today)]), cap
+
+  unique = set(keys)
+  waiting = [k for k in unique if known(k) and not known(k).get("ids")]
+  have = [k for k in unique if known(k) and known(k).get("ids")]
+
   if FORCE_RECHECK:
-    recheck = set(waiting)
+    recheck, neg_cap = set(waiting) | set(have), len(waiting)
   else:
-    recheck = set(due[: max(0, cap - done_today)])
+    neg_due, neg_cap = pick_due(waiting, NEGATIVE_TTL_DAYS)
+    pos_due, _ = pick_due(have, POSITIVE_TTL_DAYS)
+    recheck = neg_due | pos_due
 
   cache, ids, unresolved = {}, [], []
   lookups, changed = 0, False
   for artist, key in zip(artists, keys):
     entry = known(key)
-    # new artists are looked up right away; positives never expire
+    # new artists are looked up right away
     if entry is None or key in recheck:
       try:
-        entry = {
-            "ids": _lookup(session, attractions_url, apikey, artist),
-            "checked": today,
-        }
+        found = _lookup(session, attractions_url, apikey, artist)
+        old = (entry or {}).get("ids") or []
+        # an empty result never wipes an ID that worked before
+        entry = {"ids": found or old, "checked": today}
         lookups += 1
         changed = True
       except Exception as e:
@@ -182,7 +188,7 @@ def resolve_ids(session, events_url, apikey, artists, errors):
 
   if changed or set(cache) != set(stored) or not os.path.exists(CACHE_FILE):
     _save_cache(cache)
-  return sorted(set(ids)), unresolved, {"lookups": lookups, "cap": cap}
+  return sorted(set(ids)), unresolved, {"lookups": lookups, "cap": neg_cap}
 
 
 # --- events -----------------------------------------------------------------
@@ -282,12 +288,12 @@ def fetch_events(session, url, params):
   print(
       f"Ticketmaster: {len(vevents)} events from {_requests - start_requests} "
       f"requests ({len(artists) - len(unresolved)} artists matched to "
-      f"attractions, {len(unresolved)} without)"
+      f"attractions, {len(unresolved)} without), "
+      f"{stats['lookups']} attraction lookup(s) this run"
   )
   if unresolved:
     print(
-        f"Ticketmaster: {stats['lookups']} attraction lookup(s) this run. "
-        f"Artists without an attraction are re-checked every "
+        f"Ticketmaster: artists without an attraction are re-checked every "
         f"{NEGATIVE_TTL_DAYS} days, at most {stats['cap']} per day: "
         + ", ".join(unresolved)
     )
