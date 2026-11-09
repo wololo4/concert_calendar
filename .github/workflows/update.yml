@@ -2,8 +2,13 @@ name: Update concert calendar
 
 on:
   schedule:
-    - cron: "0 3 * * 1"   # Every Monday at 03:00 UTC
+    - cron: "0 3 * * *"   # Every day at 03:00 UTC
   workflow_dispatch:
+    inputs:
+      recheck_ticketmaster:
+        description: "Re-check every artist that has no Ticketmaster attraction yet"
+        type: boolean
+        default: false
   issues:
     types: [edited]       # Rebuild when a ticket box is ticked
 
@@ -41,6 +46,7 @@ jobs:
           TICKETMASTER_API_KEY: ${{ secrets.TICKETMASTER_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
+          TM_FORCE_RECHECK: ${{ inputs.recheck_ticketmaster && '1' || '' }}
 
       - name: Save calendar
         run: |
