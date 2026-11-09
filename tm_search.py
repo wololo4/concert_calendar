@@ -1,8 +1,9 @@
 """Ticketmaster search with far fewer requests.
 
-Before: one request per artist per city (about 500).
-Now: each artist's Ticketmaster attraction ID is looked up once and cached in
+Each artist's Ticketmaster attraction ID is looked up once and cached in
 ticketmaster_ids.json, then many attractions are requested per call.
+Artists with no attraction yet are re-checked every NEGATIVE_TTL_DAYS days,
+at most ceil(n / NEGATIVE_TTL_DAYS) of them per day, so the work is spread out.
 """
 from datetime import datetime, timezone
 import json
@@ -15,15 +16,22 @@ import unicodedata
 from parser.ticketmaster import parse_ticketmaster_json
 
 CACHE_FILE = "ticketmaster_ids.json"
-NEGATIVE_TTL_DAYS = 14   # re-check artists with no attraction after this long
+NEGATIVE_TTL_DAYS = 30   # re-check artists with no attraction this often
+FORCE_RECHECK = os.environ.get("TM_FORCE_RECHECK") == "1"
 BATCH_SIZE = 40          # attraction IDs per request
 PAGE_SIZE = 200
 MAX_PAGES = 5            # 200 x 5 stays under the API's 1000-result limit
 MIN_INTERVAL = 0.25      # seconds between requests (API limit is 5 per second)
-# Only these artists receive a keyword search even when an attraction ID exists.
+
+# Artists with no attraction are NOT keyword-searched; the periodic re-check
+# above picks them up once Ticketmaster creates an attraction for them.
+# Set True to also keyword-search them on every run.
+KEYWORD_FALLBACK_UNRESOLVED = False
+# These artists always get a keyword search, even with an attraction ID.
 KEYWORD_FALLBACK_ARTISTS = {
     "elder",
 }
+
 _lock = threading.Lock()
 _last = 0.0
 _requests = 0
@@ -122,41 +130,59 @@ def _lookup(session, attractions_url, apikey, artist):
 
 
 def resolve_ids(session, events_url, apikey, artists, errors):
-  """Returns (attraction_ids, artists_without_attraction)."""
+  """Returns (attraction_ids, artists_without_attraction, stats)."""
   attractions_url = events_url.rsplit("/", 1)[0] + "/attractions.json"
   stored = _load_cache().get("artists", {})
-  cache, ids, unresolved = {}, [], []
   today = datetime.now(timezone.utc).date().isoformat()
-  changed = False
+  keys = [a.casefold().strip() for a in artists]
 
-  for artist in artists:
-    key = artist.casefold().strip()
-    entry = stored.get(key)
-    fresh = False
-    if isinstance(entry, dict):
-      fresh = bool(entry.get("ids")) or (
-          _age_days(entry.get("checked")) < NEGATIVE_TTL_DAYS
-      )
-    if not fresh:
+  def known(key):
+    e = stored.get(key)
+    return e if isinstance(e, dict) else None
+
+  # Artists that were looked up before but still have no attraction
+  waiting = [k for k in set(keys) if known(k) and not known(k).get("ids")]
+  cap = max(1, -(-len(waiting) // NEGATIVE_TTL_DAYS))  # ceil(n / TTL) per day
+  done_today = sum(1 for k in waiting if stored[k].get("checked") == today)
+  due = sorted(
+      (
+          k
+          for k in waiting
+          if _age_days(stored[k].get("checked")) >= NEGATIVE_TTL_DAYS
+      ),
+      key=lambda k: (stored[k].get("checked") or "", k),  # most overdue first
+  )
+  if FORCE_RECHECK:
+    recheck = set(waiting)
+  else:
+    recheck = set(due[: max(0, cap - done_today)])
+
+  cache, ids, unresolved = {}, [], []
+  lookups, changed = 0, False
+  for artist, key in zip(artists, keys):
+    entry = known(key)
+    # new artists are looked up right away; positives never expire
+    if entry is None or key in recheck:
       try:
         entry = {
             "ids": _lookup(session, attractions_url, apikey, artist),
             "checked": today,
         }
+        lookups += 1
         changed = True
       except Exception as e:
         errors.append(f"attraction lookup '{artist}': {_redact(e)}")
-        entry = None
+        # an old entry stays as it was and is retried on the next run
     if entry:
       cache[key] = entry
-    if entry and entry.get("ids"):
-      ids.extend(entry["ids"])
-    else:
-      unresolved.append(artist)
+      if entry.get("ids"):
+        ids.extend(entry["ids"])
+        continue
+    unresolved.append(artist)
 
   if changed or set(cache) != set(stored) or not os.path.exists(CACHE_FILE):
     _save_cache(cache)
-  return sorted(set(ids)), unresolved
+  return sorted(set(ids)), unresolved, {"lookups": lookups, "cap": cap}
 
 
 # --- events -----------------------------------------------------------------
@@ -220,7 +246,7 @@ def fetch_events(session, url, params):
         continue
       collected[ev_id] = ev
 
-  ids, unresolved = resolve_ids(session, url, apikey, artists, errors)
+  ids, unresolved, stats = resolve_ids(session, url, apikey, artists, errors)
 
   base = {"apikey": apikey, "size": PAGE_SIZE}
   if country:
@@ -232,23 +258,21 @@ def fetch_events(session, url, params):
         add(_paged(session, url, {**base, "city": city, "attractionId": ",".join(batch)}))
       except Exception as e:
         errors.append(f"{city} batch: {_redact(e)}")
-        
-  # Keyword fallback for artists without an attraction ID,
-  # plus explicitly configured exceptions with valid attraction IDs.
-  fallback_artists = {
-      a.casefold(): a for a in unresolved
-  }
 
+  # Keyword searches: configured exceptions (artists that have an attraction
+  # ID but are still searched by name), plus the unresolved artists only if
+  # KEYWORD_FALLBACK_UNRESOLVED is on.
+  fallback = {}
+  if KEYWORD_FALLBACK_UNRESOLVED:
+    fallback.update({a.casefold().strip(): a for a in unresolved})
   for artist in artists:
-    if artist.casefold().strip() in KEYWORD_FALLBACK_ARTISTS:
-      fallback_artists[artist.casefold()] = artist
+    key = artist.casefold().strip()
+    if key in KEYWORD_FALLBACK_ARTISTS:
+      fallback[key] = artist
 
-  for artist in fallback_artists.values():
+  for artist in fallback.values():
     try:
-      add(
-          _paged(session, url, {**base, "keyword": artist}),
-          city_filter=True,
-      )
+      add(_paged(session, url, {**base, "keyword": artist}), city_filter=True)
     except Exception as e:
       errors.append(f"keyword '{artist}': {_redact(e)}")
 
@@ -261,5 +285,10 @@ def fetch_events(session, url, params):
       f"attractions, {len(unresolved)} without)"
   )
   if unresolved:
-    print("Ticketmaster: no attraction found for: " + ", ".join(unresolved))
+    print(
+        f"Ticketmaster: {stats['lookups']} attraction lookup(s) this run. "
+        f"Artists without an attraction are re-checked every "
+        f"{NEGATIVE_TTL_DAYS} days, at most {stats['cap']} per day: "
+        + ", ".join(unresolved)
+    )
   return vevents, errors
