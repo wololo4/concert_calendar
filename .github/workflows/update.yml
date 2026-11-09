@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
     inputs:
       recheck_ticketmaster:
-        description: "Re-check every artist that has no Ticketmaster attraction yet"
+        description: "Re-check every artist's Ticketmaster attraction ID"
         type: boolean
         default: false
   issues:
