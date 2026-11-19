@@ -1,26 +1,5 @@
 BEGIN:VCALENDAR
 BEGIN:VEVENT
-SUMMARY:🎵 | Amorphis & Insomnium
-DTSTART:20261119T003000Z
-DTEND:20261119T033000Z
-DTSTAMP:20261119T003000Z
-UID:tm-1kG8vPkaGA1pSJC
-DESCRIPTION:Tickets: https://www.ticketmaster.ca/amorphis-insomnium-montre
- al-quebec-11-18-2026/event/310065189A5B398E\nArtists: Insomnium\, Amorphis
- \, Hinayana
-LOCATION:Théâtre Beanfield\, 2490 Rue Notre-Dame Ouest
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:🎵 | PROTEST THE HERO
-DTSTART:20261119T003000Z
-DTEND:20261119T033000Z
-DTSTAMP:20261119T003000Z
-UID:tm-LvZ18QEKCNOd9Y7QfIe6O
-DESCRIPTION:TICKET BOUGHT\n\nTickets: https://www.universe.com/events/prot
- est-the-hero-tickets-PQ7GZ4?ref=ticketmaster\nArtists: Protest the Hero
-LOCATION:Fairmount Theatre\, 5240 Avenue du Parc
-END:VEVENT
-BEGIN:VEVENT
 SUMMARY:🎵 | The Pineapple Thief
 DTSTART:20261125T010000Z
 DTEND:20261125T040000Z
