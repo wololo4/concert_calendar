@@ -118,6 +118,9 @@ sources:
     organizer: 
       - les-productions-dungeon-works-46587222653
       - chord-productions-26304681803
+
+  - parser: imperialbell
+    base_url: https://www.imperialbell.com/Programmation/Liste-des-spectacles
     
   - parser: lepointdevente
     base_url: https://thepointofsale.com/venues/
@@ -137,14 +140,11 @@ sources:
     tickets:
       - cafecampusshows
 
-  - parser: imperialbell
-    base_url: https://www.imperialbell.com/Programmation/Liste-des-spectacles
+  - parser: morsefest
+    url: https://morsefest.com/events
 
   - parser: ovation
     base_url: https://m.ovation.ca/00000V/en/Search/AllEvents?categoryId=undefined
-
-  - parser: morsefest
-    url: https://morsefest.com/events
 
   - parser: progstorm
     url: "https://www.progstorm.com"
@@ -152,3 +152,8 @@ sources:
       friday: ["22:30", "21:00", "19:30", "18:15", "17:00", "16:00"]
       saturday: ["21:30", "20:00", "18:30", "17:15", "16:00", "15:00"]
       sunday: ["21:30", "20:00", "18:30", "17:00", "16:00", "15:00"]
+
+  - parser: ticketweb
+    base_url: https://www.ticketweb.ca/venue/
+    venues:
+      - the-cave-toronto-on/652453
