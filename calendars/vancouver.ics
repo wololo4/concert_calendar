@@ -1,5 +1,16 @@
 BEGIN:VCALENDAR
 BEGIN:VEVENT
+SUMMARY:🎵 | Insomnium & Amorphis with guest Hinayana
+DTSTART:20261201T000000Z
+DTEND:20261201T030000Z
+DTSTAMP:20261201T000000Z
+UID:eventbrite1998918423815
+DESCRIPTION:Tickets: https://www.eventbrite.ca/e/insomnium-amorphis-with-g
+ uest-hinayana-tickets-1998918423815\nArtists: Insomnium & Amorphis with gu
+ est Hinayana
+LOCATION:Rickshaw Theatre\, 254 E. Hastings Street
+END:VEVENT
+BEGIN:VEVENT
 SUMMARY:🎵 | Insomnium & Amorphis
 DTSTART:20261201T023000Z
 DTEND:20261201T053000Z
@@ -51,6 +62,16 @@ DESCRIPTION:Tickets: https://www.ticketmaster.ca/northlane-the-anemoia-tou
  r-vancouver-british-columbia-03-16-2027/event/11006531AE81C794\nArtists: N
  orthlane\, Aviana\, ALLT\, Reliqa
 LOCATION:Commodore Ballroom\, 868 Granville St.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:🎵 | TÝR
+DTSTART:20270323T220000Z
+DTEND:20270324T010000Z
+DTSTAMP:20270323T220000Z
+UID:eventbrite2004976512722
+DESCRIPTION:Tickets: https://www.eventbrite.ca/e/tyr-tickets-2004976512722
+ \nArtists: TÝR
+LOCATION:Rickshaw Theatre\, 254 E. Hastings Street
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:🎵 | Meshuggah: The Forty-Year Anomaly w/ Testament & Blood Inca
