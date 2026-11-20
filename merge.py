@@ -21,7 +21,14 @@ from parser.ticketweb import build_event_ticketweb, parse_ticketweb_html
 from tickets import load_state, mark_events, sync_issue
 
 CITIES = {"Montreal"}  # cities listed in the ticket checklist issue
-
+BROWSER_HEADERS = {
+    "User-Agent": (
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+        "(KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+    ),
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+    "Accept-Language": "en-CA,en;q=0.9",
+}
 
 def get_robust_session():
   s = requests.Session()
@@ -55,6 +62,8 @@ def fetch_and_parse_feed(feed, session):
   """Returns (events, error). error is None when the feed succeeded."""
   parser_name, label, url, params, parser_key = feed
   headers = {"User-Agent": "Mozilla/5.0"}
+  if parser_key == "ticketweb":
+    headers = BROWSER_HEADERS
   try:
     if parser_key == "ticketmaster":
       events, errors = tm_search.fetch_events(session, url, params)
