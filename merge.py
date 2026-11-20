@@ -50,6 +50,27 @@ def get_robust_session():
   return s
 
 
+def fetch_html_browser(url):
+  """Real Chromium fetch, for pages that serve a JS challenge to requests."""
+  from playwright.sync_api import sync_playwright
+
+  with sync_playwright() as p:
+    browser = p.chromium.launch(headless=False)  # runs under xvfb-run
+    try:
+      ctx = browser.new_context(
+          user_agent=BROWSER_HEADERS["User-Agent"], locale="en-CA"
+      )
+      page = ctx.new_page()
+      page.goto(url, wait_until="domcontentloaded", timeout=30000)
+      # a challenge page reloads itself; wait for the real page's JSON-LD
+      page.wait_for_selector(
+          'script[type="application/ld+json"]', state="attached", timeout=25000
+      )
+      return page.content()
+    finally:
+      browser.close()
+
+
 def extract_city_from_event(ev):
   loc = ev.get("LOCATION")
   if not loc:
@@ -82,13 +103,21 @@ def fetch_and_parse_feed(feed, session):
       return events, err
 
     resp = session.get(url, headers=headers, timeout=15)
-    if not resp.ok:
+    if resp.ok:
+      raw = resp.content.decode("utf-8")
+    elif parser_key == "ticketweb":
+      # ticketweb answers requests with a JS challenge page (530) at times
+      print(
+          f"⚠️ {parser_name} ({label}) HTTP {resp.status_code} "
+          f"server={resp.headers.get('server')!r}, retrying with a browser"
+      )
+      raw = fetch_html_browser(url)
+    else:
       print(
           f"⚠️ {parser_name} ({label}) HTTP {resp.status_code} "
           f"server={resp.headers.get('server')!r} body={resp.text[:300]!r}"
       )
-    resp.raise_for_status()
-    raw = resp.content.decode("utf-8")
+      resp.raise_for_status()
     artists = [a.lower() for a in params.get("artists", [])]
 
     if parser_key == "eventbrite":
