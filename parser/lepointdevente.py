@@ -130,7 +130,7 @@ def parse_lpdv_html(html, artists):
   venue_address = addr_block.find("div").get_text(strip=True) if addr_block else ""
   page_venue = ", ".join(p for p in (venue_name, venue_address) if p)
 
-  names = sorted({_norm(a) for a in artists if len(a) > 3}, key=len, reverse=True)
+  names = sorted({_norm(a) for a in artists if len(a) >= 3}, key=len, reverse=True)
   pattern = (
       re.compile(r"\b(?:" + "|".join(re.escape(a) for a in names) + r")\b")
       if names
