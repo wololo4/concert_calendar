@@ -53,6 +53,16 @@ DESCRIPTION:Tickets: https://lepointdevente.com/tickets/d7p270121001\nArti
 LOCATION:L'Anti Bar & Spectacles\, 251 Rue Dorchester
 END:VEVENT
 BEGIN:VEVENT
+SUMMARY:🎵 | TYR et DYNAZTY avec Dominum\, Edge of Paradise
+DTSTART:20270311T233000Z
+DTEND:20270312T023000Z
+DTSTAMP:20270311T233000Z
+UID:lpdvd7p270311002
+DESCRIPTION:Tickets: https://lepointdevente.com/tickets/d7p270311002\nArti
+ sts: TYR et DYNAZTY avec Dominum\, Edge of Paradise
+LOCATION:Salle Montaigne - Cégep Limoilou\, 7600 3e avenue est
+END:VEVENT
+BEGIN:VEVENT
 SUMMARY:🎵 | Haken
 DTSTART:20270324T230000Z
 DTEND:20270325T020000Z
