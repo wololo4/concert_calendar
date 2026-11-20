@@ -10,7 +10,11 @@ from requests.adapters import HTTPAdapter
 from urllib3.util import Retry
 
 import tm_search
-from utils.fetchers import BROWSER_HEADERS, fetch_eventbrite_html, fetch_ticketweb_html
+from utils.fetch import (
+    BROWSER_HEADERS,
+    fetch_eventbrite_html,
+    fetch_ticketweb_html,
+)
 from dict.dict_venue import VENUE_ALIASE, VENUE_CITY
 from parser.imperialbell import build_event_imperialbell, parse_imperialbell_html
 from parser.eventbrite import build_eventbrite_calendar, parse_eventbrite_html
