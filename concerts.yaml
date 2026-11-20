@@ -114,11 +114,6 @@ sources:
     city: [Laval, Montreal, Ottawa, Quebec, Toronto, Vancouver]
     country: CA
 
-  - parser: admitone
-    base_url: https://admitone.com/venue/
-    venues:
-      - rickshaw-theatre/5f2c38d8b49c2246483017eb
-
   - parser: eventbrite
     base_url: https://www.eventbrite.com/o/
     organizer: 
