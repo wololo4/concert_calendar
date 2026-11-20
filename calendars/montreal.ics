@@ -107,6 +107,17 @@ DESCRIPTION:Tickets: https://www.ticketmaster.ca/polyphia-be-not-afraid-wo
 LOCATION:L'Olympia\, 1004 Sainte-Catherine Street East
 END:VEVENT
 BEGIN:VEVENT
+SUMMARY:🎵 | Týr & Dynazty
+DTSTART:20270312T233000Z
+DTEND:20270313T023000Z
+DTSTAMP:20270312T233000Z
+UID:tm-1Ad7Z_pGkSQ_183
+DESCRIPTION:Tickets: https://www.ticketmaster.ca/tyr-dynazty-montreal-queb
+ ec-03-12-2027/event/3100656CDA64A412\nArtists: Týr\, Dynazty\, Dominum\, 
+ Edge of Paradise
+LOCATION:Le Studio TD\, 305\, rue Ste-Catherine Ouest
+END:VEVENT
+BEGIN:VEVENT
 SUMMARY:🎵 | Haken - In A Fever Dream Tour
 DTSTART:20270323T230000Z
 DTEND:20270324T020000Z
