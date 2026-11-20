@@ -63,6 +63,16 @@ DESCRIPTION:Tickets: https://am.ticketmaster.com/pda/fr-ca/ism/P7W0116\nAr
 LOCATION:Salle Wilfrid-Pelletier - PN\, 175 Ste-Catherine Ouest
 END:VEVENT
 BEGIN:VEVENT
+SUMMARY:🎵 | Meridian Veil
+DTSTART:20270123T000000Z
+DTEND:20270123T030000Z
+DTSTAMP:20270123T000000Z
+UID:lpdv270122-extensive-enterprise-presente-meridian-veil-montreal
+DESCRIPTION:Tickets: https://lepointdevente.com/tickets/270122-extensive-e
+ nterprise-presente-meridian-veil-montreal\nArtists: Meridian Veil
+LOCATION:Petit Campus\, 57-B Rue Prince-Arthur Est
+END:VEVENT
+BEGIN:VEVENT
 SUMMARY:🎵 | Meshuggah: The Forty-Year Anomaly w/ Testament & Blood Inca
  ntation
 DTSTART:20270214T000000Z
@@ -156,12 +166,12 @@ DESCRIPTION:TICKET BOUGHT\n\nConcert: TO BE ANNOUNCED\nJour: Friday
 LOCATION:CLUB SODA\, MONTRÉAL
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:🎵 | TO BE ANNOUNCED
+SUMMARY:🎵 | FIRES IN THE DISTANCE
 DTSTART:20270820T221500Z
 DTEND:20270820T233000Z
 DTSTAMP:20270820T221500Z
 UID:progstorm-2027-friday-3
-DESCRIPTION:TICKET BOUGHT\n\nConcert: TO BE ANNOUNCED\nJour: Friday
+DESCRIPTION:TICKET BOUGHT\n\nConcert: FIRES IN THE DISTANCE\nJour: Friday
 LOCATION:CLUB SODA\, MONTRÉAL
 END:VEVENT
 BEGIN:VEVENT

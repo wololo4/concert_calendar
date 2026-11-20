@@ -43,6 +43,16 @@ DESCRIPTION:Tickets: https://www.ticketmaster.ca/the-musical-box-and-then-
 LOCATION:Théâtre Capitole\, 972 Rue Saint-Jean
 END:VEVENT
 BEGIN:VEVENT
+SUMMARY:🎵 | Meridian Veil avec Unreqvited
+DTSTART:20270122T000000Z
+DTEND:20270122T030000Z
+DTSTAMP:20270122T000000Z
+UID:lpdvd7p270121001
+DESCRIPTION:Tickets: https://lepointdevente.com/tickets/d7p270121001\nArti
+ sts: Meridian Veil avec Unreqvited
+LOCATION:L'Anti Bar & Spectacles\, 251 Rue Dorchester
+END:VEVENT
+BEGIN:VEVENT
 SUMMARY:🎵 | Haken
 DTSTART:20270324T230000Z
 DTEND:20270325T020000Z
