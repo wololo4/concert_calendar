@@ -58,6 +58,7 @@ VENUE_CITY = {
     "Studio Sonum": "Quebec",
     "Théâtre Capitole": "Quebec",
 
+    "The Cave": "Toronto",
     "Coca-Cola Coliseum": "Toronto",
     "The Concert Hall": "Toronto",
     "The Danforth Music Hall": "Toronto",
