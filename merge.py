@@ -50,8 +50,12 @@ def get_robust_session():
   return s
 
 
-def fetch_html_browser(url):
-  """Real Chromium fetch, for pages that serve a JS challenge to requests."""
+def fetch_html_browser(url, ready, more=None):
+  """Real Chromium fetch for pages that need JavaScript.
+
+  ready: CSS selector that must exist before the page counts as loaded.
+  more: text of a "load more" control to click until it disappears.
+  """
   from playwright.sync_api import sync_playwright
 
   with sync_playwright() as p:
@@ -62,10 +66,22 @@ def fetch_html_browser(url):
       )
       page = ctx.new_page()
       page.goto(url, wait_until="domcontentloaded", timeout=30000)
-      # a challenge page reloads itself; wait for the real page's JSON-LD
-      page.wait_for_selector(
-          'script[type="application/ld+json"]', state="attached", timeout=25000
-      )
+      page.wait_for_selector(ready, state="attached", timeout=25000)
+
+      for _ in range(30 if more else 0):
+        btn = page.get_by_text(more, exact=True)
+        if not btn.count() or not btn.first.is_visible():
+          break
+        before = page.locator(ready).count()
+        try:
+          btn.first.click(timeout=5000)
+          page.wait_for_function(
+              "([sel, n]) => document.querySelectorAll(sel).length > n",
+              arg=[ready, before],
+              timeout=8000,
+          )
+        except Exception:
+          break  # click failed or nothing new loaded: keep what we have
       return page.content()
     finally:
       browser.close()
@@ -102,22 +118,29 @@ def fetch_and_parse_feed(feed, session):
         print(f"⚠️ {err}")
       return events, err
 
-    resp = session.get(url, headers=headers, timeout=15)
-    if resp.ok:
-      raw = resp.content.decode("utf-8")
-    elif parser_key == "ticketweb":
-      # ticketweb answers requests with a JS challenge page (530) at times
-      print(
-          f"⚠️ {parser_name} ({label}) HTTP {resp.status_code} "
-          f"server={resp.headers.get('server')!r}, retrying with a browser"
-      )
-      raw = fetch_html_browser(url)
+    if parser_key == "eventbrite":
+      # the organizer page only lists ~12 events until "Show more" is clicked
+      raw = fetch_html_browser(url, ready='a[href*="/e/"]', more="Show more")
     else:
-      print(
-          f"⚠️ {parser_name} ({label}) HTTP {resp.status_code} "
-          f"server={resp.headers.get('server')!r} body={resp.text[:300]!r}"
-      )
-      resp.raise_for_status()
+      resp = session.get(url, headers=headers, timeout=15)
+      if resp.ok:
+        raw = resp.content.decode("utf-8")
+      elif parser_key == "ticketweb":
+        # ticketweb answers requests with a JS challenge page (530) at times
+        print(
+            f"⚠️ {parser_name} ({label}) HTTP {resp.status_code} "
+            f"server={resp.headers.get('server')!r}, retrying with a browser"
+        )
+        raw = fetch_html_browser(
+            url, ready='script[type="application/ld+json"]'
+        )
+      else:
+        print(
+            f"⚠️ {parser_name} ({label}) HTTP {resp.status_code} "
+            f"server={resp.headers.get('server')!r} body={resp.text[:300]!r}"
+        )
+        resp.raise_for_status()
+        raw = resp.content.decode("utf-8")
     artists = [a.lower() for a in params.get("artists", [])]
 
     if parser_key == "eventbrite":
