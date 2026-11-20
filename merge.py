@@ -83,7 +83,7 @@ def fetch_html_browser(url, ready, more=None, collect=None, seen=None):
       page = ctx.new_page()
       responses = []
       if collect is not None:
-        page.on("response", responses.append)
+        page.on("response", lambda r: responses.append(r))
 
       page.goto(url, wait_until="domcontentloaded", timeout=30000)
       try:
