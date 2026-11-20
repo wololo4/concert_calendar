@@ -49,7 +49,7 @@ def parse_ticketweb_html(html, artists):
   if not items:
     return []  # empty venue page, nothing to add
 
-  names = sorted({_norm(a) for a in artists if len(a) > 3}, key=len, reverse=True)
+  names = sorted({_norm(a) for a in artists if len(a) >= 3}, key=len, reverse=True)
   pattern = (
       re.compile(r"\b(?:" + "|".join(re.escape(a) for a in names) + r")\b")
       if names
