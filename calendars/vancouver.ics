@@ -1,0 +1,76 @@
+BEGIN:VCALENDAR
+BEGIN:VEVENT
+SUMMARY:🎵 | Insomnium & Amorphis
+DTSTART:20261201T023000Z
+DTEND:20261201T053000Z
+DTSTAMP:20261201T023000Z
+UID:ao6a88ae7ae9f587089a065d63
+DESCRIPTION:Tickets: https://admitone.com/events/vancouver/pro/concerts/ri
+ ckshaw-theatre/amorphis/insomnium-amorphis/6a88ae7ae9f587089a065d63\nArtis
+ ts: Insomnium & Amorphis
+LOCATION:Rickshaw Theatre\, 254 E Hastings St
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:🎵 | Protest The Hero with Royal Tusk & Kaonashi
+DTSTART:20261204T030000Z
+DTEND:20261204T060000Z
+DTSTAMP:20261204T030000Z
+UID:tm-rZ7HnEZ1AfP3xd
+DESCRIPTION:Tickets: https://www.ticketweb.ca/event/protest-the-hero-with-
+ royal-the-pearl-tickets/14952883\nArtists: Protest the Hero
+LOCATION:The Pearl\, 881 Granville Street
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:🎵 | The Pineapple Thief
+DTSTART:20261214T020000Z
+DTEND:20261214T050000Z
+DTSTAMP:20261214T020000Z
+UID:tm-1AoZk36GkdeWtrY
+DESCRIPTION:Tickets: https://www.ticketmaster.ca/the-pineapple-thief-vanco
+ uver-british-columbia-12-13-2026/event/11006487C2F697B0\nArtists: The Pine
+ apple Thief
+LOCATION:Hollywood Theatre\, 3123 W Broadway
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:🎵 | Haken: In A Fever Dream Tour
+DTSTART:20270315T020000Z
+DTEND:20270315T050000Z
+DTSTAMP:20270315T020000Z
+UID:tm-rZ7HnEZ1AfJ_aN
+DESCRIPTION:Tickets: https://www.ticketweb.ca/event/haken-in-a-fever-dream
+ -the-pearl-tickets/14999263\nArtists: Haken
+LOCATION:The Pearl\, 881 Granville Street
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:🎵 | Northlane: THE ANEMOIA TOUR
+DTSTART:20270317T010000Z
+DTEND:20270317T040000Z
+DTSTAMP:20270317T010000Z
+UID:tm-1AoZkfsGkemOjrf
+DESCRIPTION:Tickets: https://www.ticketmaster.ca/northlane-the-anemoia-tou
+ r-vancouver-british-columbia-03-16-2027/event/11006531AE81C794\nArtists: N
+ orthlane\, Aviana\, ALLT\, Reliqa
+LOCATION:Commodore Ballroom\, 868 Granville St.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:🎵 | Meshuggah: The Forty-Year Anomaly w/ Testament & Blood Inca
+ ntation
+DTSTART:20270416T020000Z
+DTEND:20270416T050000Z
+DTSTAMP:20270416T020000Z
+UID:tm-1Av7Z_4GklhFyx0
+DESCRIPTION:Tickets: https://www.ticketleader.ca/events/detail/meshuggah\n
+ Artists: Meshuggah\, Testament\, Blood Incantation
+LOCATION:PNE Forum\, 100 N. Renfrew St.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:🎵 | Meshuggah w/ Testament
+DTSTART:20270416T020000Z
+DTEND:20270416T050000Z
+DTSTAMP:20270416T020000Z
+UID:tm-Z7r9jZ1AA7tAy
+DESCRIPTION:Tickets: https://www.ticketmaster.ca/event/Z7r9jZ1AA7tAy\nArti
+ sts: Meshuggah\, Testament\, Blood Incantation
+LOCATION:PNE Forum\, 100 N Renfrew St
+END:VEVENT
+END:VCALENDAR
