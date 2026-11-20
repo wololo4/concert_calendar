@@ -125,3 +125,15 @@ def handle_progstorm(feeds, src, artists):
             {"times": src.get("times", {})},
             "progstorm",
         ))
+
+@register_feed("ticketweb")
+def handle_ticketweb(feeds, src, artists):
+    base = src["base_url"]
+    for venue in src.get("venues", []):
+        feeds.append((
+            "ticketweb",
+            venue.split("/")[0],
+            urljoin(base, venue),
+            {"artists": artists},
+            "ticketweb",
+        ))
