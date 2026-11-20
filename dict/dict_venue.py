@@ -71,6 +71,12 @@ VENUE_CITY = {
     "Sneaky Dee's": "Toronto",
     "The Phoenix Concert Theatre": "Toronto",
     "The Theatre at Great Canadian": "Toronto",
+
+    "Commodore Ballroom": "Vancouver",
+    "Hollywood Theatre": "Vancouver",
+    "The Pearl": "Vancouver",
+    "PNE Forum": "Vancouver",
+    "Rickshaw Theatre": "Vancouver",
 }
 
 # ---------------------------------------------------------------------------
