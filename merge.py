@@ -21,6 +21,8 @@ from parser.ticketweb import build_event_ticketweb, parse_ticketweb_html
 from tickets import load_state, mark_events, sync_issue
 
 CITIES = {"Montreal"}  # cities listed in the ticket checklist issue
+
+DEFAULT_HEADERS = {"User-Agent": "Mozilla/5.0"}
 BROWSER_HEADERS = {
     "User-Agent": (
         "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
@@ -29,11 +31,16 @@ BROWSER_HEADERS = {
     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
     "Accept-Language": "en-CA,en;q=0.9",
 }
+HEADERS_BY_PARSER = {"ticketweb": BROWSER_HEADERS}
+
 
 def get_robust_session():
   s = requests.Session()
   retries = Retry(
-      total=3, backoff_factor=1, status_forcelist=[500, 502, 503, 504, 429]
+      total=3,
+      backoff_factor=1,
+      status_forcelist=[500, 502, 503, 504, 429, 530],
+      raise_on_status=False,  # keep the last response so its body can be logged
   )
   adapter = HTTPAdapter(
       pool_connections=10, pool_maxsize=10, max_retries=retries
@@ -61,9 +68,7 @@ def extract_city_from_event(ev):
 def fetch_and_parse_feed(feed, session):
   """Returns (events, error). error is None when the feed succeeded."""
   parser_name, label, url, params, parser_key = feed
-  headers = {"User-Agent": "Mozilla/5.0"}
-  if parser_key == "ticketweb":
-    headers = BROWSER_HEADERS
+  headers = HEADERS_BY_PARSER.get(parser_key, DEFAULT_HEADERS)
   try:
     if parser_key == "ticketmaster":
       events, errors = tm_search.fetch_events(session, url, params)
@@ -77,6 +82,11 @@ def fetch_and_parse_feed(feed, session):
       return events, err
 
     resp = session.get(url, headers=headers, timeout=15)
+    if not resp.ok:
+      print(
+          f"⚠️ {parser_name} ({label}) HTTP {resp.status_code} "
+          f"server={resp.headers.get('server')!r} body={resp.text[:300]!r}"
+      )
     resp.raise_for_status()
     raw = resp.content.decode("utf-8")
     artists = [a.lower() for a in params.get("artists", [])]
@@ -93,13 +103,13 @@ def fetch_and_parse_feed(feed, session):
     elif parser_key == "ovation":
       parsed = parse_ovation_html(raw, artists)
       cal = build_event_ovation(parsed)
-    elif parser_key == "ticketweb":
-      cal = build_event_ticketweb(parse_ticketweb_html(raw, artists))
     elif parser_key == "progstorm":
       cal = build_progstorm_calendar(
           parse_progstorm_html(raw, params["times"])
       )
       print("Found Progstorm events")
+    elif parser_key == "ticketweb":
+      cal = build_event_ticketweb(parse_ticketweb_html(raw, artists))
     else:
       msg = f"No handler for parser_key '{parser_key}' ({label})"
       print(f"⚠️ {msg}")
