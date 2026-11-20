@@ -16,6 +16,7 @@ from utils.fetch import (
     fetch_ticketweb_html,
 )
 from dict.dict_venue import VENUE_ALIASE, VENUE_CITY
+from parser.admitone import build_event_admitone, parse_admitone_html
 from parser.imperialbell import build_event_imperialbell, parse_imperialbell_html
 from parser.eventbrite import build_eventbrite_calendar, parse_eventbrite_html
 from parser.lepointdevente import build_event_lpdv, parse_lpdv_html
@@ -107,6 +108,8 @@ def fetch_and_parse_feed(feed, session):
       print("Found Progstorm events")
     elif parser_key == "ticketweb":
       cal = build_event_ticketweb(parse_ticketweb_html(raw, artists))
+    elif parser_key == "admitone":
+      cal = build_event_admitone(parse_admitone_html(raw, artists))
     else:
       msg = f"No handler for parser_key '{parser_key}' ({label})"
       print(f"⚠️ {msg}")
