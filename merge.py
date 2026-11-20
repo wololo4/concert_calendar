@@ -17,6 +17,7 @@ from parser.lepointdevente import build_event_lpdv, parse_lpdv_html
 from parser.ovation import build_event_ovation, parse_ovation_html
 from parser.morsefest import build_event_morsefest, parse_morsefest_html
 from parser.progstorm import build_progstorm_calendar, parse_progstorm_html
+from parsr.ticketweb import build_event_ticketweb, parse_ticketweb_html
 from tickets import load_state, mark_events, sync_issue
 
 CITIES = {"Montreal"}  # cities listed in the ticket checklist issue
@@ -83,6 +84,8 @@ def fetch_and_parse_feed(feed, session):
     elif parser_key == "ovation":
       parsed = parse_ovation_html(raw, artists)
       cal = build_event_ovation(parsed)
+    elif parser_key == "ticketweb":
+      cal = build_event_ticketweb(parse_ticketweb_html(raw, artists))
     elif parser_key == "progstorm":
       cal = build_progstorm_calendar(
           parse_progstorm_html(raw, params["times"])
