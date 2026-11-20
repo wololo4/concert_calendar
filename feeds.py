@@ -53,6 +53,17 @@ def handle_ticketmaster(feeds, src, artists):
         "ticketmaster",
     ))
 
+@register_feed("admitone")
+def handle_admitone(feeds, src, artists):
+    base = src["base_url"]
+    for venue in src.get("venues", []):
+        feeds.append((
+            "admitone",
+            venue.split("/")[0],
+            urljoin(base, venue),
+            {"artists": artists},
+            "admitone",
+        ))
 
 @register_feed("eventbrite")
 def handle_eventbrite(feeds, src, artists):
