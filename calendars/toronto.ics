@@ -41,6 +41,16 @@ DESCRIPTION:Tickets: https://www.ticketweb.ca/event/tesseract-entheos-sunb
 LOCATION:The Concert Hall\, The Masonic Temple
 END:VEVENT
 BEGIN:VEVENT
+SUMMARY:🎵 | Meridian Veil
+DTSTART:20270124T000000Z
+DTEND:20270124T030000Z
+DTSTAMP:20270124T000000Z
+UID:tw15056833
+DESCRIPTION:Tickets: https://www.ticketweb.ca/event/meridian-veil-the-cave
+ -tickets/15056833\nArtists: Meridian Veil
+LOCATION:The Cave\, 529 Bloor Street West
+END:VEVENT
+BEGIN:VEVENT
 SUMMARY:🎵 | The Musical Box: "...and then there was...PHIL"
 DTSTART:20270130T000000Z
 DTEND:20270130T030000Z
