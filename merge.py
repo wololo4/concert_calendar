@@ -58,13 +58,17 @@ NEXT_DATA_RE = re.compile(
 )
 
 
-def fetch_html_browser(url, ready, more=None, collect=None, seen=None):
+def fetch_html_browser(
+    url, ready, more=None, collect=None, seen=None, paginate=None
+):
   """Real Chromium fetch for pages that need JavaScript.
 
   ready: CSS selector that must exist before the page counts as loaded.
   more: text of a "load more" control to click until it disappears.
   collect/seen: when given, JSON responses are scanned for events (dict by
   id) and their URLs listed, so data loaded by "load more" is not lost.
+  paginate: same-site API path with a {page} placeholder, called from inside
+  the page (cookies included) for page 1, 2, ... until no new event shows up.
   """
   from playwright.sync_api import sync_playwright
 
@@ -109,6 +113,27 @@ def fetch_html_browser(url, ready, more=None, collect=None, seen=None):
         except Exception:
           break  # click failed or nothing new loaded: keep what we have
 
+      if paginate and collect is not None:
+        for n in range(1, 31):
+          got = page.evaluate(
+              """async (u) => {
+                const r = await fetch(u, {headers: {accept: 'application/json'}});
+                return {status: r.status, body: await r.text()};
+              }""",
+              paginate.format(page=n),
+          )
+          before = len(collect)
+          try:
+            _collect_events(json.loads(got["body"]), collect)
+          except Exception:
+            pass
+          new = len(collect) - before
+          print(f"Eventbrite API page {n}: HTTP {got['status']}, {new} new events")
+          if got["status"] != 200 or new == 0:
+            if n == 1:
+              print(f"Eventbrite API page 1 body[:400]: {got['body'][:400]!r}")
+            break
+
       if collect is not None:
         for r in responses:
           try:
@@ -148,8 +173,13 @@ def fetch_eventbrite_html(url, label):
   first page, so events loaded by "Show more" are merged into it here.
   """
   extra, seen = {}, []
+  org = re.search(r"(\d+)/?$", url).group(1)
   raw = fetch_html_browser(
-      url, ready='a[href*="/e/"]', more="Show more", collect=extra, seen=seen
+      url,
+      ready='a[href*="/e/"]',
+      collect=extra,
+      seen=seen,
+      paginate=f"/api/organizer-profile/organizers/{org}/events?page={{page}}&pageSize=12",
   )
 
   m = NEXT_DATA_RE.search(raw)
