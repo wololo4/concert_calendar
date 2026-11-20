@@ -77,6 +77,14 @@ def fetch_and_parse_feed(feed, session):
       return events, err
 
     resp = session.get(url, headers=headers, timeout=15)
+    if parser_key == "ticketweb":
+      print(f"[ticketweb] status={resp.status_code} final_url={resp.url}")
+      print(f"[ticketweb] redirects: {[r.status_code for r in resp.history]}")
+      print(f"[ticketweb] sent UA: {resp.request.headers.get('User-Agent')}")
+      for h in ("server", "cf-ray", "cf-mitigated", "content-type", "x-deny-reason"):
+        print(f"[ticketweb] {h}: {resp.headers.get(h)}")
+      print(f"[ticketweb] ld+json present: {'application/ld+json' in resp.text}")
+      print(f"[ticketweb] body[:600]: {resp.text[:600]!r}")
     resp.raise_for_status()
     raw = resp.content.decode("utf-8")
     artists = [a.lower() for a in params.get("artists", [])]
