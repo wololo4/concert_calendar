@@ -1,8 +1,10 @@
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone
+import json
 import os
 import re
 import sys
+import time
 from feeds import load_feeds
 from icalendar import Calendar
 import requests
@@ -50,23 +52,47 @@ def get_robust_session():
   return s
 
 
-def fetch_html_browser(url, ready, more=None):
+LD_JSON = 'script[type="application/ld+json"]'
+NEXT_DATA_RE = re.compile(
+    r'(<script[^>]*id="__NEXT_DATA__"[^>]*>)(.*?)(</script>)', re.DOTALL
+)
+
+
+def fetch_html_browser(url, ready, more=None, collect=None, seen=None):
   """Real Chromium fetch for pages that need JavaScript.
 
   ready: CSS selector that must exist before the page counts as loaded.
   more: text of a "load more" control to click until it disappears.
+  collect/seen: when given, JSON responses are scanned for events (dict by
+  id) and their URLs listed, so data loaded by "load more" is not lost.
   """
   from playwright.sync_api import sync_playwright
 
   with sync_playwright() as p:
-    browser = p.chromium.launch(headless=False)  # runs under xvfb-run
+    browser = p.chromium.launch(
+        headless=False,  # runs under xvfb-run
+        args=["--disable-blink-features=AutomationControlled"],
+    )
     try:
       ctx = browser.new_context(
           user_agent=BROWSER_HEADERS["User-Agent"], locale="en-CA"
       )
+      ctx.add_init_script(
+          "Object.defineProperty(navigator, 'webdriver', {get: () => undefined})"
+      )
       page = ctx.new_page()
+      responses = []
+      if collect is not None:
+        page.on("response", responses.append)
+
       page.goto(url, wait_until="domcontentloaded", timeout=30000)
-      page.wait_for_selector(ready, state="attached", timeout=25000)
+      try:
+        page.wait_for_selector(ready, state="attached", timeout=40000)
+      except Exception:
+        print(f"⚠️ browser: '{ready}' never appeared on {page.url}")
+        print(f"⚠️ browser: title={page.title()!r}")
+        print(f"⚠️ browser: html[:1500]={page.content()[:1500]!r}")
+        raise
 
       for _ in range(30 if more else 0):
         btn = page.get_by_text(more, exact=True)
@@ -82,9 +108,84 @@ def fetch_html_browser(url, ready, more=None):
           )
         except Exception:
           break  # click failed or nothing new loaded: keep what we have
+
+      if collect is not None:
+        for r in responses:
+          try:
+            if "json" not in (r.headers.get("content-type") or ""):
+              continue
+            if seen is not None:
+              seen.append(r.url[:110])
+            _collect_events(r.json(), collect)
+          except Exception:
+            pass
       return page.content()
     finally:
       browser.close()
+
+
+def _collect_events(obj, out):
+  """Walk any JSON and keep dicts that look like Eventbrite events."""
+  if isinstance(obj, dict):
+    if (
+        obj.get("id")
+        and obj.get("name")
+        and obj.get("start_date")
+        and obj.get("start_time")
+    ):
+      out[str(obj["id"])] = obj
+    for v in obj.values():
+      _collect_events(v, out)
+  elif isinstance(obj, list):
+    for v in obj:
+      _collect_events(v, out)
+
+
+def fetch_eventbrite_html(url, label):
+  """Organizer page + the events its "Show more" button loads.
+
+  The parser reads upcomingEvents from __NEXT_DATA__, which only holds the
+  first page, so events loaded by "Show more" are merged into it here.
+  """
+  extra, seen = {}, []
+  raw = fetch_html_browser(
+      url, ready='a[href*="/e/"]', more="Show more", collect=extra, seen=seen
+  )
+
+  m = NEXT_DATA_RE.search(raw)
+  if not m:
+    return raw
+  try:
+    data = json.loads(m.group(2))
+    page_props = data["props"]["pageProps"]
+  except Exception:
+    return raw
+
+  existing = page_props.get("upcomingEvents") or []
+  have = {str(e.get("id")) for e in existing}
+  added = [e for i, e in extra.items() if i not in have]
+  page_props["upcomingEvents"] = existing + added
+  print(
+      f"Eventbrite {label}: {len(existing)} events on first page, "
+      f"{len(added)} more loaded by 'Show more'"
+  )
+  if not added:
+    print(f"Eventbrite {label}: JSON responses seen: {seen[:15]}")
+
+  new_json = json.dumps(data, ensure_ascii=False).replace("</", "<\\/")
+  return raw[: m.start(2)] + new_json + raw[m.end(2) :]
+
+
+def fetch_ticketweb_html(session, url, headers):
+  """Plain requests succeed only some of the time, so try again, then browser."""
+  for attempt in range(1, 4):
+    time.sleep(5)
+    resp = session.get(url, headers=headers, timeout=15)
+    if resp.ok:
+      print(f"ticketweb: plain request worked on retry {attempt}")
+      return resp.content.decode("utf-8")
+  print("ticketweb: still blocked after retries, trying a browser")
+  return fetch_html_browser(url, ready=LD_JSON)
 
 
 def extract_city_from_event(ev):
@@ -119,21 +220,17 @@ def fetch_and_parse_feed(feed, session):
       return events, err
 
     if parser_key == "eventbrite":
-      # the organizer page only lists ~12 events until "Show more" is clicked
-      raw = fetch_html_browser(url, ready='a[href*="/e/"]', more="Show more")
+      raw = fetch_eventbrite_html(url, label)
     else:
       resp = session.get(url, headers=headers, timeout=15)
       if resp.ok:
         raw = resp.content.decode("utf-8")
       elif parser_key == "ticketweb":
-        # ticketweb answers requests with a JS challenge page (530) at times
         print(
             f"⚠️ {parser_name} ({label}) HTTP {resp.status_code} "
-            f"server={resp.headers.get('server')!r}, retrying with a browser"
+            f"server={resp.headers.get('server')!r}, retrying"
         )
-        raw = fetch_html_browser(
-            url, ready='script[type="application/ld+json"]'
-        )
+        raw = fetch_ticketweb_html(session, url, headers)
       else:
         print(
             f"⚠️ {parser_name} ({label}) HTTP {resp.status_code} "
