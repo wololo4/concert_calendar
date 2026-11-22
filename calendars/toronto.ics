@@ -1,16 +1,5 @@
 BEGIN:VCALENDAR
 BEGIN:VEVENT
-SUMMARY:🎵 | Protest the Hero
-DTSTART:20261122T000000Z
-DTEND:20261122T030000Z
-DTSTAMP:20261122T000000Z
-UID:tm-1A8ZkfkGkeNjjX2
-DESCRIPTION:Tickets: https://www.ticketmaster.ca/protest-the-hero-toronto-
- ontario-11-21-2026/event/10006506A371CF8F\nArtists: Protest the Hero\, Cho
- ke\, Kaonashi
-LOCATION:The Opera House\, 735 Queen St. E.
-END:VEVENT
-BEGIN:VEVENT
 SUMMARY:🎵 | The Pineapple Thief
 DTSTART:20261126T000000Z
 DTEND:20261126T030000Z

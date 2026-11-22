@@ -53,16 +53,6 @@ DESCRIPTION:Tickets: https://www.ticketmaster.ca/northlane-the-anemoia-tou
 LOCATION:Commodore Ballroom\, 868 Granville St.
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:🎵 | TÝR
-DTSTART:20270323T220000Z
-DTEND:20270324T010000Z
-DTSTAMP:20270323T220000Z
-UID:eventbrite2004976512722
-DESCRIPTION:Tickets: https://www.eventbrite.ca/e/tyr-tickets-2004976512722
- \nArtists: TÝR
-LOCATION:Rickshaw Theatre\, 254 E. Hastings Street
-END:VEVENT
-BEGIN:VEVENT
 SUMMARY:🎵 | Meshuggah: The Forty-Year Anomaly w/ Testament & Blood Inca
  ntation
 DTSTART:20270416T020000Z
