@@ -78,19 +78,39 @@ NEXT_DATA_RE = re.compile(
 )
 
 FETCH_JSON_JS = """async (u) => {
-  const r = await fetch(u, {headers: {accept: 'application/json'}});
-  return {status: r.status, body: await r.text()};
+    const r = await fetch(u, {headers: {accept: 'application/json'}});
+    return {status: r.status, body: await r.text()};
 }"""
+
+
+def _new_page(p):
+    """Headed browser page (runs under xvfb-run); returns (browser, page)."""
+    opts = {
+        "headless": False,
+        "args": ["--disable-blink-features=AutomationControlled"],
+    }
+    try:
+        # the Google Chrome already on GitHub's ubuntu runners: nothing to download
+        browser = p.chromium.launch(channel="chrome", **opts)
+    except Exception:
+        browser = p.chromium.launch(**opts)  # Playwright's own Chromium
+    ctx = browser.new_context(
+        user_agent=BROWSER_HEADERS["User-Agent"], locale="en-CA"
+    )
+    ctx.add_init_script(
+        "Object.defineProperty(navigator, 'webdriver', {get: () => undefined})"
+    )
+    return browser, ctx.new_page()
 
 
 def _collect_events(obj, out):
     """Walk any JSON and keep dicts that look like Eventbrite events."""
     if isinstance(obj, dict):
         if (
-                obj.get("id")
-                and obj.get("name")
-                and obj.get("start_date")
-                and obj.get("start_time")
+            obj.get("id")
+            and obj.get("name")
+            and obj.get("start_date")
+            and obj.get("start_time")
         ):
             out[str(obj["id"])] = obj
         for v in obj.values():
@@ -114,22 +134,14 @@ def fetch_eventbrite_html(url):
     found, last = {}, {}
 
     with sync_playwright() as p:
-        browser = p.chromium.launch(
-                headless=False,  # runs under xvfb-run
-                args=["--disable-blink-features=AutomationControlled"],
-        )
+        browser, page = _new_page(p)
         try:
-            ctx = browser.new_context(
-                    user_agent=BROWSER_HEADERS["User-Agent"], locale="en-CA"
-            )
-            ctx.add_init_script(
-                    "Object.defineProperty(navigator, 'webdriver', {get: () => undefined})"
-            )
-            page = ctx.new_page()
             page.goto(url, wait_until="domcontentloaded", timeout=30000)
             try:
                 # event links rendered = the page's JS has run and cookies are set
-                page.wait_for_selector('a[href*="/e/"]', state="attached", timeout=30000)
+                page.wait_for_selector(
+                    'a[href*="/e/"]', state="attached", timeout=30000
+                )
             except Exception:
                 pass  # organizer with nothing coming up: nothing to page through
 
