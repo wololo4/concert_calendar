@@ -53,6 +53,7 @@ def handle_ticketmaster(feeds, src, artists):
         "ticketmaster",
     ))
 
+
 @register_feed("eventbrite")
 def handle_eventbrite(feeds, src, artists):
     for org in src.get("organizer", []):
@@ -125,6 +126,7 @@ def handle_progstorm(feeds, src, artists):
             "progstorm",
         ))
 
+
 @register_feed("ticketweb")
 def handle_ticketweb(feeds, src, artists):
     base = src["base_url"]
@@ -136,3 +138,15 @@ def handle_ticketweb(feeds, src, artists):
             {"artists": artists},
             "ticketweb",
         ))
+
+
+@register_feed("manual")
+def handle_manual(feeds, src, artists):
+    # No fetching: the events are listed right in concerts.yaml.
+    feeds.append((
+        "manual",
+        "manual",
+        "",
+        {"events": src.get("events", [])},
+        "manual",
+    ))
