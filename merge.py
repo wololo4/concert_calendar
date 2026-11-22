@@ -20,6 +20,7 @@ from parser.imperialbell import build_event_imperialbell, parse_imperialbell_htm
 from parser.eventbrite import build_eventbrite_calendar, parse_eventbrite_html
 from parser.lepointdevente import build_event_lpdv, parse_lpdv_html
 from parser.ovation import build_event_ovation, parse_ovation_html
+from parser.manual import build_event_manual
 from parser.morsefest import build_event_morsefest, parse_morsefest_html
 from parser.progstorm import build_progstorm_calendar, parse_progstorm_html
 from parser.ticketweb import build_event_ticketweb, parse_ticketweb_html
@@ -67,6 +68,9 @@ def fetch_and_parse_feed(feed, session):
   parser_name, label, url, params, parser_key = feed
   headers = HEADERS_BY_PARSER.get(parser_key, DEFAULT_HEADERS)
   try:
+    if parser_key == "manual":
+      return list(build_event_manual(params["events"]).walk("VEVENT")), None
+
     if parser_key == "ticketmaster":
       events, errors = tm_search.fetch_events(session, url, params)
       err = None
