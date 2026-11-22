@@ -128,6 +128,15 @@ DESCRIPTION:Tickets: https://www.ticketmaster.ca/elder-north-american-tour
 LOCATION:The Opera House\, 735 Queen St. E.
 END:VEVENT
 BEGIN:VEVENT
+SUMMARY:🎵 | Agalloch
+DTSTART:20270605T230000Z
+DTEND:20270606T020000Z
+DTSTAMP:20270605T230000Z
+UID:manualagalloch20270605
+DESCRIPTION:Tickets: https://www.preparetheground.com/\nArtists: Agalloch
+LOCATION:Lee's Palace
+END:VEVENT
+BEGIN:VEVENT
 SUMMARY:🎵 | Angine de Poitrine
 DTSTART:20270718T233000Z
 DTEND:20270719T023000Z
