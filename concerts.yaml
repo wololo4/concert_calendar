@@ -159,3 +159,11 @@ sources:
     base_url: https://www.ticketweb.ca/venue/
     venues:
       - the-cave-toronto-on/652453
+
+  - parser: manual
+    events:
+      - title: Agalloch
+        date: 2027-06-05
+        time: "19:00"
+        venue: Lee's Palace
+        url: https://www.preparetheground.com/
