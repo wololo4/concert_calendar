@@ -1,15 +1,5 @@
 BEGIN:VCALENDAR
 BEGIN:VEVENT
-SUMMARY:🎵 | The Pineapple Thief
-DTSTART:20261125T010000Z
-DTEND:20261125T040000Z
-DTSTAMP:20261125T010000Z
-UID:tm-1AsZk36GkeNxfB_
-DESCRIPTION:Tickets: https://www.ticketmaster.ca/the-pineapple-thief-montr
- eal-quebec-11-24-2026/event/31006487A3894E99\nArtists: The Pineapple Thief
-LOCATION:Théâtre Beanfield\, 2490 Rue Notre-Dame Ouest
-END:VEVENT
-BEGIN:VEVENT
 SUMMARY:🎵 | Ok Goodnight\, The Anchoret\, Eve\, Système Féodal
 DTSTART:20261129T000000Z
 DTEND:20261129T030000Z
