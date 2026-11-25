@@ -44,6 +44,17 @@ DESCRIPTION:Tickets: https://am.ticketmaster.com/pda/en/buy/virtual-venue/
 LOCATION:Wilfrid-Pelletier\, 175 Rue Sainte-Catherine Ouest
 END:VEVENT
 BEGIN:VEVENT
+SUMMARY:🎵 | The Musical Box
+DTSTART:20270116T010000Z
+DTEND:20270116T040000Z
+DTSTAMP:20270116T010000Z
+UID:tm-Z7r9jZ1A7ONqF
+DESCRIPTION:Tickets: https://www.ticketmaster.com/event/Z7r9jZ1A7ONqF\nArt
+ ists: The Musical Box
+LOCATION:Salle Wilfrid- Pelletier/Place Des Arts\, 175 rue Sainte-Catherin
+ e Ouest
+END:VEVENT
+BEGIN:VEVENT
 SUMMARY:🎵 | The Musical Box... and then there was... PHIL
 DTSTART:20270117T010000Z
 DTEND:20270117T040000Z
@@ -52,6 +63,17 @@ UID:tm-1AsZkfgGkdOe_ZT
 DESCRIPTION:Tickets: https://am.ticketmaster.com/pda/fr-ca/ism/P7W0116\nAr
  tists: The Musical Box
 LOCATION:Salle Wilfrid-Pelletier - PN\, 175 Ste-Catherine Ouest
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:🎵 | The Musical Box
+DTSTART:20270117T010000Z
+DTEND:20270117T040000Z
+DTSTAMP:20270117T010000Z
+UID:tm-Z7r9jZ1A7ONq9
+DESCRIPTION:Tickets: https://www.ticketmaster.com/event/Z7r9jZ1A7ONq9\nArt
+ ists: The Musical Box
+LOCATION:Salle Wilfrid- Pelletier/Place Des Arts\, 175 rue Sainte-Catherin
+ e Ouest
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:🎵 | Meridian Veil
@@ -177,12 +199,12 @@ DESCRIPTION:TICKET BOUGHT\n\nConcert: FIRES IN THE DISTANCE\nJour: Friday
 LOCATION:CLUB SODA\, MONTRÉAL
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:🎵 | TO BE ANNOUNCED
+SUMMARY:🎵 | PERSEFONE
 DTSTART:20270820T233000Z
 DTEND:20270821T010000Z
 DTSTAMP:20270820T233000Z
 UID:progstorm-2027-friday-2
-DESCRIPTION:TICKET BOUGHT\n\nConcert: TO BE ANNOUNCED\nJour: Friday
+DESCRIPTION:TICKET BOUGHT\n\nConcert: PERSEFONE\nJour: Friday
 LOCATION:CLUB SODA\, MONTRÉAL
 END:VEVENT
 BEGIN:VEVENT
