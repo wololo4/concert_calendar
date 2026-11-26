@@ -148,7 +148,7 @@ DTEND:20270411T030000Z
 DTSTAMP:20270411T000000Z
 UID:tm-LvZ18QLCMv8d7tYZMtejO
 DESCRIPTION:Tickets: https://www.universe.com/events/elder-tickets-DJK2NP?
- ref=ticketmaster
+ ref=ticketmaster\nArtists: Elder
 LOCATION:Fairmount Theatre\, 5240 Avenue du Parc
 END:VEVENT
 BEGIN:VEVENT
