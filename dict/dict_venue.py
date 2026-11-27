@@ -2,6 +2,10 @@ import re
 import unicodedata
 
 VENUE_ALIASE = {
+    "The 27 Club": [
+        "27 Club",
+        "The 27 Club"
+    ],
     "L'Anti Bar": [
         "L'Anti Bar",
         "L'Anti Bar & Spectacles"
@@ -46,6 +50,7 @@ VENUE_CITY = {
     "Théâtre Beanfield": "Montreal",
     "Théâtre Paradoxe": "Montreal",
 
+    "The 27 Club": "Ottawa",
     "The Bronson": "Ottawa",
     "History Ottawa": "Ottawa",
     "Overflow Brewery": "Ottawa",
