@@ -32,6 +32,17 @@ DESCRIPTION:Tickets: https://www.ticketmaster.ca/the-pineapple-thief-vanco
 LOCATION:Hollywood Theatre\, 3123 W Broadway
 END:VEVENT
 BEGIN:VEVENT
+SUMMARY:🎵 | Beyond Creation - "The Aura" 15th Anniversary Tour
+DTSTART:20270215T230000Z
+DTEND:20270216T020000Z
+DTSTAMP:20270215T230000Z
+UID:eventbrite2005415442573
+DESCRIPTION:Tickets: https://www.eventbrite.ca/e/beyond-creation-the-aura-
+ 15th-anniversary-tour-tickets-2005415442573\nArtists: Beyond Creation - "T
+ he Aura" 15th Anniversary Tour
+LOCATION:Rickshaw Theatre\, 254 E. Hastings Street
+END:VEVENT
+BEGIN:VEVENT
 SUMMARY:🎵 | Haken: In A Fever Dream Tour
 DTSTART:20270315T020000Z
 DTEND:20270315T050000Z
@@ -61,17 +72,6 @@ UID:eventbrite2004976512722
 DESCRIPTION:Tickets: https://www.eventbrite.ca/e/tyr-tickets-2004976512722
  \nArtists: TÝR
 LOCATION:Rickshaw Theatre\, 254 E. Hastings Street
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:🎵 | Meshuggah: The Forty-Year Anomaly w/ Testament & Blood Inca
- ntation
-DTSTART:20270416T020000Z
-DTEND:20270416T050000Z
-DTSTAMP:20270416T020000Z
-UID:tm-1Av7Z_4GklhFyx0
-DESCRIPTION:Tickets: https://www.ticketleader.ca/events/detail/meshuggah\n
- Artists: Meshuggah\, Testament\, Blood Incantation
-LOCATION:PNE Forum\, 100 N. Renfrew St.
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:🎵 | Meshuggah w/ Testament
