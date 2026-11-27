@@ -137,6 +137,31 @@ def get_event_start(ev):
     return datetime.max
 
 
+def _listing_rank(ev):
+  # lower is better: the plain ticketmaster.com link first, then the shortest
+  desc = str(ev.get("DESCRIPTION", ""))
+  return ("//www.ticketmaster." not in desc, len(desc))
+
+
+def dedupe_same_show(events):
+  """Same artist(s) at the same moment is one show listed twice.
+
+  Ticketmaster returns some shows both from its own catalogue and from the
+  venue's ticketing system (am.ticketmaster.com, long tracking links). Keep
+  the ticketmaster.com listing.
+  """
+  best = {}
+  for ev in events:
+    m = re.search(r"Artists: (.*)", str(ev.get("DESCRIPTION", "")))
+    if m:
+      key = ("show", get_event_start(ev), " ".join(m.group(1).lower().split()))
+    else:
+      key = ("uid", str(ev.get("UID")))
+    if key not in best or _listing_rank(ev) < _listing_rank(best[key]):
+      best[key] = ev
+  return list(best.values())
+
+
 def write_calendar(path, events):
   cal = Calendar()
   for ev in events:
@@ -176,6 +201,11 @@ def main():
   if not unique:
     print("ABORTING: no events fetched, calendars left untouched.")
     sys.exit(1)
+
+  deduped = dedupe_same_show(unique.values())
+  if len(deduped) < len(unique):
+    print(f"Removed {len(unique) - len(deduped)} duplicate listing(s)")
+  unique = {str(ev.get("UID")): ev for ev in deduped}
 
   # Read ticked boxes from the GitHub issue and mark those events.
   # If the checklist can't be read, stop: writing the calendars now would
