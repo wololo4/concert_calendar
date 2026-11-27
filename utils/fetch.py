@@ -177,7 +177,7 @@ def fetch_eventbrite_html(url):
     return raw[: m.start(2)] + new_json + raw[m.end(2) :]
 
 
-def fetch_ticketweb_html(session, url, headers):
+def _get_ticketweb(session, url, headers):
     """Ticketweb answers plain requests with a 530 challenge now and then."""
     for attempt in range(4):
         if attempt:
@@ -188,3 +188,34 @@ def fetch_ticketweb_html(session, url, headers):
                 print(f"ticketweb: worked on retry {attempt}")
             return resp.content.decode("utf-8")
     resp.raise_for_status()
+
+
+def fetch_ticketweb_html(session, url, headers):
+    """Venue page plus its following pages, as one HTML string.
+
+    Each page embeds its own events as JSON-LD, so the pages are simply put
+    one after the other. Stops at the first page with no new event.
+    """
+    pages, seen = [], set()
+    for n in range(1, 11):
+        try:
+            html = _get_ticketweb(
+                session, url if n == 1 else f"{url}?page={n}", headers
+            )
+        except Exception as e:
+            if n == 1:
+                raise
+            print(f"ticketweb: page {n} failed ({e}), keeping the first {n - 1}")
+            break
+        events = set(re.findall(r'"url"\s*:\s*"([^"]*/event/[^"]+)"', html))
+        if not events - seen:
+            if n == 2:
+                hints = re.findall(r'[^"\s]*[?&]page=\d+[^"\s]*', html)[:5]
+                print(
+                    f"ticketweb: ?page=2 gave no new events for {url} "
+                    f"(page links seen: {hints})"
+                )
+            break
+        seen |= events
+        pages.append(html)
+    return "\n".join(pages)
