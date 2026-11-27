@@ -1,5 +1,15 @@
 BEGIN:VCALENDAR
 BEGIN:VEVENT
+SUMMARY:🎵 | Beyond Creation
+DTSTART:20270210T234500Z
+DTEND:20270211T024500Z
+DTSTAMP:20270210T234500Z
+UID:tw15066163
+DESCRIPTION:Tickets: https://www.ticketweb.ca/event/beyond-creation-decrep
+ it-sidestage-tickets/15066163\nArtists: Beyond Creation
+LOCATION:Sidestage\, 700 Osborne St
+END:VEVENT
+BEGIN:VEVENT
 SUMMARY:🎵 | Tyr | Dynazty presented by Ninjacat Productions
 DTSTART:20270319T233000Z
 DTEND:20270320T023000Z
