@@ -114,7 +114,7 @@ artists:
 sources:
   - parser: ticketmaster
     url: https://app.ticketmaster.com/discovery/v2/events.json
-    city: [Laval, Montreal, Ottawa, Quebec, Toronto, Vancouver]
+    city: [Calgary, Edmonton, Halifax, Laval, Montreal, Ottawa, Quebec, Toronto, Vancouver, Winnipeg]
     country: CA
 
   - parser: eventbrite
