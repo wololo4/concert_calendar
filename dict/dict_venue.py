@@ -36,6 +36,15 @@ VENUE_ALIASE = {
 }
 
 VENUE_CITY = {
+    "The Arrowhead": "Calgary",
+    "Dickens Pub": "Calgary",
+    "Grey Eagle Event Centre": "Calgary",
+    "The Palace Theatre": "Calgary",
+
+    "Midway Music Hall": "Edmonton", 
+    "Pawn Shop Live": "Edmonton",
+    "The Starlite Room": "Edmonton", 
+    
     "Centre Bell": "Montreal",
     "Club Soda": "Montreal",
     "Fairmount Theatre": "Montreal",
@@ -83,6 +92,9 @@ VENUE_CITY = {
     "The Pearl": "Vancouver",
     "PNE Forum": "Vancouver",
     "Rickshaw Theatre": "Vancouver",
+
+    "Burton Cummings Theatre": "Winnipeg",
+    "Pyramid Cabaret": "Winnipeg",
 }
 
 # ---------------------------------------------------------------------------
