@@ -100,6 +100,7 @@ VENUE_CITY = {
 
     "Burton Cummings Theatre": "Winnipeg",
     "Pyramid Cabaret": "Winnipeg",
+    "Sidestage": "Winnipeg",
 }
 
 # ---------------------------------------------------------------------------
