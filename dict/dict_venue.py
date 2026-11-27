@@ -19,6 +19,11 @@ VENUE_ALIASE = {
         "HISTORY",
         "History Toronto"
     ],
+    "Pawn Shop Live": [
+        "Pawn Shop Live",
+        "Pawn Shop Live (formally known as Union Hall)",
+        "Union Hall",
+    ],
     "Salle Montaigne": [
         "Salle Montaigne",
         "Salle Montaigne - Cégep Limoilou"
