@@ -1,0 +1,35 @@
+BEGIN:VCALENDAR
+BEGIN:VEVENT
+SUMMARY:🎵 | Tyr | Dynazty presented by Ninjacat Productions
+DTSTART:20270319T233000Z
+DTEND:20270320T023000Z
+DTSTAMP:20270319T233000Z
+UID:tm-rZ7HnEZ1Afoa8f
+DESCRIPTION:Tickets: https://www.ticketweb.ca/event/tyr-dynazty-presented-
+ by-pyramid-cabaret-tickets/14449414\nArtists: Týr\, Dominum\, Edge of Par
+ adise
+LOCATION:Pyramid Cabaret\, 176 Fort Street
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:🎵 | Angine de Poitrine\, Presented by Winnipeg Folk Festival
+DTSTART:20270407T010000Z
+DTEND:20270407T040000Z
+DTSTAMP:20270407T010000Z
+UID:tm-1Av7Z_fGkXinjNq
+DESCRIPTION:Tickets: https://www.ticketmaster.ca/angine-de-poitrine-presen
+ ted-by-winnipeg-winnipeg-manitoba-04-06-2027/event/1100654FACA9C8DD\nArtis
+ ts: Angine de Poitrine\, Winnipeg Folk Festival Concerts
+LOCATION:Burton Cummings Theatre\, 364 Smith St.
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:🎵 | Angine de Poitrine\, Presented by Winnipeg Folk Festival
+DTSTART:20270408T010000Z
+DTEND:20270408T040000Z
+DTSTAMP:20270408T010000Z
+UID:tm-1Av7Z_fGkXinHNt
+DESCRIPTION:Tickets: https://www.ticketmaster.ca/angine-de-poitrine-presen
+ ted-by-winnipeg-winnipeg-manitoba-04-07-2027/event/1100654FACABC8E9\nArtis
+ ts: Angine de Poitrine\, Winnipeg Folk Festival Concerts
+LOCATION:Burton Cummings Theatre\, 364 Smith St.
+END:VEVENT
+END:VCALENDAR
