@@ -11,6 +11,20 @@ from zoneinfo import ZoneInfo
 MONTREAL_TZ = ZoneInfo("America/Toronto")
 UTC_TZ = ZoneInfo("UTC")
 
+# startDate has no timezone: it is venue-local, and the venue only gives its province
+REGION_TZ = {
+    "BC": ZoneInfo("America/Vancouver"),
+    "AB": ZoneInfo("America/Edmonton"),
+    "SK": ZoneInfo("America/Regina"),
+    "MB": ZoneInfo("America/Winnipeg"),
+    "ON": ZoneInfo("America/Toronto"),
+    "QC": ZoneInfo("America/Toronto"),
+    "NB": ZoneInfo("America/Halifax"),
+    "NS": ZoneInfo("America/Halifax"),
+    "PE": ZoneInfo("America/Halifax"),
+    "NL": ZoneInfo("America/St_Johns"),
+}
+
 
 def _strip_accents(s):
   s = unicodedata.normalize("NFKD", s)
@@ -72,7 +86,8 @@ def parse_ticketweb_html(html, artists):
 
     location = item.get("location", {})
     venue_name = location.get("name", "").strip()
-    street = location.get("address", {}).get("streetAddress", "").strip()
+    address = location.get("address", {})
+    street = address.get("streetAddress", "").strip()
     venue = ", ".join(p for p in (venue_name, street) if p) or "Unknown Venue"
 
     events.append({
@@ -80,6 +95,7 @@ def parse_ticketweb_html(html, artists):
         "date_str": start,
         "url": url,
         "venue": venue,
+        "region": address.get("addressRegion", ""),
     })
   return events
 
@@ -88,7 +104,8 @@ def build_event_ticketweb(events):
   cal = Calendar()
   for ev in events:
     try:
-      local_dt = parse_date_any(ev["date_str"]).replace(tzinfo=MONTREAL_TZ)
+      tz = REGION_TZ.get(ev.get("region", ""), MONTREAL_TZ)
+      local_dt = parse_date_any(ev["date_str"]).replace(tzinfo=tz)
     except Exception as e:
       print(
           f"⚠️ ticketweb: skipped '{ev['title']}' "
