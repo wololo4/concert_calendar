@@ -162,6 +162,7 @@ sources:
     base_url: https://www.ticketweb.ca/venue/
     venues:
       - the-cave-toronto-on/652453
+      - sidestage-winnipeg-mb/751634
 
   - parser: manual
     events:
